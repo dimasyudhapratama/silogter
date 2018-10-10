@@ -18,6 +18,8 @@ if($_GET['pages']=='pegawai') {
     include 'pages/pegawai/data-pegawai.php';
 }else if($_GET['pages']=='user'){
     include 'pages/user/data-user.php';
+}else if($_GET['pages']=='supplier'){
+    include 'pages/supplier/data-supplier.php';
 }else if($_GET['pages']=='anggaran'){
     include 'pages/anggaran/data-anggaran.php';
 }else if($_GET['pages']=='kategori_logistik'){
