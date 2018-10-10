@@ -14,20 +14,22 @@ session_start();
 include 'config/koneksi.php';
 include('include/header.php');
 include('include/sidebar.php');
-if($_GET['pages']=='pegawai') {
-    include 'pages/pegawai/data-pegawai.php';
-}else if($_GET['pages']=='user'){
-    include 'pages/user/data-user.php';
-}else if($_GET['pages']=='supplier'){
-    include 'pages/supplier/data-supplier.php';
-}else if($_GET['pages']=='anggaran'){
-    include 'pages/anggaran/data-anggaran.php';
-}else if($_GET['pages']=='kategori_logistik'){
-    include 'pages/kategori_logistik/data_kategori_logistik.php';
-}else if ($_GET['pages']=='instansi_penerima') {
-    include 'pages/instansi_penerima/data_instansi_penerima.php';
-}else if ($_GET['pages']=='user') {
-    include 'pages/user/data-user.php';
+if(isset($_GET['pages'])){
+    if($_GET['pages']=='pegawai') {
+        include 'pages/pegawai/data-pegawai.php';
+    }else if($_GET['pages']=='user'){
+        include 'pages/user/data-user.php';
+    }else if($_GET['pages']=='supplier'){
+        include 'pages/supplier/data-supplier.php';
+    }else if($_GET['pages']=='anggaran'){
+        include 'pages/anggaran/data-anggaran.php';
+    }else if($_GET['pages']=='kategori_logistik'){
+        include 'pages/kategori_logistik/data_kategori_logistik.php';
+    }else if ($_GET['pages']=='instansi_penerima') {
+        include 'pages/instansi_penerima/data_instansi_penerima.php';
+    }else if ($_GET['pages']=='user') {
+        include 'pages/user/data-user.php';
+    }
 }
 
 ?>
