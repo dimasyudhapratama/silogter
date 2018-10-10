@@ -24,7 +24,9 @@ if($_GET['pages']=='pegawai') {
     include 'pages/anggaran/data-anggaran.php';
 }else if($_GET['pages']=='kategori_logistik'){
     include 'pages/kategori_logistik/data_kategori_logistik.php';
-}elseif ($_GET['pages']=='user') {
+}else if ($_GET['pages']=='instansi_penerima') {
+    include 'pages/instansi_penerima/data_instansi_penerima.php';
+}else if ($_GET['pages']=='user') {
     include 'pages/user/data-user.php';
 }
 
