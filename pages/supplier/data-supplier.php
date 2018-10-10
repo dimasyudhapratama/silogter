@@ -1,10 +1,10 @@
 <?php
     if(isset($_GET['delete'])){
-        $query_delete = $connect->exec("DELETE FROM kat_logistik WHERE id_kat_logistik='$_GET[delete]'");
+        $query_delete = $connect->exec("DELETE FROM supplier WHERE id_supplier='$_GET[delete]'");
         if($query_delete){
-            echo "<script>window.location.href='?pages=kategori_logistik&delete_stat=true'</script>";
+            echo "<script>window.location.href='?pages=supplier&delete_stat=true'</script>";
         } else{
-            echo "<script>window.location.href='?pages=kategori_logistik&delete_stat=false'</script>";
+            echo "<script>window.location.href='?pages=supplier&delete_stat=false'</script>";
         }
     }
     if(isset($_POST['simpan'])){
@@ -38,7 +38,7 @@
         $(".click-edit").click(function(e) {
             var m = $(this).attr("id");
             $.ajax({
-                url: "pages/kategori_logistik/edit_kategori_logistik.php",
+                url: "pages/supplier/edit-supplier.php",
                 type: "POST",
                 data : {id: m,},
                 success: function (ajaxData){
@@ -143,7 +143,7 @@
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-right">
                                         <a class="dropdown-item click-edit" id="<?php echo $data['id_supplier'] ?>" href="#" data-toggle="modal" data-target="#modaledit"><i class="fa fa-pencil"></i> Edit</a>
-                                        <a class="dropdown-item" href="?pages=supplierk&delete=<?php echo $data['id_supplier'] ?>"><i class="fa fa-trash"></i> Delete</a>
+                                        <a class="dropdown-item" href="?pages=supplier&delete=<?php echo $data['id_supplier'] ?>"><i class="fa fa-trash"></i> Delete</a>
                                     </div>
                                 </div>
                             </td>
@@ -157,13 +157,12 @@
         <?php include('include/footer.php'); ?>
     </div>
 </div>
-?>
 <div class="modal fade bs-example-modal-lg" id="modaladd" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
-            <form method="POST" name="input-anggaran" action="?pages=supplier&tambahdata">
+            <form method="POST" name="input-supplier" action="?pages=supplier&tambahdata">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="myLargeModalLabel">Tambah Data Kategori Logistik</h4>
+                    <h4 class="modal-title" id="myLargeModalLabel">Tambah Data Supplier</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
                 </div>
                 <div class="modal-body">
@@ -172,23 +171,23 @@
                             <div class="col-md-6 col-sm-12">
                                 <div class="form-group">
                                     <label>Nama Supplier</label>
-                                    <input type="text" name="nm_supplier" class="form-control">
+                                    <input type="text" name="nm_supplier" class="form-control" required="">
                                 </div>
                                 <div class="form-group">
                                     <label>Email Supplier</label>
-                                    <input type="text" name="email_supplier" class="form-control">
+                                    <input type="text" name="email_supplier" class="form-control" required="">
                                 </div>
                                 
                             </div>
                             <div class="col-md-6 col-sm-12">
                                 <div class="form-group ">
                                     <label>CP Supplier</label>
-                                    <input type="text" name="cp_supplier" class="form-control">
+                                    <input type="text" name="cp_supplier" class="form-control" required="">
                                 </div>
                                 
                                 <div class="form-group">
                                     <label>Alamat Supplier</label>
-                                    <textarea class="form-control" name="alamat_supplier"></textarea>
+                                    <textarea class="form-control" name="alamat_supplier" required=""></textarea>
                                 </div>
                             </div>
                         </div>
@@ -205,9 +204,9 @@
 <div class="modal fade" id="modaledit" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
-            <form method="POST" name="input-anggaran" action="?pages=kategori_logistik&editdata">
+            <form method="POST" name="input-anggaran" action="?pages=supplier&editdata">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="myLargeModalLabel">Edit Data Kategori Logistik</h4>
+                    <h4 class="modal-title" id="myLargeModalLabel">Edit Data Supplier</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
                 </div>
                 <div class="modal-body" id="data-edit">

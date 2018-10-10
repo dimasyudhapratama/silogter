@@ -159,7 +159,7 @@
                 <div class="modal-body">
                     <div class="form-group col-md-6">
                         <label>Nama Kategori logistik</label>
-                        <input type="text" name="nm_kat_logistik" class="form-control">
+                        <input type="text" name="nm_kat_logistik" class="form-control" required="">
                     </div>
                 </div>
                 <div class="modal-footer">

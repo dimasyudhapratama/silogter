@@ -158,7 +158,7 @@
                 <div class="modal-body">
                     <div class="form-group col-md-6">
                         <label>Asal Anggaran</label>
-                        <input type="text" name="asal_anggaran" class="form-control">
+                        <input type="text" name="asal_anggaran" class="form-control" required="">
                     </div>
                 </div>
                 <div class="modal-footer">

@@ -7,6 +7,6 @@
 <input type="hidden" name="id" value="<?php echo $id ?>">
 <div class="form-group col-md-6">
     <label>Nama Kategori logistik</label>
-    <input type="text" name="nm_kat_logistik" class="form-control" value="<?php echo $data['nm_kat_logistik'] ?>">
+    <input type="text" name="nm_kat_logistik" class="form-control" required="" value="<?php echo $data['nm_kat_logistik'] ?>">
 </div>
 <?php } ?>
