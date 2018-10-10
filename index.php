@@ -1,3 +1,6 @@
+<?php 
+session_start();
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,6 +20,8 @@ if($_GET['pages']=='pegawai') {
     include 'pages/user/data-user.php';
 }else if($_GET['pages']=='anggaran'){
     include 'pages/anggaran/data-anggaran.php';
+}else if($_GET['pages']=='kategori_logistik'){
+    include 'pages/kategori_logistik/data_kategori_logistik.php';
 }
 
 ?>

@@ -9,4 +9,4 @@ foreach($query as $data){
     <label>Asal Anggaran</label>
     <input type="text" name="asal_anggaran" class="form-control" value="<?php echo $data['asal_anggaran'] ?>">
 </div>
-<?php } ?>
+<?php } ?> 

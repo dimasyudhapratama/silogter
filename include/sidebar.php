@@ -23,8 +23,8 @@
 							<li><a href="?pages=supplier">Supplier</a></li>
 							<li><a href="?pages=instansi_penerima">Instansi Penerima</a></li>
 							<li><a href="?pages=anggaran">Anggaran</a></li>
-							<li><a href="?pages=kategori_perbekalan">Kategori Perbekalan</a></li>
-							<li><a href="?pages=perbekalan">Perbekalan</a></li>
+							<li><a href="?pages=kategori_logistik">Kategori Logistik</a></li>
+							<li><a href="?pages=logistik">Logistik</a></li>
 						</ul>
 					</li>
                     <li>
