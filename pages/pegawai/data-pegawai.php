@@ -8,16 +8,18 @@
         }
     }
     if(isset($_POST['simpan'])){
-        $nm_supplier = $_POST['nm_supplier'];
-        $cp_supplier = $_POST['cp_supplier'];
-        $email_supplier = $_POST['alamat_supplier'];
-        $alamat_supplier = $_POST['alamat_supplier'];
-        // $query_tambah = $connect->exec("INSERT INTO kat_logistik(nm_kat_logistik) VALUES ('$nm_kat_logistik')");
-        $query_tambah = $connect->exec("INSERT INTO supplier(nm_supplier,cp_supplier,email_supplier,alamat_supplier) VALUES ('$nm_supplier','$cp_supplier','$email_supplier','$alamat_supplier')");
-        if($query_tambah){
-            echo "<script>window.location.href='?pages=supplier&add_stat=true'</script>";
+        $nip = $_POST['nip_pegawai'];
+        $nama = $_POST['nm_pegawai'];
+        $jabatan = $_POST['jabatan'];
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+        $level = $_POST['level'];
+        $query_tambah_pegawai = $connect->exec("INSERT INTO pegawai(nip,nama,jabatan) VALUES ('$nip','$nama','$jabatan')");
+        $query_tambah_user = $connect->exec("INSERT INTO user (username,password,level) VALUES ($username','$password',$level')");
+        if($query_tambah_pegawai && $query_tambah_user){
+            echo "<script>window.location.href='?pages=pegawai&add_stat=true'</script>";
         }else{
-            echo "<script>window.location.href='?pages=supplier&add_stat=false'</script>";
+            echo "<script>window.location.href='?pages=pegawai&add_stat=false'</script>";
         }
        
     }
@@ -75,8 +77,10 @@
                         <thead>
                         <tr>
                             <th class="table-plus datatable-nosort">No.</th>
+                            <th>nim</th>
                             <th>Nama</th>
                             <th>Jabatan</th>
+
                             <th class="datatable-nosort">Action</th>
                         </tr>
                         </thead>
@@ -88,18 +92,17 @@
                         ?>
                         <tr>
                             <td><?php echo $no++ ?></td>
-                            <td><?php echo $data['nm_supplier'] ?></td>
-                            <td><?php echo $data['cp_supplier']; ?></td>
-                            <td><?php echo $data['email_supplier']; ?></td>
-                            <td><?php echo $data['alamat_supplier']; ?></td>
+                            <td><?php echo $data['nip']; ?></td>
+                            <td><?php echo $data['nama']; ?></td>
+                            <td><?php echo $data['jabatan']; ?></td>
                             <td>
                                 <div class="dropdown">
                                     <a class="btn btn-sm btn-outline-primary dropdown-toggle" href="#" role="button" data-toggle="dropdown">
                                         Pilih
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-right">
-                                        <a class="dropdown-item click-edit" id="<?php echo $data['id_supplier'] ?>" href="#" data-toggle="modal" data-target="#modaledit"><i class="fa fa-pencil"></i> Edit</a>
-                                        <a class="dropdown-item" href="?pages=supplier&delete=<?php echo $data['id_supplier'] ?>"><i class="fa fa-trash"></i> Delete</a>
+                                        <a class="dropdown-item click-edit" id="<?php echo $data['id_pegawai'] ?>" href="#" data-toggle="modal" data-target="#modaledit"><i class="fa fa-pencil"></i> Edit</a>
+                                        <a class="dropdown-item" href="?pages=pegawai&delete=<?php echo $data['id_pegawai'] ?>"><i class="fa fa-trash"></i> Delete</a>
                                     </div>
                                 </div>
                             </td>
@@ -133,8 +136,8 @@
                                     <label>Jabatan</label>
                                     <select class="form-control" name="jabatan">
                                         <option value="">--Pilih--</option>
-                                        <option value="Pimpinan">Pimpinan</option>
-                                        <option value="Pegawai">Pegawai Biasa</option>
+                                        <option value="pimpinan">Pimpinan</option>
+                                        <option value="pegawai">Pegawai Biasa</option>
                                     </select>
                                 </div>
                             </div>
@@ -161,15 +164,15 @@
                             <div class="col-md-6 col-sm-12">
                                 <div class="form-group">
                                     <label>Password</label>
-                                    <input type="text" name="nm_pegawai" class="form-control" required="">
+                                    <input type="text" name="password" class="form-control" required="">
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="reset" class="btn btn-dark">Reset</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
                 </div>
             </form>
         </div>

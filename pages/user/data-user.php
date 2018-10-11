@@ -1,11 +1,9 @@
 <?php
 
-       
-    
     if(isset($_POST['edit'])){
         $id = $_POST['id'];
          $username = $_POST['username'];
-         $password = $_POST['password'];
+         $password = md5($_POST['password']);
          $level = $_POST['level'];
         // $nm_kat_logistik = $_POST['nm_kat_logistik'];
         $query_edit = $connect->exec("UPDATE user SET username='$username', password='$password', level='$level' WHERE id_user='$id'");

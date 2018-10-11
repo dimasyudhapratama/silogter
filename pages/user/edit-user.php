@@ -26,7 +26,7 @@ foreach ($query as $temp) {
         <div class="col-md-6 col-sm-12">
             <div class="form-group">
                 <label>Password</label>
-                <input type="text" name="nm_pegawai" class="form-control" value="<?php echo $temp['password'];?>" required="">
+                <input type="text" name="password" class="form-control" value="<?php echo $temp['password'];?>" required="">
             </div>
         </div>
     </div>
