@@ -23,12 +23,15 @@
     }
     if(isset($_POST['edit'])){
         $id = $_POST['id'];
-        $nm_kat_logistik = $_POST['nm_kat_logistik'];
-        $query_edit = $connect->exec("UPDATE kat_logistik SET nm_kat_logistik='$nm_kat_logistik' WHERE id_kat_logistik='$id'");
+        $nm_instansi_penerima = $_POST['nm_instansi_penerima'];
+        $alamat_instansi_penerima = $_POST['alamat_instansi_penerima'];
+        $cp_instansi_penerima = $_POST['cp_instansi_penerima'];
+        $email_instansi_penerima = $_POST['email_instansi_penerima'];
+        $query_edit = $connect->exec("UPDATE instansi_penerima SET nm_instansi_penerima='$nm_instansi_penerima', alamat_instansi_penerima='$alamat_instansi_penerima',cp_instansi_penerima='$cp_instansi_penerima',email_instansi_penerima='$email_instansi_penerima' WHERE id_instansi_penerima='$id'");
         if($query_edit){
-            echo "<script>window.location.href='?pages=kategori_logistik&edit_stat=true'</script>";
+            echo "<script>window.location.href='?pages=instansi_penerima&edit_stat=true'</script>";
         }else{
-            echo "<script>window.location.href='?pages=kategori_logistik&edit_stat=false'</script>";
+            echo "<script>window.location.href='?pages=instansi_penerima&edit_stat=false'</script>";
         }
     }
 ?>
@@ -38,7 +41,7 @@
         $(".click-edit").click(function(e) {
             var m = $(this).attr("id");
             $.ajax({
-                url: "pages/supplier/edit-supplier.php",
+                url: "pages/instansi_penerima/edit_instansi_penerima.php",
                 type: "POST",
                 data : {id: m,},
                 success: function (ajaxData){
@@ -205,9 +208,9 @@
 <div class="modal fade" id="modaledit" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
-            <form method="POST" name="input-anggaran" action="?pages=supplier&editdata">
+            <form method="POST" name="edit-instansi-enerima" action="?pages=instansi_penerima&editdata">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="myLargeModalLabel">Edit Data Supplier</h4>
+                    <h4 class="modal-title" id="myLargeModalLabel">Edit Data Instansi Penerima</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
                 </div>
                 <div class="modal-body" id="data-edit">
