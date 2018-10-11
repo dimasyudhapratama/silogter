@@ -4,6 +4,7 @@ $id=$_POST['id'];
 $query=$connect->query("SELECT * FROM instansi_penerima WHERE id_instansi_penerima='$id'");
 foreach ($query as $data) {
 ?> 
+<input type="hidden" name="id" value="<?php echo $id; ?>">
 <div class="form-group">
                         <div class="row">
                             <div class="col-md-6 col-sm-12">
