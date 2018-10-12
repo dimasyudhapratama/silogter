@@ -15,13 +15,15 @@
         $password = $_POST['password'];
         $level = $_POST['level'];
         $query_tambah_pegawai = $connect->exec("INSERT INTO pegawai(nip,nama,jabatan) VALUES ('$nip','$nama','$jabatan')");
-        $query_tambah_user = $connect->exec("INSERT INTO user (username,password,level) VALUES ($username','$password',$level')");
-        if($query_tambah_pegawai && $query_tambah_user){
+        $id_pegawai = $connect->lastInsertId();
+        
+        $query_tambah_user = $connect->exec("INSERT INTO user(id_pegawai,username,password,level) VALUES ('$id_pegawai','$username','$password','$level')");
+
+        if($query_tambah_pegawai){
             echo "<script>window.location.href='?pages=pegawai&add_stat=true'</script>";
         }else{
             echo "<script>window.location.href='?pages=pegawai&add_stat=false'</script>";
         }
-       
     }
     if(isset($_POST['edit'])){
         $id = $_POST['id'];
@@ -154,7 +156,7 @@
                                 </div>
                                 <div class="form-group ">
                                     <label>Level</label>
-                                    <select class="form-control" name="jabatan">
+                                    <select class="form-control" name="level">
                                         <option value="">--Pilih--</option>
                                         <option value="admin">Admin</option>
                                         <option value="operator">Operator</option>
@@ -172,7 +174,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="reset" class="btn btn-dark">Reset</button>
-                    <button type="submit" class="btn btn-primary">Save changes</button>
+                    <button type="submit" name="simpan" class="btn btn-primary">Save changes</button>
                 </div>
             </form>
         </div>
