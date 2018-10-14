@@ -29,6 +29,8 @@ if(isset($_GET['pages'])){
         include 'pages/instansi_penerima/data_instansi_penerima.php';
     }else if ($_GET['pages']=='user') {
         include 'pages/user/data-user.php';
+    }else if($_GET['pages']=='logistik'){
+        include 'pages/logistik/data-logistik.php';
     }
 }
 

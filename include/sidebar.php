@@ -10,12 +10,12 @@
 				<ul id="accordion-menu">
 					<li>
 						<a href="index.php" class="dropdown-toggle no-arrow">
-							<span class="fa fa-sitemap"></span><span class="mtext">Dashboard</span>
+							<span class="fa fa-home"></span><span class="mtext">Dashboard</span>
 						</a>
 					</li>
 					<li class="dropdown">
 						<a href="javascript:;" class="dropdown-toggle">
-							<span class="fa fa-pencil"></span><span class="mtext">Data Master</span>
+							<span class="fa fa-archive"></span><span class="mtext">Data Master</span>
 						</a>
 						<ul class="submenu">
 							<li><a href="?pages=pegawai">Pegawai</a></li>
@@ -29,17 +29,22 @@
 					</li>
                     <li>
                         <a href="?pages=logistik_masuk" class="dropdown-toggle no-arrow">
-                            <span class="fa fa-pencil"></span><span class="mtext">Logistik Masuk</span>
+                            <span class="fa fa-edit"></span><span class="mtext">Logistik Masuk</span>
                         </a>
                     </li>
                     <li>
                         <a href="?pages=logistik_keluar" class="dropdown-toggle no-arrow">
-                            <span class="fa fa-pencil"></span><span class="mtext">Logistik Keluar</span>
+                            <span class="fa fa-edit"></span><span class="mtext">Logistik Keluar</span>
                         </a>
                     </li>
                     <li>
+                    	<a href="?pages=laporan" class="dropdown-toggle no-arrow">
+                    		<span class="fa fa-book"></span><span class="mtext">Laporan</span>
+                    	</a>
+                    </li>
+                    <li>
                         <a href="?pages=bantuan" class="dropdown-toggle no-arrow">
-                            <span class="fa-fa-pencil"></span><span class="mtext">Bantuan</span>
+                            <span class="fa fa-question"></span><span class="mtext">Bantuan</span>
                         </a>
                     </li>
 				</ul>

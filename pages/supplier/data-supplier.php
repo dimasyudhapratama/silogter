@@ -1,7 +1,7 @@
 <?php
     if(isset($_GET['delete'])){
         $query_delete = $connect->exec("DELETE FROM supplier WHERE id_supplier='$_GET[delete]'");
-        if($query_delete){
+        if($query_delete == TRUE){
             echo "<script>window.location.href='?pages=supplier&delete_stat=true'</script>";
         } else{
             echo "<script>window.location.href='?pages=supplier&delete_stat=false'</script>";
@@ -12,9 +12,8 @@
         $cp_supplier = $_POST['cp_supplier'];
         $email_supplier = $_POST['alamat_supplier'];
         $alamat_supplier = $_POST['alamat_supplier'];
-        // $query_tambah = $connect->exec("INSERT INTO kat_logistik(nm_kat_logistik) VALUES ('$nm_kat_logistik')");
         $query_tambah = $connect->exec("INSERT INTO supplier(nm_supplier,cp_supplier,email_supplier,alamat_supplier) VALUES ('$nm_supplier','$cp_supplier','$email_supplier','$alamat_supplier')");
-        if($query_tambah){
+        if($query_tambah == TRUE){
             echo "<script>window.location.href='?pages=supplier&add_stat=true'</script>";
         }else{
             echo "<script>window.location.href='?pages=supplier&add_stat=false'</script>";
@@ -23,12 +22,15 @@
     }
     if(isset($_POST['edit'])){
         $id = $_POST['id'];
-        $nm_kat_logistik = $_POST['nm_kat_logistik'];
-        $query_edit = $connect->exec("UPDATE kat_logistik SET nm_kat_logistik='$nm_kat_logistik' WHERE id_kat_logistik='$id'");
-        if($query_edit){
-            echo "<script>window.location.href='?pages=kategori_logistik&edit_stat=true'</script>";
+        $nm_supplier = $_POST['nm_supplier'];
+        $cp_supplier = $_POST['cp_supplier'];
+        $email_supplier = $_POST['alamat_supplier'];
+        $alamat_supplier = $_POST['alamat_supplier'];
+        $query_edit = $connect->exec("UPDATE supplier SET nm_supplier='$nm_supplier', cp_supplier='$cp_supplier',email_supplier='$email_supplier',alamat_supplier='$alamat_supplier' WHERE id_supplier='$id'");
+        if($query_edit == TRUE){
+            echo "<script>window.location.href='?pages=supplier&edit_stat=true'</script>";
         }else{
-            echo "<script>window.location.href='?pages=kategori_logistik&edit_stat=false'</script>";
+            echo "<script>window.location.href='?pages=supplier&edit_stat=false'</script>";
         }
     }
 ?>
@@ -143,7 +145,7 @@
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-right">
                                         <a class="dropdown-item click-edit" id="<?php echo $data['id_supplier'] ?>" href="#" data-toggle="modal" data-target="#modaledit"><i class="fa fa-pencil"></i> Edit</a>
-                                        <a class="dropdown-item" href="?pages=supplier&delete=<?php echo $data['id_supplier'] ?>"><i class="fa fa-trash"></i> Delete</a>
+                                        <a onclick="return confirm('Anda Yakin Ingin Menghapus Data?')" class="dropdown-item" href="?pages=supplier&delete=<?php echo $data['id_supplier'] ?>"><i class="fa fa-trash"></i> Delete</a>
                                     </div>
                                 </div>
                             </td>

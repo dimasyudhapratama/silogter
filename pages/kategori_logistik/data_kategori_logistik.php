@@ -1,7 +1,7 @@
 <?php
     if(isset($_GET['delete'])){
         $query_delete = $connect->exec("DELETE FROM kat_logistik WHERE id_kat_logistik='$_GET[delete]'");
-        if($query_delete){
+        if($query_delete == TRUE){
             echo "<script>window.location.href='?pages=kategori_logistik&delete_stat=true'</script>";
         } else{
             echo "<script>window.location.href='?pages=kategori_logistik&delete_stat=false'</script>";
@@ -10,7 +10,7 @@
     if(isset($_POST['simpan'])){
         $nm_kat_logistik = $_POST['nm_kat_logistik'];
         $query_tambah = $connect->exec("INSERT INTO kat_logistik(nm_kat_logistik) VALUES ('$nm_kat_logistik')");
-        if($query_tambah){
+        if($query_tambah == TRUE){
             echo "<script>window.location.href='?pages=kategori_logistik&add_stat=true'</script>";
         }else{
             echo "<script>window.location.href='?pages=kategori_logistik&add_stat=false'</script>";
@@ -21,7 +21,7 @@
         $id = $_POST['id'];
         $nm_kat_logistik = $_POST['nm_kat_logistik'];
         $query_edit = $connect->exec("UPDATE kat_logistik SET nm_kat_logistik='$nm_kat_logistik' WHERE id_kat_logistik='$id'");
-        if($query_edit){
+        if($query_edit == TRUE){
             echo "<script>window.location.href='?pages=kategori_logistik&edit_stat=true'</script>";
         }else{
             echo "<script>window.location.href='?pages=kategori_logistik&edit_stat=false'</script>";
@@ -133,7 +133,7 @@
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-right">
                                         <a class="dropdown-item click-edit" id="<?php echo $data['id_kat_logistik'] ?>" href="#" data-toggle="modal" data-target="#modaledit"><i class="fa fa-pencil"></i> Edit</a>
-                                        <a class="dropdown-item" href="?pages=kategori_logistik&delete=<?php echo $data['id_kat_logistik'] ?>"><i class="fa fa-trash"></i> Delete</a>
+                                        <a onclick="return confirm('Anda Yakin Ingin menghapus Data?')" class="dropdown-item" href="?pages=kategori_logistik&delete=<?php echo $data['id_kat_logistik'] ?>"><i class="fa fa-trash"></i> Delete</a>
                                     </div>
                                 </div>
                             </td>
