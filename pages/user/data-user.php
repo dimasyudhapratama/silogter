@@ -5,8 +5,7 @@
          $username = $_POST['username'];
          $password = md5($_POST['password']);
          $level = $_POST['level'];
-        // $nm_kat_logistik = $_POST['nm_kat_logistik'];
-        $query_edit = $connect->exec("UPDATE user SET username='$username', password='$password', level='$level' WHERE id_user='$id'");
+         $query_edit = $connect->exec("UPDATE user SET username='$username', password='$password', level='$level' WHERE id_user='$id'");
         if($query_edit){
             echo "<script>window.location.href='?pages=user&edit_stat=true'</script>";
         }else{
@@ -97,7 +96,7 @@
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-right">
                                         <a class="dropdown-item click-edit" id="<?php echo $data['id_user'] ?>" href="#" data-toggle="modal" data-target="#modaledit"><i class="fa fa-pencil"></i> Edit</a>
-                                        <a class="dropdown-item" href="?pages=user&delete=<?php echo $data['id_user'] ?>"><i class="fa fa-trash"></i> Delete</a>
+                                        
                                     </div>
                                 </div>
                             </td>
