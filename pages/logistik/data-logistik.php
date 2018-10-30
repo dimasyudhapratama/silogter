@@ -146,7 +146,16 @@
                         <tbody>
                         <?php
                         $no = 1;
-                        $query_logistik = $connect->query("SELECT * FROM logistik JOIN kat_logistik ON logistik.id_kat_logistik=kat_logistik.id_kat_logistik JOIN anggaran ON logistik.id_anggaran=anggaran.id_anggaran ORDER BY nm_logistik ASC");
+                        if(isset($_POST['filter'])){
+                            $key = $_POST['key'];
+                            if($_POST['filter_by']=='kat_logistik'){
+                                $query_logistik = $connect->query("SELECT * FROM logistik JOIN kat_logistik ON logistik.id_kat_logistik=kat_logistik.id_kat_logistik JOIN anggaran ON logistik.id_anggaran=anggaran.id_anggaran WHERE kat_logistik.nm_kat_logistik LIKE '%".$key."%' ORDER BY nm_logistik ASC");
+                            }else if($_POST['filter_by']=='nm_logistik'){
+                                $query_logistik = $connect->query("SELECT * FROM logistik JOIN kat_logistik ON logistik.id_kat_logistik=kat_logistik.id_kat_logistik JOIN anggaran ON logistik.id_anggaran=anggaran.id_anggaran WHERE logistik.nm_logistik LIKE '%".$key."%' ORDER BY nm_logistik ASC");
+                            }    
+                        } else{
+                            $query_logistik = $connect->query("SELECT * FROM logistik JOIN kat_logistik On logistik.id_kat_logistik=kat_logistik.id_kat_logistik JOIN anggaran ON logistik.id_anggaran=anggaran.id_anggaran ");
+                        }
                         foreach($query_logistik as $ql){
                         ?>
                         <tr>
@@ -288,12 +297,31 @@
 <div class="modal fade" id="modalfilter" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
-            <form method="POST" name="input-anggaran" action="?pages=supplier&editdata">
+            <form method="POST" name="filter-logistik" action="?pages=logistik&filterkeyword">
                 <div class="modal-header">
                     <h4 class="modal-title" id="myLargeModalLabel">Filter Pencarian Data Logistik</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
                 </div>
-                <div class="modal-body" id="data-edit">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6 col-sm-12">
+                                <div class="form-group ">
+                                    <label>Filter Berdasarkan</label>
+                                    <select name="filter_by" class="form-control">
+                                        <option value="kat_logistik">Kategori Logistik</option>
+                                        <option value="nm_logistik">Nama Logistik</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <div class="form-group">
+                                    <label>Masukkan Keyword Pencarian</label>
+                                    <input type="text" name="key" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="reset" class="btn btn-dark">Reset</button>
