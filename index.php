@@ -31,6 +31,18 @@ if(isset($_GET['pages'])){
         include 'pages/user/data-user.php';
     }else if($_GET['pages']=='logistik'){
         include 'pages/logistik/data-logistik.php';
+    }else if($_GET['pages']=='logistik_masuk'){
+        include 'pages/transaksi_masuk/data-transaksi-masuk.php';
+    }else if($_GET['pages']=='tambah_transaksi_masuk'){
+        include 'pages/transaksi_masuk/tambah-transaksi-masuk.php';
+    }else if($_GET['pages']=='detail_transaksi_masuk'){
+        include 'pages/transaksi_masuk/detail-transaksi-masuk.php';
+    }else if($_GET['pages']=='logistik_keluar'){
+        include 'pages/transaksi_keluar/data-transaksi-keluar.php';
+    }else if($_GET['pages']=='tambah_transaksi_keluar'){
+        include 'pages/transaksi_keluar/tambah-transaksi-keluar.php';
+    }else if($_GET['pages']=='detail_transaksi_keluar'){
+        include 'pages/transaksi_keluar/detail-transaksi-keluar.php';
     }
 }
 
