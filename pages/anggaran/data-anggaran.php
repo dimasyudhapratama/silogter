@@ -2,18 +2,18 @@
     if(isset($_GET['delete'])){
         $query_delete = $connect->exec("DELETE FROM anggaran WHERE id_anggaran='$_GET[delete]'");
         if($query_delete){
-            echo "<script>window.location.href='?pages=kategori_logistik&delete_stat=true'</script>";
+            echo "<script>window.location.href='?pages=anggaran&delete_stat=true'</script>";
         } else{
-            echo "<script>window.location.href='?pages=kategori_logistik&delete_stat=false'</script>";
+            echo "<script>window.location.href='?pages=anggaran&delete_stat=false'</script>";
         }
     }
     if(isset($_POST['simpan'])){
         $asal_anggaran = $_POST['asal_anggaran'];
         $query_tambah = $connect->exec("INSERT INTO anggaran(asal_anggaran) VALUES ('$asal_anggaran')");
         if($query_tambah){
-            echo "<script>window.location.href='?pages=kategori_logistik&add_stat=true'</script>";
+            echo "<script>window.location.href='?pages=anggaran&add_stat=true'</script>";
         }else{
-            echo "<script>window.location.href='?pages=kategori_logistik&add_stat=false'</script>";
+            echo "<script>window.location.href='?pages=anggaran&add_stat=false'</script>";
         }
     }
     if(isset($_POST['edit'])){
@@ -21,9 +21,9 @@
         $asal_anggaran = $_POST['asal_anggaran'];
         $query_edit = $connect->exec("UPDATE anggaran SET asal_anggaran='$asal_anggaran' WHERE id_anggaran='$id'");
         if($query_edit){
-            echo "<script>window.location.href='?pages=kategori_logistik&edit_stat=true'</script>";
+            echo "<script>window.location.href='?pages=anggaran&edit_stat=true'</script>";
         }else{
-            echo "<script>window.location.href='?pages=kategori_logistik&edit_stat=false'</script>";
+            echo "<script>window.location.href='?pages=anggaran&edit_stat=false'</script>";
         }
     }
 ?>

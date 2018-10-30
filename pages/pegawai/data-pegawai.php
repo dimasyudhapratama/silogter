@@ -154,7 +154,7 @@
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-right">
                                         <a class="dropdown-item click-edit" id="<?php echo $data['id_pegawai'] ?>" href="#" data-toggle="modal" data-target="#modaledit"><i class="fa fa-pencil"></i> Edit</a>
-                                         <a class="dropdown-item" href="?pages=pegawai&delete=<?php echo $data['id_pegawai'] ?>"><i class="fa fa-trash"></i> Delete</a>
+                                         <a onclick="return confirm('Anda Yakin Ingin menghapus Data?')" class="dropdown-item" href="?pages=pegawai&delete=<?php echo $data['id_pegawai'] ?>"><i class="fa fa-trash"></i> Delete</a>
                                     </div>
                                 </div>
                             </td>
@@ -200,12 +200,14 @@
                                         <option value="pimpinan">Pimpinan</option>
                                         <option value="pegawai">Pegawai Biasa</option>
                                     </select>
-                                </div>
+                            </div>
                             <div class="col-md-6 ">
                                 <div class="form-group">
                                     <label>Username</label>
                                     <input type="text" name="username" class="form-control" required="">
                                 </div>
+                             </div>
+                             <div class="col-md-6 ">
                                 <div class="form-group ">
                                     <label>Level</label>
                                     <select class="form-control" name="level">
