@@ -31,6 +31,8 @@ if(isset($_GET['pages'])){
         include 'pages/user/data-user.php';
     }else if($_GET['pages']=='logistik'){
         include 'pages/logistik/data-logistik.php';
+    }else if($_GET['pages']=='master_bantuan'){
+        include 'pages/master_bantuan/data-master-bantuan.php';
     }else if($_GET['pages']=='logistik_masuk'){
         include 'pages/transaksi_masuk/data-transaksi-masuk.php';
     }else if($_GET['pages']=='tambah_transaksi_masuk'){

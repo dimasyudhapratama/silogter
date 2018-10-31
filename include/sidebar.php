@@ -25,6 +25,7 @@
 							<li><a href="?pages=anggaran">Anggaran</a></li>
 							<li><a href="?pages=kategori_logistik">Kategori Logistik</a></li>
 							<li><a href="?pages=logistik">Logistik</a></li>
+							<li><a href="?pages=master_bantuan">FAQ/Bantuan</a></li>
 						</ul>
 					</li>
                     <li>

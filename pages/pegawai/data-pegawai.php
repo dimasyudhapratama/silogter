@@ -201,6 +201,9 @@
                                         <option value="pegawai">Pegawai Biasa</option>
                                     </select>
                             </div>
+                            <div class="col-md-12">
+                                <hr>
+                            </div>
                             <div class="col-md-6 ">
                                 <div class="form-group">
                                     <label>Username</label>
