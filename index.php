@@ -46,6 +46,8 @@ if(isset($_GET['pages'])){
     }else if($_GET['pages']=='detail_transaksi_keluar'){
         include 'pages/transaksi_keluar/detail-transaksi-keluar.php';
     }
+}else{
+        include 'pages/dashboard/dashboard-admin.php';
 }
 
 ?>

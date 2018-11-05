@@ -126,6 +126,7 @@
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-right">
                                         <a class="dropdown-item" href="?pages=detail_transaksi_keluar&val=<?php echo $data['no_regist_keluar'] ?>"><i class="icon-copy fa fa-book" aria-hidden="true"></i> Detail</a>
+                                        <a class="dropdown-item" href="print-pdf-pages/print-bukti-logistik-keluar.php?val=<?php echo $data['no_regist_keluar'] ?>"><i class="icon-copy fa fa-print" aria-hidden="true"></i> Cetak</a>
                                         <?php
                                         if($data['status']==0){
                                         ?>
