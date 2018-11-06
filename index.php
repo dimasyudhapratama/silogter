@@ -8,6 +8,11 @@ session_start();
     <link rel="stylesheet" type="text/css" href="src/plugins/datatables/media/css/jquery.dataTables.css">
     <link rel="stylesheet" type="text/css" href="src/plugins/datatables/media/css/dataTables.bootstrap4.css">
     <link rel="stylesheet" type="text/css" href="src/plugins/datatables/media/css/responsive.dataTables.css">
+    <style type="text/css">
+        .td-center{
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
 <?php
