@@ -13,8 +13,9 @@
         $satuan = $_POST['satuan'];
         $harga_satuan = $_POST['harga_satuan'];
         $id_anggaran = $_POST['id_anggaran'];
+        $minimal_stok  = $_POST['minimal_stok'];
         
-        $query_tambah = $connect->exec("INSERT INTO logistik(id_kat_logistik,nm_logistik,stok,satuan,harga_satuan,id_anggaran) VALUES ('$id_kat_logistik','$nm_logistik','0','$satuan','$harga_satuan','$id_anggaran')");
+        $query_tambah = $connect->exec("INSERT INTO logistik(id_kat_logistik,nm_logistik,stok,minimal_stok,satuan,harga_satuan,id_anggaran) VALUES ('$id_kat_logistik','$nm_logistik','0',$minimal_stok,'$satuan','$harga_satuan','$id_anggaran')");
         if($query_tambah == TRUE){
             echo "<script>window.location.href='?pages=logistik&add_stat=true'</script>";
         }else{
@@ -210,6 +211,14 @@
                                         <?php } ?>
                                     </select>
                                 </div>
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <div class="form-group ">
+                                    <label>Nama Logistik</label>
+                                    <input type="text" name="nm_logistik" class="form-control" required="">
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-12">
                                 <div class="form-group">
                                     <label>Satuan</label>
                                     <select name="satuan" class="form-control" required="">
@@ -227,6 +236,14 @@
                                         <option value="Prefilied">Prefilied</option>
                                     </select>
                                 </div>
+                            </div>
+                            <div class="col-md-6 col-sm-12"> 
+                                <div class="form-group">
+                                    <label>Harga Satuan </label>
+                                    <input type="number" name="harga_satuan" class="form-control" required="">
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-12">
                                 <div class="form-group">
                                     <label>Asal Anggaran</label>
                                     <select name="id_anggaran" class="form-control" required="">
@@ -239,16 +256,10 @@
                                         <?php } ?>
                                     </select>
                                 </div>
-                            </div>
-                            <div class="col-md-6 col-sm-12">
-                                <div class="form-group ">
-                                    <label>Nama Logistik</label>
-                                    <input type="text" name="nm_logistik" class="form-control" required="">
-                                </div>
-                                
+                            </div><div class="col-md-6 col-sm-12">
                                 <div class="form-group">
-                                    <label>Harga Satuan </label>
-                                    <input type="number" name="harga_satuan" class="form-control">
+                                    <label>Min Stok (Untuk Pengingat)</label>
+                                    <input type="text" class="form-control" name="minimal_stok" required="">
                                 </div>
                             </div>
                         </div>

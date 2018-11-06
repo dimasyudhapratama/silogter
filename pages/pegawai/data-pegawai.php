@@ -18,10 +18,11 @@
         $nip = $_POST['nip'];
         $nama = $_POST['nama'];
         $jabatan = $_POST['jabatan'];
+        $status = $_POST['status'];
         $username = $_POST['username'];
         $password = $_POST['password'];
         $level = $_POST['level'];
-        $query_tambah_pegawai = $connect->exec("INSERT INTO pegawai(nip,nama,jabatan) VALUES ('$nip','$nama','$jabatan')");
+        $query_tambah_pegawai = $connect->exec("INSERT INTO pegawai(nip,nama,jabatan,status) VALUES ('$nip','$nama','$jabatan','$status')");
         $id_pegawai = $connect->lastInsertId();
         
         $query_tambah_user = $connect->exec("INSERT INTO user(id_pegawai,username,password,level) VALUES ('$id_pegawai','$username','$password','$level')");
@@ -129,11 +130,12 @@
                     <table class="data-table stripe hover nowrap">
                         <thead>
                         <tr>
-                            <th class="table-plus datatable-nosort">No.</th>
-                            <th class="table-plus datatable-nosort">Nip</th>
-                            <th class="table-plus datatable-nosort">Nama</th>
-                            <th class="table-plus datatable-nosort">Jabatan</th>
-                            <th class="datatable-nosort">Aksi</th>
+                            <th class="table-plus datatable-nosort td-center">No.</th>
+                            <th class="table-plus datatable-nosort td-center">Nip</th>
+                            <th class="table-plus datatable-nosort td-center">Nama</th>
+                            <th class="table-plus datatable-nosort td-center">Jabatan</th>
+                            <th class="table-plus datatable-nosort td-center">Status</th>
+                            <th class="datatable-nosort td-center">Aksi</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -143,11 +145,20 @@
                         foreach($query as $data){
                         ?>
                         <tr>
-                            <td><?php echo $no++ ?></td>
-                            <td><?php echo $data['nip']; ?></td>
-                            <td><?php echo $data['nama']; ?></td>
-                            <td><?php echo $data['jabatan']; ?></td>
-                            <td>
+                            <td class="td-center"><?php echo $no++ ?></td>
+                            <td class="td-center"><?php echo $data['nip']; ?></td>
+                            <td class="td-center"><?php echo $data['nama']; ?></td>
+                            <td class="td-center"><?php echo $data['jabatan']; ?></td>
+                            <td class="td-center">
+                                <?php
+                                    if($data['status']=="Aktif"){
+                                        echo "<span class='badge badge-primary'>Aktif</span>";
+                                    }else if($data['status']=="Non Aktif"){
+                                        echo "<span class='badge badge-success'>Non Aktif</span>";
+                                    }
+                                ?>
+                            </td>
+                            <td class="td-center">
                                 <div class="dropdown">
                                     <a class="btn btn-sm btn-outline-primary dropdown-toggle" href="#" role="button" data-toggle="dropdown">
                                         Pilih
@@ -183,7 +194,7 @@
                             <div class="col-md-6 ">
                                 <div class="form-group">
                                     <label>NIP</label>
-                                    <input type="text" name="nip" class="form-control" required="">
+                                    <input type="number" name="nip" class="form-control" required="">
                                 </div>
                                 
                             </div>
@@ -194,12 +205,21 @@
                                 </div>
                             </div>
                             <div class="col-md-6 ">
+                                <div class="form-group">
                                     <label>Jabatan</label>
                                     <select class="form-control" name="jabatan">
                                         <option value="">--Pilih--</option>
-                                        <option value="pimpinan">Pimpinan</option>
-                                        <option value="pegawai">Pegawai Biasa</option>
+                                        <option value="Pimpinan">Pimpinan</option>
+                                        <option value="Pegawai">Pegawai Biasa</option>
                                     </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label>Status</label>
+                                <select name="status" class="form-control" required="">
+                                    <option value="Aktif">Aktif</option>
+                                    <option value="Non Aktif">Non Aktif</option>
+                                </select>
                             </div>
                             <div class="col-md-12">
                                 <hr>
