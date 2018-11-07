@@ -4,13 +4,13 @@
 <script src="src/jquery.js"></script>
 <script type="text/javascript">
     $(document).ready(function(){
-        $("#detail_cart").load("pages/transaksi_masuk/detail_cart.php");
+        $("#detail_cart").load("pages/transaksi_keluar/detail_cart.php");
     });
     $(document).ready(function (){
         $("#id_kat_logistik").change(function(e){
             var id = $(this).val();
             $.ajax({
-                url : "pages/transaksi_masuk/getIdLogistik.php",
+                url : "pages/transaksi_keluar/getIdLogistik.php",
                 type: "POST",
                 data : {id_kat_logistik: id},
                 success: function(ajaxData){
@@ -24,7 +24,7 @@
         $("#id_logistik").change(function(e){
             var id = $(this).val();
             $.ajax({
-                url : "pages/transaksi_masuk/getDataLogistik.php",
+                url : "pages/transaksi_keluar/getDataLogistik.php",
                 type: "POST",
                 data : {id_logistik: id},
                 success: function(ajaxData){
@@ -45,11 +45,11 @@
                 alert("Real Stok Adalah "+real_stok+". Data Tidak Mencukupi");
             }else{
                 $.ajax({
-                    url : "pages/transaksi_masuk/add_cart.php",
+                    url : "pages/transaksi_keluar/add_cart.php",
                     type: "POST",
                     data : {id:id,qty,qty},
                     success : function(ajaxData){
-                        $("#detail_cart").load("pages/transaksi_masuk/detail_cart.php");
+                        $("#detail_cart").load("pages/transaksi_keluar/detail_cart.php");
                     }
                 });   
             } 
@@ -58,11 +58,11 @@
     function deleteCart(index){
         var id = index;
         $.ajax({
-            url : "pages/transaksi_masuk/delete_cart.php",
+            url : "pages/transaksi_keluar/delete_cart.php",
             type : "POST",
             data : {index:id},
             success : function(ajaxData){
-                $("#detail_cart").load("pages/transaksi_masuk/detail_cart.php");
+                $("#detail_cart").load("pages/transaksi_keluar/detail_cart.php");
             }
         });
     }
@@ -89,7 +89,7 @@
             </div>
             <!-- Form grid Start -->
                 <div class="pd-20 bg-white border-radius-4 box-shadow mb-30">
-                    <form name="add-transaksi-masuk" method="POST" action="pages/transaksi_masuk/input-act.php">
+                    <form name="add-transaksi-keluar" method="POST" action="pages/transaksi_keluar/input-act.php">
                         <div class="row">
                             <div class="col-md-12 col-sm-12">
                                 <?php
@@ -114,6 +114,8 @@
                                     <label>Tanggal</label>
                                     <input type="date" class="form-control" name="tgl_regist" placeholder="Pilih Tanggal" required="">
                                 </div>
+                            </div>
+                            <div class="col-md-6 col-sm-12">
                                 <div class="form-group">
                                     <label>Penanggung Jawab</label>
                                     <select name="id_pegawai" class="form-control custom-select2" style="width: 100%" required="">
@@ -127,18 +129,36 @@
                                     </select>
                                 </div>
                             </div>
+                           
+                            <div class="col-md-12">
+                                <hr>
+                            </div>
                             <div class="col-md-6 col-sm-12">
                                 <div class="form-group">
-                                    <label>Supplier</label>
-                                    <select name="id_supplier" class="form-control custom-select2" style="width: 100%" required="">
+                                   <label>Instansi</label>
+                                    <select name="id_instansi_penerima" class="form-control custom-select2" style="width: 100%" required="">
                                         <option value="">--Pilih--</option>
                                         <?php
-                                        $query_supplier = $connect->query("SELECT id_supplier,nm_supplier FROM supplier");
-                                        foreach($query_supplier as $supplier){
+                                        $query_instansi_penerima = $connect->query("SELECT id_instansi_penerima,nm_instansi_penerima FROM instansi_penerima");
+                                        foreach($query_instansi_penerima as $ip){
                                         ?>
-                                        <option value="<?php echo $supplier['id_supplier'] ?>"><?php echo $supplier['nm_supplier']; ?></option>
+                                        <!-- <option value="<?php echo $ip['id_instansi_penerima'] ?>"><?php echo $ip['nm_instansi_penerima'];?></option> -->
+                                        <option value="<?php echo $ip['id_instansi_penerima'] ?>"><?php echo $ip['nm_instansi_penerima'] ?></option>
                                         <?php } ?>
                                     </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <div class="form-group">
+                                    <label>penerima</label>
+                                    <input type="text" name="penerima" id="penerima" class="form-control" value="">
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <div class="form-group">
+                                    <label>NIP</label>
+                                    <!-- <div id="divAjaxData"> Digunakan Untuk Menampung Hasil Inputan -->
+                                    <input type="text" name="NIP" id="NIP" class="form-control" value="">
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -176,7 +196,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-5 col-sm-12">
+                             <div class="col-md-5 col-sm-12">
                                 <div class="form-group">
                                     <label>Qty</label>
                                     <input type="text" name="qty" id="qty" class="form-control" value="">
