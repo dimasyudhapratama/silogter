@@ -99,7 +99,7 @@
                         <tbody>
                         <?php
                         $no = 1;
-                        $query = $connect->query("SELECT no_regist_keluar,tgl_keluar,pegawai.nama as nm_pegawai, nm_instansi_penerima,status FROM trx_logistik_keluar tlk JOIN pegawai ON tlk.id_pegawai=pegawai.id_pegawai JOIN instansi_penerima ON tlk.id_instansi_penerima=instansi_penerima.id_instansi_penerima");
+                        $query = $connect->query("SELECT no_regist_keluar,tgl_keluar,pegawai.nama as nm_pegawai, nm_instansi_penerima,tlk.status as status FROM trx_logistik_keluar tlk JOIN pegawai ON tlk.id_pegawai=pegawai.id_pegawai JOIN instansi_penerima ON tlk.id_instansi_penerima=instansi_penerima.id_instansi_penerima ");
                         foreach($query as $data){
                         ?>
                         <tr>
