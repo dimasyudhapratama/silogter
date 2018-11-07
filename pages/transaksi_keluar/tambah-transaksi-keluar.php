@@ -158,7 +158,7 @@
                                 <div class="form-group">
                                     <label>NIP</label>
                                     <!-- <div id="divAjaxData"> Digunakan Untuk Menampung Hasil Inputan -->
-                                    <input type="text" name="NIP" id="NIP" class="form-control" value="">
+                                    <input type="number" name="NIP" id="NIP" class="form-control" value="">
                                 </div>
                             </div>
                             <div class="col-md-12">

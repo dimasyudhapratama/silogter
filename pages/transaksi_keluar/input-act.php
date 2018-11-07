@@ -6,6 +6,8 @@ if (isset($_POST['simpan'])) {
 	$tgl_regist = $_POST['tgl_regist'];
 	$id_instansi_penerima = $_POST['id_instansi_penerima'];
 	$id_pegawai = $_POST['id_pegawai'];
+    $nm_penerima = $_POST['penerima'];
+    $nip_penerima = $_POST['NIP'];
 
 	$tabel = "trx_logistik_keluar";
 	$kolom = "no_regist_keluar";
@@ -22,7 +24,7 @@ if (isset($_POST['simpan'])) {
 		$id = $awalan."/1/".$tgl.$bulan.$tahun;
 	}else{
 		// $query = $connect->query("SELECT no_regist_keluar FROM trx_logistik_keluar WHERE substring(no_regist_keluar from 6 for 8)='26102018' ORDER BY no_regist_keluar DESC LIMIT 1");
-		$query = $connect->query("SELECT no_regist_keluar FROM trx_logistik_keluar WHERE tgl_regist='$tgl_regist' ORDER BY no_regist_keluar DESC LIMIT 1");
+		$query = $connect->query("SELECT no_regist_keluar FROM trx_logistik_keluar WHERE tgl_keluar='$tgl_regist' ORDER BY no_regist_keluar DESC LIMIT 1");
 		foreach ($query as $data) {
 			$no = intval(substr($data[0], strlen($awalan."/")))+1;
 		}
@@ -31,7 +33,7 @@ if (isset($_POST['simpan'])) {
 
 	
  	//Query Tabel Transaksi keluar
-	$query_transaksi_keluar = $connect->prepare("INSERT INTO trx_logistik_keluar VALUES ('$id','$tgl_regist','$id_pegawai','$id_instansi_penerima','nm_penerima','nip_pegawai','0','0')");
+	$query_transaksi_keluar = $connect->prepare("INSERT INTO trx_logistik_keluar VALUES ('$id','$tgl_regist','$id_pegawai','$id_instansi_penerima','$nm_penerima','$nip_penerima','0','0')");
 	$query_transaksi_keluar->execute();
 	//Load Data Cart -> Insert Ke Tabel Detail Transaksi keluar & Mengurangi Stok Di Tabel Logistik
 	$cart = unserialize(serialize($_SESSION['cart_keluar']));
