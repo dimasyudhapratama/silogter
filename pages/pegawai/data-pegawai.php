@@ -18,13 +18,17 @@
         $nip = $_POST['nip'];
         $nama = $_POST['nama'];
         $jabatan = $_POST['jabatan'];
+        $status = $_POST['status'];
+
         $username = $_POST['username'];
         $password = $_POST['password'];
         $level = $_POST['level'];
-        $query_tambah_pegawai = $connect->exec("INSERT INTO pegawai(nip,nama,jabatan) VALUES ('$nip','$nama','$jabatan')");
-        $id_pegawai = $connect->lastInsertId();
+        $status1=$_POST['status'];
         
-        $query_tambah_user = $connect->exec("INSERT INTO user(id_pegawai,username,password,level) VALUES ('$id_pegawai','$username','$password','$level')");
+        $query_tambah_pegawai = $connect->exec("INSERT INTO pegawai(nip,nama,jabatan,status) VALUES ('$nip','$nama','$jabatan','$status')");
+        
+        
+        $query_tambah_user = $connect->exec("INSERT INTO user(id_pegawai,username,password,level,status) VALUES ('$id_pegawai','$username','$password','$level','$status1')");
 
         if($query_tambah_pegawai){
             echo "<script>window.location.href='?pages=pegawai&add_stat=true'</script>";
@@ -37,7 +41,8 @@
         $nip = $_POST['nip'];
         $nama=$_POST['nama'];
         $jabatan=$_POST['jabatan'];
-        $query_edit = $connect->exec("UPDATE pegawai SET nip='$nip',nama='$nama',jabatan='$jabatan' WHERE id_pegawai='$id'");
+        $status =$_POST['status'];
+        $query_edit = $connect->exec("UPDATE pegawai SET nip='$nip',nama='$nama',jabatan='$jabatan',status='$status' WHERE id_pegawai='$id'");
         if($query_edit){
             echo "<script>window.location.href='?pages=pegawai&edit_stat=true'</script>";
         }else{
@@ -133,6 +138,7 @@
                             <th class="table-plus datatable-nosort">Nip</th>
                             <th class="table-plus datatable-nosort">Nama</th>
                             <th class="table-plus datatable-nosort">Jabatan</th>
+                            <th class="table-plus datatable-nosort">Status</th>
                             <th class="datatable-nosort">Aksi</th>
                         </tr>
                         </thead>
@@ -147,13 +153,17 @@
                             <td><?php echo $data['nip']; ?></td>
                             <td><?php echo $data['nama']; ?></td>
                             <td><?php echo $data['jabatan']; ?></td>
+                            <td><?php echo $data['status']; ?></td>
                             <td>
                                 <div class="dropdown">
                                     <a class="btn btn-sm btn-outline-primary dropdown-toggle" href="#" role="button" data-toggle="dropdown">
                                         Pilih
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-right">
+                                        <a class="dropdown-item click-tambah" id="<?php echo $data['id_pegawai'] ?>" href="#" data-toggle="modal" data-target="#modaltambah"><i class="fa fa-address-book-o"></i> Tambah User</a>
+
                                         <a class="dropdown-item click-edit" id="<?php echo $data['id_pegawai'] ?>" href="#" data-toggle="modal" data-target="#modaledit"><i class="fa fa-pencil"></i> Edit</a>
+
                                          <a onclick="return confirm('Anda Yakin Ingin menghapus Data?')" class="dropdown-item" href="?pages=pegawai&delete=<?php echo $data['id_pegawai'] ?>"><i class="fa fa-trash"></i> Delete</a>
                                     </div>
                                 </div>
@@ -201,29 +211,14 @@
                                         <option value="pegawai">Pegawai Biasa</option>
                                     </select>
                             </div>
-                            <div class="col-md-12">
-                                <hr>
-                            </div>
-                            <div class="col-md-6 ">
+                              <div class="col-md-6 ">
                                 <div class="form-group">
-                                    <label>Username</label>
-                                    <input type="text" name="username" class="form-control" required="">
-                                </div>
-                             </div>
-                             <div class="col-md-6 ">
-                                <div class="form-group ">
-                                    <label>Level</label>
-                                    <select class="form-control" name="level">
+                                    <label>Status</label>
+                                    <select name="status" class="form-control">
                                         <option value="">--Pilih--</option>
-                                        <option value="admin">Admin</option>
-                                        <option value="operator">Operator</option>
+                                        <option value="Aktif">Aktif</option>
+                                        <option value="Non Aktif">Non Aktif</option>
                                     </select>
-                                </div>
-                            </div>
-                            <div class="col-md-6 ">
-                                <div class="form-group">
-                                    <label>Password</label>
-                                    <input type="text" name="password" class="form-control" required="">
                                 </div>
                             </div>
                         </div>
@@ -250,6 +245,61 @@
                 <div class="modal-footer">
                     <button type="reset" class="btn btn-dark">Reset</button>
                     <button type="simpan" name="edit" class="btn btn-primary">Save changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bs-example-modal-lg" id="modaltambah" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <form method="POST" name="input-pegawai" action="?pages=pegawai&tambahdata">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myLargeModalLabel">Tambah Data User</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6 ">
+                                <div class="form-group">
+                                    <label>Username</label>
+                                    <input type="text" name="nip" class="form-control" required="">
+                                </div>
+                                
+                            </div>
+                            <div class="col-md-6 ">
+                                <div class="form-group">
+                                    <label>Password</label>
+                                    <input type="text" name="nama" class="form-control" required="">
+                                </div>
+                            </div>
+                            <div class="col-md-6 ">
+                                    <label>Level</label>
+                                    <select class="form-control" name="jabatan">
+                                        <option value="">--Pilih--</option>
+                                        <option value="pimpinan">Admin</option>
+                                        <option value="pegawai">Pimpinan</option>
+                                        <option value="pegawai">Operator</option>
+                                    </select>
+                            </div>
+                              <div class="col-md-6 ">
+                                <div class="form-group">
+                                    <label>Status</label>
+                                    <select name="status" class="form-control">
+                                        <option value="">--Pilih--</option>
+                                        <option value="Aktif">Aktif</option>
+                                        <option value="Non Aktif">Non Aktif</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="reset" class="btn btn-dark">Reset</button>
+                    <button type="submit" name="simpan" class="btn btn-primary">Save changes</button>
                 </div>
             </form>
         </div>
