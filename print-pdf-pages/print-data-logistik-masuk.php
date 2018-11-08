@@ -1,10 +1,33 @@
 <?php
  // Define relative path from this script to mPDF
+function tgl_indo($tanggal){
+	$bulan = array (
+		1 =>   'Januari',
+		'Februari',
+		'Maret',
+		'April',
+		'Mei',
+		'Juni',
+		'Juli',
+		'Agustus',
+		'September',
+		'Oktober',
+		'November',
+		'Desember'
+	);
+		$pecahkan = explode('-', $tanggal);
+	
+	// variabel pecahkan 0 = tanggal
+	// variabel pecahkan 1 = bulan
+	// variabel pecahkan 2 = tahun
+ 
+	return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
+}
  $nama_dokumen='Cetak Bukti -'.$_GET['val'];
 include '../config/koneksi.php';
 include '../vendors/mpdf60/mpdf.php';
 $no_regist_masuk = $_GET['val'];
-$mpdf=new mPDF('utf-8', 'A4'); // Create new mPDF Document
+$mpdf=new mPDF('utf-8', 'A4-L'); // Create new mPDF Document
  
 //Beginning Buffer to save PHP variables and HTML tags
 ob_start(); 
@@ -25,9 +48,9 @@ ob_start();
 		<tr>
 			<th>No</th>
 			<th>No Regist</th>
-			<th style="width: 20%;text-align: center;">Tgl Regist Masuk</th>
-			<th>Nama Supplier</th>
-			<th>Nama Pegawai</th>
+			<th style="width: 20%;text-align: center;">Tgl Regist</th>
+			<th>Supplier</th>
+			<th>Penanggung Jawab</th>
 			<th>Grand Total</th>
 			<th>Status</th>
 		</tr>
@@ -45,11 +68,11 @@ ob_start();
 			foreach ($query2 as $data2) {
 		?>
 		<tr>
-			<td style="text-align: center;"><?php echo $no++."."; ?></td>
-			<td style="text-align: center;"><?php echo $data2['no_regist_masuk']; ?></td>
-			<td style="text-align: center;"><?php echo $data2['tgl_regist']; ?></td>
-			<td style="text-align: center;"><?php echo $data2['nm_supplier']; ?></td>
-			<td style="text-align: center;"><?php echo $data2['nama']; ?></td>
+			<td style="text-align: left; padding-left: 5px"><?php echo $no++."."; ?></td>
+			<td style="text-align: left; padding-left: 5px"><?php echo $data2['no_regist_masuk']; ?></td>
+			<td style="text-align: left; padding-left: 5px"><?php echo tgl_indo($data2['tgl_regist']); ?></td>
+			<td style="text-align: left; padding-left: 5px"><?php echo $data2['nm_supplier']; ?></td>
+			<td style="text-align: left; padding-left: 5px"><?php echo $data2['nama']; ?></td>
 			<td style="text-align: right;"><?php echo "Rp. ".number_format($data2['grand_total'],2,',','.'); ?></td>
 			<?php if ($data2['status']==1) {
 			?>

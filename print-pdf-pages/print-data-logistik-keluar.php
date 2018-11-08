@@ -1,5 +1,28 @@
 <?php
  // Define relative path from this script to mPDF
+function tgl_indo($tanggal){
+	$bulan = array (
+		1 =>   'Januari',
+		'Februari',
+		'Maret',
+		'April',
+		'Mei',
+		'Juni',
+		'Juli',
+		'Agustus',
+		'September',
+		'Oktober',
+		'November',
+		'Desember'
+	);
+	$pecahkan = explode('-', $tanggal);
+	
+	// variabel pecahkan 0 = tanggal
+	// variabel pecahkan 1 = bulan
+	// variabel pecahkan 2 = tahun
+ 
+	return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
+}
  $nama_dokumen='Cetak Bukti -'.$_GET['val'];
 include '../config/koneksi.php';
 include '../vendors/mpdf60/mpdf.php';
@@ -24,10 +47,10 @@ ob_start();
 	<thead>
 		<tr>
 			<th>No</th>
-			<th>No Regist Keluar</th>
+			<th>No Regist</th>
 			<th style="width: 20%;text-align: center;">Tgl Keluar</th>
-			<th>Nama Pegawai</th>
-			<th>Nama Instansi Penerima</th>
+			<th>Penanggung Jawab</th>
+			<th>Instansi Penerima</th>
 			<th>Nama Penerima</th>
 			<th>NIP Penerima</th>
 			<th>Grand Total</th>
@@ -48,12 +71,12 @@ ob_start();
 		?>
 		<tr>
 			<td style="text-align: center;"><?php echo $no++."."; ?></td>
-			<td style="text-align: center;"><?php echo $data2['no_regist_keluar']; ?></td>
-			<td style="text-align: center;"><?php echo $data2['tgl_keluar']; ?></td>
-			<td style="text-align: center;"><?php echo $data2['nama']; ?></td>
-			<td style="text-align: center;"><?php echo $data2['nm_instansi_penerima']; ?></td>
-			<td style="text-align: center;"><?php echo $data2['nm_penerima']; ?></td>
-			<td style="text-align: center;"><?php echo $data2['nip_penerima']; ?></td>
+			<td style="text-align: left;padding-left: 5px;"><?php echo $data2['no_regist_keluar']; ?></td>
+			<td style="text-align: left;padding-left: 5px;"><?php echo tgl_indo($data2['tgl_keluar']); ?></td>
+			<td style="text-align: left;padding-left: 5px"><?php echo $data2['nama']; ?></td>
+			<td style="text-align: left;padding-left: 5px"><?php echo $data2['nm_instansi_penerima']; ?></td>
+			<td style="text-align: left;padding-left: 5px"><?php echo $data2['nm_penerima']; ?></td>
+			<td style="text-align: left;padding-left: 5px"><?php echo $data2['nip_penerima']; ?></td>
 			<td style="text-align: right;"><?php echo "Rp. ".number_format($data2['grand_total'],2,',','.'); ?></td>
 			<?php if ($data2['status']==1) {
 			?>
