@@ -5,7 +5,8 @@
          $username = $_POST['username'];
          $password = md5($_POST['password']);
          $level = $_POST['level'];
-         $query_edit = $connect->exec("UPDATE user SET username='$username', password='$password', level='$level' WHERE id_user='$id'");
+         $status = $_POST['status'];
+         $query_edit = $connect->exec("UPDATE user SET username='$username', password='$password', level='$level' ,status='$status 'WHERE id_user='$id'");
         if($query_edit){
             echo "<script>window.location.href='?pages=user&edit_stat=true'</script>";
         }else{
@@ -73,7 +74,9 @@
                         <tr>
                             <th class="table-plus datatable-nosort">No.</th>
                             <th class="table-plus datatable-nosort">Username</th>
+                            <th class="table-plus datatable-nosort">Password</th>
                             <th class="table-plus datatable-nosort">Level</th>
+                            <th class="table-plus datatable-nosort">Status</th>
                             <th class="table-plus datatable-nosort">Aksi</th>
                         </tr>
                         </thead>
@@ -86,8 +89,9 @@
                         <tr>
                             <td><?php echo $no++ ?></td>
                             <td><?php echo $data['username'] ?></td>
+                             <td><?php echo $data['password']; ?></td>
                             <td><?php echo $data['level']; ?></td>
-                            
+                              <td><?php echo $data['status']; ?></td>
                             
                             <td>
                                 <div class="dropdown">
