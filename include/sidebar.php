@@ -2,7 +2,7 @@
 <div class="left-side-bar">
 		<div class="brand-logo">
 			<a href="index.php">
-				<img src="vendors/images/silogter_logo.png" alt="">
+				<img src="vendors/images/silogter-logo.png" alt="">
 			</a>
 		</div>
 		<div class="menu-block customscroll">

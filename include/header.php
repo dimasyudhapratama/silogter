@@ -3,7 +3,7 @@
 		<div class="header-right">
 			<div class="brand-logo">
 				<a href="index.php">
-					<img src="vendors/images/silogter_logo.png" alt="" class="mobile-logo">
+					<img src="vendors/images/silogter-logo-mobile.png" alt="" class="mobile-logo">
 				</a>
 			</div>
 			<div class="menu-icon">

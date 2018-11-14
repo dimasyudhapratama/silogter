@@ -24,7 +24,7 @@ ob_start();
 //Query Untuk Menampilkan Isi Table Logistik Masuk
 $query = $connect->query("SELECT * FROM trx_logistik_masuk tlm JOIN supplier ON tlm.id_supplier=supplier.id_supplier WHERE no_regist_masuk='$no_regist_masuk'");
 foreach ($query as $data) {
-	$tgl_regist = $data['tgl_regist'];
+	$tgl_regist = date("d-m-Y",strtotime($data['tgl_regist']));
 ?>
 <table>
 	<tr>
@@ -81,7 +81,7 @@ foreach($query2 as $data2){
 	</tr>
 	<tr>
 		<?php
-		$query3 = $connect->query("SELECT nama as nm_pegawai,nip FROM pegawai WHERE jabatan='pimpinan'");
+		$query3 = $connect->query("SELECT nama as nm_pegawai,nip FROM pegawai WHERE jabatan='pimpinan' AND status='Aktif'");
 		foreach($query3 as $data3){
 			$nip_pimpinan = $data3['nip'];
 		?>

@@ -84,7 +84,7 @@ foreach($query2 as $data2){
 	</tr>
 	<tr>
 		<?php
-		$query3 = $connect->query("SELECT nama as nm_pegawai,nip FROM pegawai WHERE jabatan='pimpinan'");
+		$query3 = $connect->query("SELECT nama as nm_pegawai,nip FROM pegawai WHERE jabatan='pimpinan' AND status='Aktif'");
 		foreach($query3 as $data3){
 			$nip_pimpinan = $data3['nip'];
 		?>
