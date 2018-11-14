@@ -60,8 +60,20 @@ ob_start();
 
 	<tbody>
 		<?php
+		if(isset($_GET['filter_by'])){
+            if($_GET['filter_by']=="date"){
+                $param = "filter_by=".$_GET['filter_by']."&tgl=".$_GET['tgl'];
+                $query = $connect->query("SELECT no_regist_keluar,tgl_keluar,pegawai.nama as nm_pegawai, nm_instansi_penerima,tlk.status as status FROM trx_logistik_keluar tlk JOIN pegawai ON tlk.id_pegawai=pegawai.id_pegawai JOIN instansi_penerima ON tlk.id_instansi_penerima=instansi_penerima.id_instansi_penerima WHERE tgl_keluar='$_GET[tgl]'");
+            }elseif ($_GET['filter_by']=="month" || $_GET['filter_by']=="year" || $_GET['filter_by']=="custom") {
+                $tanggal_awal = $_GET['tgl_awal'];
+                $tanggal_akhir = $_GET['tgl_akhir'];
+                $param = "filter_by=".$_GET['filter_by']."&tgl_awal=".$tanggal_awal."&tgl_akhir=".$tanggal_akhir;
+                $query = $connect->query("SELECT no_regist_keluar,tgl_keluar,pegawai.nama as nm_pegawai, nm_instansi_penerima,tlk.status as status FROM trx_logistik_keluar tlk JOIN pegawai ON tlk.id_pegawai=pegawai.id_pegawai JOIN instansi_penerima ON tlk.id_instansi_penerima=instansi_penerima.id_instansi_penerima WHERE tgl_keluar BETWEEN '$tanggal_awal' AND '$tanggal_akhir'");
+            }
+        }else{
+            $query = $connect->query("SELECT no_regist_keluar,tgl_keluar,pegawai.nama as nm_pegawai, nm_instansi_penerima,tlk.status as status FROM trx_logistik_keluar tlk JOIN pegawai ON tlk.id_pegawai=pegawai.id_pegawai JOIN instansi_penerima ON tlk.id_instansi_penerima=instansi_penerima.id_instansi_penerima");
+        }
 		$no = 1;
-		$query = $connect->query("SELECT * FROM trx_logistik_keluar");
 		foreach($query as $data){
 		?>
 		<?php

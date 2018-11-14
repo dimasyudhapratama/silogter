@@ -34,7 +34,7 @@ if (isset($_POST['simpan'])) {
 	$query_transaksi_masuk = $connect->prepare("INSERT INTO trx_logistik_masuk VALUES ('$id','$tgl_regist','$id_supplier','$id_pegawai','0','0')");
 	$query_transaksi_masuk->execute();
 
-	//Load Data Cart -> Insert Ke Tabel Detail Transaksi Masuk & Mengurangi Stok Di Tabel Logistik
+	//Load Data Cart -> Insert Ke Tabel Detail Transaksi Masuk & Menambah Stok Di Tabel Logistik
 	$cart = unserialize(serialize($_SESSION['cart_masuk']));
 	$grand_total = 0;
     for($i=0;$i<count($cart);$i++){
@@ -50,8 +50,8 @@ if (isset($_POST['simpan'])) {
         $subtotal = $harga*$qty;
         $query2 = $connect->prepare("INSERT INTO trx_detail_logistik_masuk VALUES ('','$id','$id_logistik','$harga','$qty','$subtotal')");
         $query2->execute();
-        //Mengurangi Stok Di Tabel Logistik
-        $new_stok = $stok-$qty;
+        //Menambah Stok Di Tabel Logistik
+        $new_stok = $stok+$qty;
         $query3= $connect->prepare("UPDATE logistik SET stok='$new_stok' WHERE id_logistik='$id_logistik'");
         $query3->execute();
 

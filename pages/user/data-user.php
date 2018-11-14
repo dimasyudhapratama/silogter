@@ -1,5 +1,4 @@
 <?php
-
     if(isset($_POST['edit'])){
         $id = $_POST['id'];
          $username = $_POST['username'];
@@ -74,7 +73,6 @@
                         <tr>
                             <th class="table-plus datatable-nosort">No.</th>
                             <th class="table-plus datatable-nosort">Username</th>
-                            <th class="table-plus datatable-nosort">Password</th>
                             <th class="table-plus datatable-nosort">Level</th>
                             <th class="table-plus datatable-nosort">Status</th>
                             <th class="table-plus datatable-nosort">Aksi</th>
@@ -89,7 +87,6 @@
                         <tr>
                             <td><?php echo $no++ ?></td>
                             <td><?php echo $data['username'] ?></td>
-                             <td><?php echo $data['password']; ?></td>
                             <td><?php echo $data['level']; ?></td>
                               <td><?php echo $data['status']; ?></td>
                             

@@ -49,7 +49,9 @@ if (isset($_POST['simpan'])) {
         }
         $qty = $cart[$i]->qty; // Qty
         $subtotal = $harga*$qty;
-        $query2 = $connect->prepare("INSERT INTO trx_detail_logistik_keluar VALUES ('','$id','$id_logistik','$harga','$qty','$subtotal')");
+        //INSERT Detail Logistik Keluar
+        // $query2 = $connect->prepare("INSERT INTO trx_detail_logistik_keluar VALUES ('','$id','$id_logistik','$harga','$qty','$subtotal')");
+        $query2 = $connect->prepare("INSERT INTO trx_detail_logistik_keluar VALUES('','$id','$id_logistik','$harga','$qty','$subtotal')");
         $query2->execute();
         //Mengurangi Stok Di Tabel Logistik
         $new_stok = $stok-$qty;

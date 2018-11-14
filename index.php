@@ -20,7 +20,9 @@ include 'config/koneksi.php';
 include('include/header.php');
 include('include/sidebar.php');
 if(isset($_GET['pages'])){
-    if($_GET['pages']=='pegawai') {
+    if($_GET['pages']=='change_password'){
+        include 'pages/dashboard/change_password.php';
+    }else if($_GET['pages']=='pegawai') {
         include 'pages/pegawai/data-pegawai.php';
     }else if($_GET['pages']=='user'){
         include 'pages/user/data-user.php';
@@ -36,8 +38,12 @@ if(isset($_GET['pages'])){
         include 'pages/user/data-user.php';
     }else if($_GET['pages']=='logistik'){
         include 'pages/logistik/data-logistik.php';
+    }else if($_GET['pages']=='laporan'){
+        include 'pages/laporan/data-laporan.php';
     }else if($_GET['pages']=='master_bantuan'){
         include 'pages/master_bantuan/data-master-bantuan.php';
+    }else if($_GET['pages']=='bantuan'){
+        include 'pages/bantuan/data-bantuan.php';
     }else if($_GET['pages']=='logistik_masuk'){
         include 'pages/transaksi_masuk/data-transaksi-masuk.php';
     }else if($_GET['pages']=='tambah_transaksi_masuk'){
@@ -52,7 +58,7 @@ if(isset($_GET['pages'])){
         include 'pages/transaksi_keluar/detail-transaksi-keluar.php';
     }
 }else{
-        include 'pages/dashboard/dashboard-admin.php';
+        include 'pages/dashboard/dashboard-view.php';
 }
 
 ?>

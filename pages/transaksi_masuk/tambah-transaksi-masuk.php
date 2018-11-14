@@ -1,6 +1,3 @@
-<?php
-
-?>
 <script src="src/jquery.js"></script>
 <script type="text/javascript">
     $(document).ready(function(){
@@ -41,18 +38,15 @@
             var id = $("#id_logistik").val();
             var qty = parseInt($("#qty").val());
             var real_stok = parseInt($("#real_stok").val());
-            if(qty > real_stok){
-                alert("Real Stok Adalah "+real_stok+". Data Tidak Mencukupi");
-            }else{
-                $.ajax({
-                    url : "pages/transaksi_masuk/add_cart.php",
-                    type: "POST",
-                    data : {id:id,qty,qty},
-                    success : function(ajaxData){
-                        $("#detail_cart").load("pages/transaksi_masuk/detail_cart.php");
-                    }
-                });   
-            } 
+
+            $.ajax({
+                url : "pages/transaksi_masuk/add_cart.php",
+                type: "POST",
+                data : {id:id,qty,qty},
+                success : function(ajaxData){
+                    $("#detail_cart").load("pages/transaksi_masuk/detail_cart.php");
+                }
+            });  
         }
     }
     function deleteCart(index){

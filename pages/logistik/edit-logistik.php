@@ -60,7 +60,6 @@ foreach ($query as $ql) {
                                     <label>Nama Logistik</label>
                                     <input type="text" name="nm_logistik" class="form-control" required="" value="<?php echo $ql['nm_logistik'] ?>">
                                 </div>
-                                
                                 <div class="form-group">
                                     <label>Harga Satuan </label>
                                     <input type="number" name="harga_satuan" class="form-control" value="<?php echo $ql['harga_satuan'] ?>">

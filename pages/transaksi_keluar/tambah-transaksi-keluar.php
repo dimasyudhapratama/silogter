@@ -1,6 +1,3 @@
-<?php
-
-?>
 <script src="src/jquery.js"></script>
 <script type="text/javascript">
     $(document).ready(function(){

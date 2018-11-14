@@ -18,25 +18,14 @@ for($i=0;$i<count($cart);$i++)
 		$index = $i;
 		break;
 	}
-	//Cek Sisa Stok
-	$query = $connect->prepare("SELECT stok FROM logistik WHERE id_logistik='$id'");
-	$query->execute();
-	foreach($query as $data){
-		$stok_db = $data['stok'];
-		$qty_cart_new = $cart[$index]->qty+$qty;
-		if($qty_cart_new>$stok_db){
-			
-		}else {	
-			if($index==-1){
-				$_SESSION['cart_masuk'][] = $item; //Make New Session Cart Masuk Dengan Isi dari Object item
-			}else{
-				
-				//Tambahkan Qty pada Id Yang Sama
-				$cart[$index]->qty+=$qty;
-				$_SESSION['cart_masuk'] = $cart;	
-			}
-
-		}
+	
+	if($index==-1){
+		$_SESSION['cart_masuk'][] = $item; //Make New Session Cart Masuk Dengan Isi dari Object item
+	}else{
+		
+		//Tambahkan Qty pada Id Yang Sama
+		$cart[$index]->qty+=$qty;
+		$_SESSION['cart_masuk'] = $cart;	
 	}
 	
 ?>

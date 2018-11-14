@@ -1,10 +1,10 @@
 <?php
     if(isset($_GET['delete'])){
-        $query_delete = $connect->exec("DELETE FROM instansi_penerima WHERE id_instansi_penerima='$_GET[delete]'");
-        if($query_delete){
+        try{
+            $query_delete = $connect->exec("DELETE FROM instansi_penerima WHERE id_instansi_penerima='$_GET[delete]'");
             echo "<script>window.location.href='?pages=instansi_penerima&delete_stat=true'</script>";
-        } else{
-            echo "<script>window.location.href='?pages=instansi_penerimas&delete_stat=false'</script>";
+        }catch(Exception $e){
+            echo "<script>window.location.href='?pages=instansi_penerima&delete_stat=false'</script>";
         }
     }
     if(isset($_POST['simpan'])){
@@ -76,25 +76,26 @@
                     <div class="col-md-12">
                         <?php
                         if(isset($_GET['delete_stat'])){
-                            if($_GET['delete_stat']==true) {
+                            if($_GET['delete_stat']=='true') {
                                 echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>Data Berhasil Dihapus
-								<button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-									<span aria-hidden='true'>&times;</span>
-								</button></div>";
-                            }else if($_GET['delete_stat']==false){
-                                echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>Data Gagal Dihapus
-								<button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-									<span aria-hidden='true'>&times;</span>
-								</button></div>";
+                                <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                                    <span aria-hidden='true'>&times;</span>
+                                </button></div>";
+                            }else if($_GET['delete_stat']=='false'){
+                                echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>Data Gagal Dihapus<br><i>Data Digunakan/Terhubung Dengan Data Lain</i>
+                                <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                                    <span aria-hidden='true'>&times;</span>
+                                </button></div>";
                             }
+
                         }
                         if(isset($_GET['add_stat'])){
-                            if($_GET['add_stat']==true) {
+                            if($_GET['add_stat']=='true') {
                                 echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>Data Berhasil Ditambahkan
                                 <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
                                     <span aria-hidden='true'>&times;</span>
                                 </button></div>";
-                            }else if($_GET['add_stat']==false){
+                            }else if($_GET['add_stat']=='false'){
                                 echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>Data Gagal Ditambahkan
                                 <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
                                     <span aria-hidden='true'>&times;</span>
@@ -102,12 +103,12 @@
                             }
                         }
                         if(isset($_GET['edit_stat'])){
-                            if($_GET['edit_stat']==true) {
+                            if($_GET['edit_stat']=='true') {
                                 echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>Data Berhasil Diubah
                                 <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
                                     <span aria-hidden='true'>&times;</span>
                                 </button></div>";
-                            }else if($_GET['edit_stat']==false){
+                            }else if($_GET['edit_stat']=='false'){
                                 echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>Data Gagal Diubah
                                 <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
                                     <span aria-hidden='true'>&times;</span>

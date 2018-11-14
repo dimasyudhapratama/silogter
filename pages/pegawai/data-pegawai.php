@@ -19,10 +19,17 @@ if(isset($_POST['simpan'])){
     $nama = $_POST['nama'];
     $jabatan = $_POST['jabatan'];
     $status = $_POST['status'];
-
-    $query_tambah_pegawai = $connect->exec("INSERT INTO pegawai(nip,nama,jabatan,status) VALUES ('$nip','$nama','$jabatan','$status')");
-
-    if($query_tambah_pegawai){
+    //Validasi Hanya Ada 1 Pimpinan Berstatus Aktif
+    if($jabatan=="Pimpinan"){
+        $cek_pimpinan = $connect->prepare("SELECT id_pegawai FROM pegawai WHERE jabatan='Pimpinan' AND status='Aktif'");
+        $cek_pimpinan->execute();
+        if($cek_pimpinan->rowCount()>0){ //Gagal
+                echo "<script>window.location.href='../../index.php?pages=pegawai&add_stat=false&error=Silahkan Nonaktifkan Status Pimpinan Yang Lama Untuk Menambahkan Pimpinan Baru'</script>";
+        }
+    }
+    $query_tambah = $connect->exec("INSERT INTO pegawai(nip,nama,jabatan,status) VALUES ('$nip','$nama','$jabatan','$status')");
+    
+    if($query_tambah){
         echo "<script>window.location.href='?pages=pegawai&add_stat=true'</script>";
     }else{
         echo "<script>window.location.href='?pages=pegawai&add_stat=false'</script>";
@@ -45,25 +52,25 @@ if(isset($_POST['tambahuser'])){
     $id_pegawai = $_POST['id_pegawai'];
     $username = $_POST['username'];
     $password=$_POST['password'];
+    $repassword = $_POST['repassword'];
     $level=$_POST['level'];
-    $status1 =$_POST['status1'];
-    
-    if ($_POST["password"] == $_POST["password1"]) {
-       // echo "success";  
-        $password_hash = password_hash($_POST['password']);
-        
-        $query_tambah_user= $connect->prepare("INSERT INTO user(id_pegawai,username,password,level,status) VALUES ('$id_pegawai','$username','$password_hash','$level','$status1')");
+    $status =$_POST['status'];
+
+    if ($password==$repassword) {
+        $password_hash = password_hash($password,PASSWORD_DEFAULT);
+        $query_tambah_user= $connect->prepare("INSERT INTO user(id_pegawai,username,password,level,status) VALUES ('$id_pegawai','$username','$password_hash','$level','$status')");
         $query_tambah_user->execute();
+        if($query_tambah_user){
+            echo "<script>window.location.href='?pages=user&add_stat=true'</script>";
+        }else{
+            echo "<script>window.location.href='?pages=pegawai&add_stat=false'</script>";
+        }
     }
     else {
        echo "Pasword berbeda";
-   }
+    }
 
-    // if($query_tambah_user){
-    //     echo "<script>window.location.href='?pages=user&add_stat=true'</script>";
-    // }else{
-    //     echo "<script>window.location.href='?pages=pegawai&add_stat=false'</script>";
-    // }
+    
 }
 ?>
 <script src="src/jquery.js"></script>
@@ -140,7 +147,7 @@ if(isset($_POST['tambahuser'])){
                                 <span aria-hidden='true'>&times;</span>
                                 </button></div>";
                             }else if($_GET['add_stat']=="false"){
-                                echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>Data Gagal Ditambahkan
+                                echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>Data Gagal Ditambahkan .".$_GET['error']."
                                 <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
                                 <span aria-hidden='true'>&times;</span>
                                 </button></div>";
@@ -242,8 +249,8 @@ if(isset($_POST['tambahuser'])){
                                 <label>Jabatan</label>
                                 <select class="form-control" name="jabatan">
                                    <option value="">--Pilih--</option>
-                                   <option value="pimpinan">Pimpinan</option>
-                                   <option value="pegawai">Pegawai Biasa</option>
+                                   <option value="Pimpinan">Pimpinan</option>
+                                   <option value="Pegawai">Pegawai Biasa</option>
                                </select>
                            </div>
                            <div class="col-md-6 ">

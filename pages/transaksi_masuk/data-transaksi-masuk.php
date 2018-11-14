@@ -14,7 +14,7 @@
             $query3 = $connect->prepare("SELECT stok FROM logistik WHERE id_logistik='$data2[id_logistik]'");
             $query3->execute();
             foreach ($query3 as $data3) {
-                $new_stok = $data3['stok'] + $data2['qty'];
+                $new_stok = $data3['stok'] - $data2['qty'];
             }
             //Update Stok Logistik
             $update_stok = $connect->prepare("UPDATE logistik SET stok='$new_stok' WHERE id_logistik='$data2[id_logistik]'");
@@ -27,6 +27,24 @@
         echo "<script>window.location.href='?pages=logistik_masuk&change_stat=false'</script>";
     }
   }  
+  if(isset($_POST['filter'])){
+        if($_POST['filter_by']=="date"){
+            $param = "filter_by=".$_POST['filter_by']."&tgl=".$_POST['tgl'];
+        }elseif ($_POST['filter_by']=="month") {
+            $tanggal_awal = $_POST['btahun']."-".$_POST['bulan']."-01";
+            $tanggal_akhir = date("Y-m-t",strtotime($tanggal_awal));
+            $param = "filter_by=".$_POST['filter_by']."&tgl_awal=".$tanggal_awal."&tgl_akhir=".$tanggal_akhir;
+        }elseif ($_POST['filter_by']=="year") {
+            $tanggal_awal = $_POST['tahun']."-01-01";
+            $tanggal_akhir = $_POST['tahun']."-12-30";
+            $param = "filter_by=".$_POST['filter_by']."&tgl_awal=".$tanggal_awal."&tgl_akhir=".$tanggal_akhir;
+        }elseif ($_POST['filter_by']=="custom"){
+            $tanggal_awal = $_POST['tgl_awal'];
+            $tanggal_akhir = $_POST['tgl_akhir'];
+            $param = "filter_by=".$_POST['filter_by']."&tgl_awal=".$tanggal_awal."&tgl_akhir=".$tanggal_akhir;
+        }
+        echo "<script>window.location.href='?pages=logistik_masuk&".$param."'</script>";
+    }
 ?>
 <script src="src/jquery.js"></script>
 <script type="text/javascript">
@@ -39,6 +57,19 @@
                 data : {id: m,},
                 success: function (ajaxData){
                     $(".data-ajax").html(ajaxData);
+                }
+            });
+        });
+    });
+    $(document).ready(function () {
+        $("#filter_by").change(function(e) {
+            var m = $(this).val();
+            $.ajax({
+                url: "pages/transaksi_masuk/filterData.php",
+                type: "POST",
+                data : {filter_by: m,},
+                success: function (ajaxData){
+                    $(".filter-data").html(ajaxData);
                 }
             });
         });
@@ -65,17 +96,41 @@
             <!-- Simple Datatable start -->
             <div class="pd-20 bg-white border-radius-4 box-shadow mb-30">
                 <div class="row">
+                    <?php
+                    if(isset($_SESSION['level'])){
+                        if($_SESSION['level']!="Pimpinan"){
+                    ?>
                     <a href="?pages=tambah_transaksi_masuk" style="margin-left: 10px;margin-bottom: 10px;" class="btn btn-primary btn-sm">Tambah Data</a>
+                    <?php
+                        }
+                    }
+                    ?>
+                    <button style="margin-left:10px;margin-bottom: 10px;" class="btn btn-success btn-sm" data-target="#modalfilter" data-toggle="modal">Filter</button>
+                    <?php
+                        if(isset($_GET['filter_by'])){
+                            if($_GET['filter_by']=="date"){
+                                $param = "filter_by=".$_GET['filter_by']."&tgl=".$_GET['tgl'];
+                                $query = $connect->query("SELECT no_regist_masuk,tgl_regist,nm_supplier,nama as nm_pegawai,trx_logistik_masuk.status FROM trx_logistik_masuk JOIN supplier ON trx_logistik_masuk.id_supplier=supplier.id_supplier JOIN pegawai ON trx_logistik_masuk.id_pegawai=pegawai.id_pegawai WHERE tgl_regist='$_GET[tgl]'");
+                            }elseif ($_GET['filter_by']=="month" || $_GET['filter_by']=="year" || $_GET['filter_by']=="custom") {
+                                $tanggal_awal = $_GET['tgl_awal'];
+                                $tanggal_akhir = $_GET['tgl_akhir'];
+                                $param = "filter_by=".$_GET['filter_by']."&tgl_awal=".$tanggal_awal."&tgl_akhir=".$tanggal_akhir;
+                                $query = $connect->query("SELECT no_regist_masuk,tgl_regist,nm_supplier,nama as nm_pegawai,trx_logistik_masuk.status FROM trx_logistik_masuk JOIN supplier ON trx_logistik_masuk.id_supplier=supplier.id_supplier JOIN pegawai ON trx_logistik_masuk.id_pegawai=pegawai.id_pegawai WHERE tgl_regist BETWEEN '$tanggal_awal' AND '$tanggal_akhir'");
+                            }
+                        }else{
+                            $query = $connect->query("SELECT no_regist_masuk,tgl_regist,nm_supplier,nama as nm_pegawai,trx_logistik_masuk.status FROM trx_logistik_masuk JOIN supplier ON trx_logistik_masuk.id_supplier=supplier.id_supplier JOIN pegawai ON trx_logistik_masuk.id_pegawai=pegawai.id_pegawai");
+                        }
+                    ?>
+                    <a href="javascript:void(0);" onclick="window.open('print-pdf-pages/print-data-logistik-masuk.php?<?php if(isset($_GET['filter_by'])){echo $param;} ?>','Print','width=1366,height=800,scrollbars=yes,resizeable=no')" style="margin-left: 10px;margin-bottom: 10px;" class="btn btn-warning btn-sm">Print</a>
                     <div class="col-md-12">
                         <?php
-                        
                         if(isset($_GET['change_stat'])){
-                            if($_GET['change_stat']==true) {
+                            if($_GET['change_stat']=="true") {
                                 echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>Data Berhasil Diubah
                                 <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
                                     <span aria-hidden='true'>&times;</span>
                                 </button></div>";
-                            }else if($_GET['change_stat']==false){
+                            }else if($_GET['change_stat']=="false"){
                                 echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>Data Gagal Diubah
                                 <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
                                     <span aria-hidden='true'>&times;</span>
@@ -99,13 +154,13 @@
                         <tbody>
                         <?php
                         $no = 1;
-                        $query = $connect->query("SELECT no_regist_masuk,tgl_regist,nm_supplier,nama as nm_pegawai,trx_logistik_masuk.status FROM trx_logistik_masuk JOIN supplier ON trx_logistik_masuk.id_supplier=supplier.id_supplier JOIN pegawai ON trx_logistik_masuk.id_pegawai=pegawai.id_pegawai");
+
                         foreach($query as $data){
                         ?>
                         <tr>
                             <td><?php echo $no++ ?></td>
                             <td><?php echo $data['no_regist_masuk']; ?></td>
-                            <td><?php echo $data['tgl_regist'] ?></td>
+                            <td><?php echo date("d-m-Y",strtotime($data['tgl_regist'])); ?></td>
                             <td><?php echo $data['nm_supplier']; ?></td>
                             <td><?php echo $data['nm_pegawai']; ?></td>
                             <td style="text-align: center;">
@@ -158,6 +213,41 @@
                 </div>
                 <div class="modal-footer">
                     <button type="submit" name="change_status" class="btn btn-primary">Save changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modalfilter" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <form method="POST" name="filter-logistik" action="?pages=logistik_masuk&filterkeyword">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myLargeModalLabel">Filter</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-5 col-sm-12">
+                                <div class="form-group">
+                                    <label>Filter Berdasarkan</label>
+                                    <select name="filter_by" id="filter_by" class="form-control" required="">
+                                        <option value="">--Pilih--</option>
+                                        <option value="date">Tanggal</option>
+                                        <option value="month">Bulan</option>
+                                        <option value="year">Tahun</option>
+                                        <option value="custom">Custom</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-7 col-sm-12 filter-data">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" name="filter" class="btn btn-primary">Filter</button>
                 </div>
             </form>
         </div>

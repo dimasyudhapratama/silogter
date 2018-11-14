@@ -1,19 +1,28 @@
 <script>
     var password = document.getElementById("password");
-    var confirm_password = document.getElementById("repassword");
+    var repassword = document.getElementById("repassword");
 
     function validatePassword(){
-        if(password.value != confirm_password.value) {
-            confirm_password.setCustomValidity("Password Tidak Sesuai");
+        if(password.value != repassword.value) {
+            repassword.setCustomValidity("Password Tidak Sesuai");
         } else {
-            confirm_password.setCustomValidity('');
+            repassword.setCustomValidity('');
         }
     }
 
-password.onchange = validatePassword;
-confirm_password.onkeyup = validatePassword;
+// password.onchange = validatePassword;
+// confirm_password.onkeyup = validatePassword;
 </script>
-<input type="hidden" name="id_pegawai" value="<?php echo $_POST['id'] ?>">
+<?php
+include "../../config/koneksi.php";
+$id = $_POST['id'];
+$query = $connect->prepare("SELECT jabatan FROM pegawai WHERE id_pegawai='$id'");
+$query->execute();
+foreach($query as $data){
+    $jabatan = $data['jabatan'];
+}
+?>
+<input type="hidden" name="id_pegawai" value="<?php echo $id; ?>">
 <div class="form-group">
     <div class="row">
         <div class="col-md-6 ">
@@ -35,19 +44,11 @@ confirm_password.onkeyup = validatePassword;
                 <input type="password" id="repassword" name="repassword" class="form-control" onkeyup="validatePassword()">
             </div>
         </div>
-        <div class="col-md-6 ">
-            <label>Level</label>
-            <select class="form-control" name="level">
-                <option value="">--Pilih--</option>
-                <option value="Admin">Admin</option>
-                <option value="Pimpinan">Pimpinan</option>
-                <option value="Operator">Operator</option>
-            </select>
-        </div>
+        <input type="hidden" name="level" value="<?php if($jabatan=='Pimpinan'){echo "Pimpinan";}else if($jabatan=="Pegawai"){echo "Operator";} ?>">
         <div class="col-md-6 ">
             <div class="form-group">
                 <label>Status</label>
-                <select name="status1" class="form-control">
+                <select name="status" class="form-control">
                     <option value="">--Pilih--</option>
                     <option value="Aktif">Aktif</option>
                     <option value="Non Aktif">Non Aktif</option>
