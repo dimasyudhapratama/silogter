@@ -30,6 +30,6 @@
       } 
 ?>
       <tr>
-            <td colspan="4"></td>
+            <td colspan="4">Grand Total</td>
             <td><?php echo "Rp. ".number_format($total,2,',','.'); ?></td>
       </tr>

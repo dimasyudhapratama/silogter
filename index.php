@@ -1,5 +1,8 @@
 <?php 
 session_start();
+if(!isset($_SESSION['user_level'])){
+    header("location:login.php?loginFirst");
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -14,7 +17,7 @@ session_start();
         }
     </style>
 </head>
-<body>
+<body style="font-family: 'Open Sans', sans-serif;">
 <?php
 include 'config/koneksi.php';
 include('include/header.php');
@@ -24,8 +27,6 @@ if(isset($_GET['pages'])){
         include 'pages/dashboard/change_password.php';
     }else if($_GET['pages']=='pegawai') {
         include 'pages/pegawai/data-pegawai.php';
-    }else if($_GET['pages']=='user'){
-        include 'pages/user/data-user.php';
     }else if($_GET['pages']=='supplier'){
         include 'pages/supplier/data-supplier.php';
     }else if($_GET['pages']=='anggaran'){

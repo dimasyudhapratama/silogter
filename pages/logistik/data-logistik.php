@@ -241,7 +241,7 @@
                             <div class="col-md-6 col-sm-12"> 
                                 <div class="form-group">
                                     <label>Harga Satuan </label>
-                                    <input type="number" name="harga_satuan" class="form-control" required="">
+                                    <input type="number" name="harga_satuan" class="form-control" required="" min="1">
                                 </div>
                             </div>
                             <div class="col-md-6 col-sm-12">
@@ -322,6 +322,7 @@
                                 <div class="form-group ">
                                     <label>Filter Berdasarkan</label>
                                     <select name="filter_by" class="form-control">
+                                        <option value="">--Pilih--</option>
                                         <option value="kat_logistik">Kategori Logistik</option>
                                         <option value="nm_logistik">Nama Logistik</option>
                                     </select>

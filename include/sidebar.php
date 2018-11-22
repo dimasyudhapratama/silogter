@@ -23,7 +23,6 @@
 						</a>
 						<ul class="submenu">
 							<li><a href="?pages=pegawai">Pegawai</a></li>
-							<li><a href="?pages=user">User</a></li>
 							<li><a href="?pages=supplier">Supplier</a></li>
 							<li><a href="?pages=instansi_penerima">Instansi Penerima</a></li>
 							<li><a href="?pages=anggaran">Anggaran</a></li>
@@ -34,7 +33,7 @@
 					</li>
 					<?php
 				 	}
-				 	if ($_SESSION['user_level']=="Operator" || $_SESSION['user_level']=="Pimpinan" || $_SESSION['level']=="Admin") {
+				 	if ($_SESSION['user_level']=="Operator" || $_SESSION['user_level']=="Pimpinan" || $_SESSION['user_level']=="Admin") {
 				 	?>
                     <li>
                         <a href="?pages=logistik_masuk" class="dropdown-toggle no-arrow">

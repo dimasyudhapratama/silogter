@@ -1,5 +1,5 @@
 <?php
 session_start();
 session_destroy();
-echo "<script>window.location.href='login.php?message=logout'</script>";
+echo "<script>window.location.href='login.php?logout'</script>";
 ?>

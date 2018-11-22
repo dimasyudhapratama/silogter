@@ -1,19 +1,22 @@
 <?php
-if(isset($_SESSION['id_pegawai'])){
-	$id_pegawai = $_SESSION['id_pegawai'];
-	if($id_pegawai!=0){
-		$query_nm_pegawai = $connect->query("SELECT nama as nm_pegawai FROM pegawai WHERE id_pegawai='$id_pegawai'"); 
-		foreach ($query_nm_pegawai as $data) {
-			$nm_pegawai = $data['nm_pegawai'];
-		}
+if(isset($_SESSION['user_id_pegawai'])){
+	$id_pegawai = $_SESSION['user_id_pegawai'];
+	$query_nm_pegawai = $connect->query("SELECT nama as nm_pegawai FROM pegawai WHERE id_pegawai='$id_pegawai'"); 
+	foreach ($query_nm_pegawai as $data) {
+		$nm_pegawai = $data['nm_pegawai'];
 	}
 }
 function hitungRow($id,$table){
-	include "config/koneksi.php";
+	global $connect;
 	$query = $connect->prepare("SELECT $id FROM $table");
 	$query->execute();
-	$jml = $query->rowCount();
-	return $jml;
+	return $query->rowCount();
+}
+function hitungStokMinimum(){
+	global $connect;
+	$query = $connect->prepare("SELECT id_logistik FROM logistik WHERE minimal_stok>=stok");
+	$query->execute();
+	return $query->rowCount();
 }
 ?>
 <div class="main-container">
@@ -22,6 +25,11 @@ function hitungRow($id,$table){
 				Selamat Datang <?php echo $nm_pegawai; ?>
 			</div>
 			<div class="row clearfix progress-box">
+				<?php
+				if(isset($_SESSION['user_level'])){
+					if($_SESSION['user_level']=="Admin"){
+				?>
+				
 				<div class="col-lg-4 col-md-6 col-sm-12 mb-30">
 					<div class="bg-white pd-20 box-shadow border-radius-5 height-100-p">
 						<div class="project-info clearfix">
@@ -98,6 +106,9 @@ function hitungRow($id,$table){
 						</div>
 					</div>
 				</div>
+				<?php
+				}
+				?>
 				<div class="col-lg-4 col-md-6 col-sm-12 mb-30">
 					<div class="bg-white pd-20 box-shadow border-radius-5 height-100-p">
 						<div class="project-info clearfix">
@@ -136,6 +147,31 @@ function hitungRow($id,$table){
 						</div>
 					</div>
 				</div>
+				<?php
+				if($_SESSION['user_level']=="Admin" || $_SESSION['user_level']=="Pimpinan")
+				?>
+				<div class="col-lg-4 col-md-6 col-sm-12 mb-30">
+					<div class="bg-white pd-20 box-shadow border-radius-5 height-100-p">
+						<div class="project-info clearfix">
+							<div class="project-info-left">
+								<div class="icon box-shadow bg-blue text-white">
+									<i class="fa fa-archive"></i>
+								</div>
+							</div>
+							<div class="project-info-right">
+								<p class="weight-400 font-18 text-muted">Logistik Minimum</p>
+								<span class="no text-blue weight-500 font-24"><?php echo hitungStokMinimum(); ?></span>
+							</div>
+						</div>
+						<div class="project-info-progress text-center">
+							<a class="btn btn-outline-primary " href="?pages=laporan">Click To Detail</a>
+							
+						</div>
+					</div>
+				</div>
+				<?php
+				}
+				?>
 			</div>
 			
 			<?php include('include/footer.php'); ?>

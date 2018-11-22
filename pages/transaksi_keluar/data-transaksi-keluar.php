@@ -97,8 +97,8 @@
             <div class="pd-20 bg-white border-radius-4 box-shadow mb-30">
                 <div class="row">
                     <?php
-                    if(isset($_SESSION['level'])){
-                        if($_SESSION['level']!="Pimpinan"){
+                    if(isset($_SESSION['user_level'])){
+                        if($_SESSION['user_level']=="Admin" || $_SESSION['user_level']=="Operator"){
                     ?>
                     <a href="?pages=tambah_transaksi_keluar" style="margin-left: 10px;margin-bottom: 10px;" class="btn btn-primary btn-sm">Tambah Data</a>
                     <?php
