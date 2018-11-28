@@ -23,7 +23,7 @@ function tgl_indo($tanggal){
  
 	return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
 }
- $nama_dokumen='Cetak Bukti -'.$_GET['val'];
+ $nama_dokumen='Report Barang Masuk';
 include '../config/koneksi.php';
 include '../vendors/mpdf60/mpdf.php';
 $no_regist_masuk = $_GET['val'];
@@ -61,24 +61,25 @@ ob_start();
 			if(isset($_GET['filter_by'])){
                 if($_GET['filter_by']=="date"){
                     $param = "filter_by=".$_GET['filter_by']."&tgl=".$_GET['tgl'];
-                    $query = $connect->query("SELECT no_regist_masuk,tgl_regist,nm_supplier,nama as nm_pegawai,grand_total,trx_logistik_masuk.status FROM trx_logistik_masuk JOIN supplier ON trx_logistik_masuk.id_supplier=supplier.id_supplier JOIN pegawai ON trx_logistik_masuk.id_pegawai=pegawai.id_pegawai WHERE tgl_regist='$_GET[tgl]'");
+                    $query = $connect->query("SELECT SELECT * FROM v_tlm WHERE tgl_regist='$_GET[tgl]'");
                 }elseif ($_GET['filter_by']=="month" || $_GET['filter_by']=="year" || $_GET['filter_by']=="custom") {
                     $tanggal_awal = $_GET['tgl_awal'];
                     $tanggal_akhir = $_GET['tgl_akhir'];
                     $param = "filter_by=".$_GET['filter_by']."&tgl_awal=".$tanggal_awal."&tanggal_akhir=".$tanggal_akhir;
-                    $query = $connect->query("SELECT no_regist_masuk,tgl_regist,nm_supplier,nama as nm_pegawai,grand_total,trx_logistik_masuk.status FROM trx_logistik_masuk JOIN supplier ON trx_logistik_masuk.id_supplier=supplier.id_supplier JOIN pegawai ON trx_logistik_masuk.id_pegawai=pegawai.id_pegawai WHERE tgl_regist BETWEEN '$tanggal_awal' AND '$tanggal_akhir'");
+                    $query = $connect->query("SELECT * FROM v_tlm WHERE tgl_regist BETWEEN '$tanggal_awal' AND '$tanggal_akhir'");
                 }
             }else{
-                $query = $connect->query("SELECT no_regist_masuk,tgl_regist,nm_supplier,nama as nm_pegawai,grand_total,trx_logistik_masuk.status FROM trx_logistik_masuk JOIN supplier ON trx_logistik_masuk.id_supplier=supplier.id_supplier JOIN pegawai ON trx_logistik_masuk.id_pegawai=pegawai.id_pegawai");
-            }
+                $query = $connect->query("SELECT * FROM v_tlm");
+			}
+			$no = 1;
 			foreach ($query as $data2) {
 		?>
 		<tr>
-			<td style="text-align: left; padding-left: 5px"><?php echo $no++."."; ?></td>
+			<td style="text-align: center"><?php echo $no++."."; ?></td>
 			<td style="text-align: left; padding-left: 5px"><?php echo $data2['no_regist_masuk']; ?></td>
 			<td style="text-align: left; padding-left: 5px"><?php echo tgl_indo($data2['tgl_regist']); ?></td>
 			<td style="text-align: left; padding-left: 5px"><?php echo $data2['nm_supplier']; ?></td>
-			<td style="text-align: left; padding-left: 5px"><?php echo $data2['nm_pegawai']; ?></td>
+			<td style="text-align: left; padding-left: 5px"><?php echo $data2['nama_penanggung_jawab']; ?></td>
 			<td style="text-align: right;"><?php echo "Rp. ".number_format($data2['grand_total'],2,',','.'); ?></td>
 			<?php if ($data2['status']==1) {
 			?>

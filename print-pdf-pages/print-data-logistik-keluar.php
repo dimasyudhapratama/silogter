@@ -23,7 +23,7 @@ function tgl_indo($tanggal){
  
 	return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
 }
- $nama_dokumen='Cetak Bukti -'.$_GET['val'];
+ $nama_dokumen='Report Barang Keluar';
 include '../config/koneksi.php';
 include '../vendors/mpdf60/mpdf.php';
 $no_regist_masuk = $_GET['val'];
@@ -63,44 +63,38 @@ ob_start();
 		if(isset($_GET['filter_by'])){
             if($_GET['filter_by']=="date"){
                 $param = "filter_by=".$_GET['filter_by']."&tgl=".$_GET['tgl'];
-                $query = $connect->query("SELECT no_regist_keluar,tgl_keluar,pegawai.nama as nm_pegawai, nm_instansi_penerima,tlk.status as status FROM trx_logistik_keluar tlk JOIN pegawai ON tlk.id_pegawai=pegawai.id_pegawai JOIN instansi_penerima ON tlk.id_instansi_penerima=instansi_penerima.id_instansi_penerima WHERE tgl_keluar='$_GET[tgl]'");
+                $query = $connect->query("SELECT * FROM v_tlk WHERE tgl_keluar='$_GET[tgl]'");
             }elseif ($_GET['filter_by']=="month" || $_GET['filter_by']=="year" || $_GET['filter_by']=="custom") {
                 $tanggal_awal = $_GET['tgl_awal'];
                 $tanggal_akhir = $_GET['tgl_akhir'];
                 $param = "filter_by=".$_GET['filter_by']."&tgl_awal=".$tanggal_awal."&tgl_akhir=".$tanggal_akhir;
-                $query = $connect->query("SELECT no_regist_keluar,tgl_keluar,pegawai.nama as nm_pegawai, nm_instansi_penerima,tlk.status as status FROM trx_logistik_keluar tlk JOIN pegawai ON tlk.id_pegawai=pegawai.id_pegawai JOIN instansi_penerima ON tlk.id_instansi_penerima=instansi_penerima.id_instansi_penerima WHERE tgl_keluar BETWEEN '$tanggal_awal' AND '$tanggal_akhir'");
+                $query = $connect->query("SELECT * FROM v_tlk WHERE tgl_keluar BETWEEN '$tanggal_awal' AND '$tanggal_akhir'");
             }
         }else{
-            $query = $connect->query("SELECT no_regist_keluar,tgl_keluar,pegawai.nama as nm_pegawai, nm_instansi_penerima,tlk.status as status FROM trx_logistik_keluar tlk JOIN pegawai ON tlk.id_pegawai=pegawai.id_pegawai JOIN instansi_penerima ON tlk.id_instansi_penerima=instansi_penerima.id_instansi_penerima");
+            $query = $connect->query("SELECT * FROM v_tlk");
         }
 		$no = 1;
 		foreach($query as $data){
 		?>
-		<?php
-			
-			$query2 = $connect->query("SELECT * FROM trx_logistik_keluar JOIN pegawai ON trx_logistik_keluar.id_pegawai=pegawai.id_pegawai JOIN instansi_penerima ON trx_logistik_keluar.id_instansi_penerima=instansi_penerima.id_instansi_penerima WHERE no_regist_keluar='$data[no_regist_keluar]'");
-			foreach ($query2 as $data2) {
-		?>
 		<tr>
 			<td style="text-align: center;"><?php echo $no++."."; ?></td>
-			<td style="text-align: left;padding-left: 5px;"><?php echo $data2['no_regist_keluar']; ?></td>
-			<td style="text-align: left;padding-left: 5px;"><?php echo tgl_indo($data2['tgl_keluar']); ?></td>
-			<td style="text-align: left;padding-left: 5px"><?php echo $data2['nama']; ?></td>
-			<td style="text-align: left;padding-left: 5px"><?php echo $data2['nm_instansi_penerima']; ?></td>
-			<td style="text-align: left;padding-left: 5px"><?php echo $data2['nm_penerima']; ?></td>
-			<td style="text-align: left;padding-left: 5px"><?php echo $data2['nip_penerima']; ?></td>
-			<td style="text-align: right;"><?php echo "Rp. ".number_format($data2['grand_total'],2,',','.'); ?></td>
-			<?php if ($data2['status']==1) {
+			<td style="text-align: left;padding-left: 5px;"><?php echo $data['no_regist_keluar']; ?></td>
+			<td style="text-align: left;padding-left: 5px;"><?php echo tgl_indo($data['tgl_keluar']); ?></td>
+			<td style="text-align: left;padding-left: 5px"><?php echo $data['nama']; ?></td>
+			<td style="text-align: left;padding-left: 5px"><?php echo $data['nm_instansi_penerima']; ?></td>
+			<td style="text-align: left;padding-left: 5px"><?php echo $data['nm_penerima']; ?></td>
+			<td style="text-align: left;padding-left: 5px"><?php echo $data['nip_penerima']; ?></td>
+			<td style="text-align: right;"><?php echo "Rp. ".number_format($data['grand_total'],2,',','.'); ?></td>
+			<?php if ($data['status']==1) {
 			?>
 			<td style="text-align: center;">Selesai</td>
-			<?php } else if($data2['status']==2) { ?>
+			<?php } else if($data['status']==2) { ?>
 			<td style="text-align: center;">Cancel</td>
 			<?php } else { ?>
 			<td style="text-align: center;">Proses</td>
 		<?php } ?>
 		</tr>
 		<?php
-			}
 		}
 		?>
 		

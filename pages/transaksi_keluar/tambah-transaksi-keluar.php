@@ -114,11 +114,25 @@
                             </div>
                             <div class="col-md-6 col-sm-12">
                                 <div class="form-group">
-                                    <label>Penanggung Jawab</label>
-                                    <select name="id_pegawai" class="form-control custom-select2" style="width: 100%" required="">
+                                    <label>Pimpinan IPFK</label>
+                                    <select name="id_pegawai_pimpinan" id="" class="form-control custom-select2">
+                                        <option value="">Pilih</option>
+                                        <?php
+                                        $query_pimpinan = $connect->query("SELECT id_pegawai,nama FROM pegawai WHERE jabatan='Pimpinan' AND status='Aktif'");
+                                        foreach($query_pimpinan as $pimpinan){
+                                            echo "<option value='".$pimpinan['id_pegawai']."'>".$pimpinan['nama']."</option>";
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <div class="form-group">
+                                    <label>Penanggung Jawab Transaksi</label>
+                                    <select name="id_pegawai_pen_jawab" class="form-control custom-select2" style="width: 100%" required="">
                                         <option value="">--Pilih--</option>
                                         <?php
-                                        $query_pegawai = $connect->query("SELECT id_pegawai,nama FROM pegawai");
+                                        $query_pegawai = $connect->query("SELECT id_pegawai,nama FROM pegawai WHERE jabatan='Penanggung Jawab' AND status='Aktif'");
                                         foreach($query_pegawai as $pegawai){
                                         ?>
                                         <option value="<?php echo $pegawai['id_pegawai'] ?>"><?php echo $pegawai['nama']; ?></option>
@@ -126,13 +140,9 @@
                                     </select>
                                 </div>
                             </div>
-                           
-                            <div class="col-md-12">
-                                <hr>
-                            </div>
                             <div class="col-md-6 col-sm-12">
                                 <div class="form-group">
-                                   <label>Instansi</label>
+                                   <label>Instansi Penerima</label>
                                     <select name="id_instansi_penerima" class="form-control custom-select2" style="width: 100%" required="">
                                         <option value="">--Pilih--</option>
                                         <?php
@@ -147,15 +157,14 @@
                             </div>
                             <div class="col-md-6 col-sm-12">
                                 <div class="form-group">
-                                    <label>penerima</label>
+                                    <label>Nama Penerima</label>
                                     <input type="text" name="penerima" id="penerima" class="form-control" value="">
                                 </div>
                             </div>
                             <div class="col-md-6 col-sm-12">
                                 <div class="form-group">
-                                    <label>NIP</label>
-                                    <!-- <div id="divAjaxData"> Digunakan Untuk Menampung Hasil Inputan -->
-                                    <input type="number" name="NIP" id="NIP" class="form-control" value="">
+                                    <label>NIP Penerima</label>
+                                    <input type="text" name="NIP" id="NIP" class="form-control" value="">
                                 </div>
                             </div>
                             <div class="col-md-12">

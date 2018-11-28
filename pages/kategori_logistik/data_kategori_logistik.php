@@ -65,7 +65,7 @@
             <!-- Simple Datatable start -->
             <div class="pd-20 bg-white border-radius-4 box-shadow mb-30">
                 <div class="row">
-                    <button style="margin-left:10px;margin-bottom: 10px;" class="btn btn-primary btn-sm" data-target="#modaladd" data-toggle="modal">Tambah Data</button>
+                    <button style="margin-left:10px;margin-bottom: 10px;" class="btn btn-primary btn-sm" data-target="#modaladd" data-toggle="modal"><i class="fa fa-plus-circle"></i> Tambah Data</button>
                     <div class="col-md-12">
                         <?php
                         if(isset($_GET['delete_stat'])){
@@ -110,12 +110,12 @@
                         }
                         ?>
                     </div>
-                    <table class="data-table stripe hover nowrap">
+                    <table class="data-table stripe hover nowrap table-bordered">
                         <thead>
                         <tr>
-                            <th class="table-plus datatable-nosort">No.</th>
-                            <th class="table-plus datatable-nosort">Nama Kategori</th>
-                            <th class="datatable-nosort">Aksi</th>
+                            <th class="table-plus datatable-nosort" style="text-align: center;width: 3%">No.</th>
+                            <th class="table-plus datatable-nosort" style="text-align: center;">Nama Kategori</th>
+                            <th class="datatable-nosort" style="text-align: center;">Aksi</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -127,7 +127,7 @@
                         <tr>
                             <td><?php echo $no++ ?></td>
                             <td><?php echo $data['nm_kat_logistik'] ?></td>
-                            <td>
+                            <td style="text-align: center;">
                                 <div class="dropdown">
                                     <a class="btn btn-sm btn-outline-primary dropdown-toggle" href="#" role="button" data-toggle="dropdown">
                                         Pilih

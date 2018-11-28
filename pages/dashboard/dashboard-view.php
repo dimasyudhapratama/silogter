@@ -29,7 +29,25 @@ function hitungStokMinimum(){
 				if(isset($_SESSION['user_level'])){
 					if($_SESSION['user_level']=="Admin"){
 				?>
-				
+				<div class="col-lg-4 col-md-6 col-sm-12 mb-30">
+					<div class="bg-white pd-20 box-shadow border-radius-5 height-100-p">
+						<div class="project-info clearfix">
+							<div class="project-info-left">
+								<div class="icon box-shadow bg-blue text-white">
+									<i class="fa fa-user-o"></i>
+								</div>
+							</div>
+							<div class="project-info-right">
+								<p class="weight-400 font-18 text-muted">Pegawai</p>
+								<span class="no text-blue weight-500 font-24"><?php echo hitungRow("id_pegawai","pegawai"); ?></span>
+							</div>
+						</div>
+						<div class="project-info-progress text-center">
+							<a class="btn btn-outline-primary " href="?pages=pegawai">Click To Detail</a>
+							
+						</div>
+					</div>
+				</div>
 				<div class="col-lg-4 col-md-6 col-sm-12 mb-30">
 					<div class="bg-white pd-20 box-shadow border-radius-5 height-100-p">
 						<div class="project-info clearfix">

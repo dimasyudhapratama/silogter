@@ -11,7 +11,7 @@
     if(isset($_POST['simpan'])){
         $nm_supplier = $_POST['nm_supplier'];
         $cp_supplier = $_POST['cp_supplier'];
-        $email_supplier = $_POST['alamat_supplier'];
+        $email_supplier = $_POST['email_supplier'];
         $alamat_supplier = $_POST['alamat_supplier'];
         $query_tambah = $connect->exec("INSERT INTO supplier(nm_supplier,cp_supplier,email_supplier,alamat_supplier) VALUES ('$nm_supplier','$cp_supplier','$email_supplier','$alamat_supplier')");
         if($query_tambah == TRUE){
@@ -25,7 +25,7 @@
         $id = $_POST['id'];
         $nm_supplier = $_POST['nm_supplier'];
         $cp_supplier = $_POST['cp_supplier'];
-        $email_supplier = $_POST['alamat_supplier'];
+        $email_supplier = $_POST['email_supplier'];
         $alamat_supplier = $_POST['alamat_supplier'];
         $query_edit = $connect->exec("UPDATE supplier SET nm_supplier='$nm_supplier', cp_supplier='$cp_supplier',email_supplier='$email_supplier',alamat_supplier='$alamat_supplier' WHERE id_supplier='$id'");
         if($query_edit == TRUE){
@@ -43,7 +43,7 @@
             $.ajax({
                 url: "pages/supplier/edit-supplier.php",
                 type: "POST",
-                data : {id: m,},
+                data : {id: m},
                 success: function (ajaxData){
                     $("#data-edit").html(ajaxData);
                 }
@@ -72,7 +72,7 @@
             <!-- Simple Datatable start -->
             <div class="pd-20 bg-white border-radius-4 box-shadow mb-30">
                 <div class="row">
-                    <button style="margin-left:10px;margin-bottom: 10px;" class="btn btn-primary btn-sm" data-target="#modaladd" data-toggle="modal">Tambah Data</button>
+                    <button style="margin-left:10px;margin-bottom: 10px;" class="btn btn-primary btn-sm" data-target="#modaladd" data-toggle="modal"><i class="fa fa-plus-circle"></i> Tambah Data</button>
                     <div class="col-md-12">
                         <?php
                         if(isset($_GET['delete_stat'])){
@@ -117,15 +117,15 @@
                         }
                         ?>
                     </div>
-                    <table class="data-table stripe hover nowrap">
+                    <table class="data-table stripe hover nowrap table-bordered">
                         <thead>
                         <tr>
-                            <th class="table-plus datatable-nosort">No.</th>
-                            <th class="table-plus datatable-nosort">Nama Supplier</th>
-                            <th class="table-plus datatable-nosort">CP Supplier</th>
-                            <th class="table-plus datatable-nosort">Email Supplier</th>
-                            <th class="table-plus datatable-nosort">Alamat Supplier</th>
-                            <th class="datatable-nosort">Aksi</th>
+                            <th class="table-plus datatable-nosort" style="text-align: center;">No.</th>
+                            <th class="table-plus datatable-nosort" style="text-align: center;">Nama Supplier</th>
+                            <th class="table-plus datatable-nosort" style="text-align: center;">CP Supplier</th>
+                            <th class="table-plus datatable-nosort" style="text-align: center;">Email Supplier</th>
+                            <th class="table-plus datatable-nosort" style="text-align: center;">Alamat Supplier</th>
+                            <th class="datatable-nosort" style="text-align: center;">Aksi</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -135,12 +135,12 @@
                         foreach($query as $data){
                         ?>
                         <tr>
-                            <td><?php echo $no++ ?></td>
+                            <td><?php echo $no++."." ?></td>
                             <td><?php echo $data['nm_supplier'] ?></td>
                             <td><?php echo $data['cp_supplier']; ?></td>
                             <td><?php echo $data['email_supplier']; ?></td>
                             <td><?php echo $data['alamat_supplier']; ?></td>
-                            <td>
+                            <td style="text-align: center;">
                                 <div class="dropdown">
                                     <a class="btn btn-sm btn-outline-primary dropdown-toggle" href="#" role="button" data-toggle="dropdown">
                                         Pilih
@@ -177,18 +177,20 @@
                                     <label>Nama Supplier</label>
                                     <input type="text" name="nm_supplier" class="form-control" required="">
                                 </div>
-                                <div class="form-group">
-                                    <label>Email Supplier</label>
-                                    <input type="text" name="email_supplier" class="form-control" required="">
-                                </div>
-                                
                             </div>
                             <div class="col-md-6 col-sm-12">
                                 <div class="form-group ">
                                     <label>CP Supplier</label>
-                                    <input type="text" name="cp_supplier" class="form-control" required="">
+                                    <input type="number" name="cp_supplier" class="form-control" required="">
                                 </div>
-                                
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <div class="form-group">
+                                    <label>Email Supplier</label>
+                                    <input type="email" name="email_supplier" class="form-control" required="">
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-12">
                                 <div class="form-group">
                                     <label>Alamat Supplier</label>
                                     <textarea class="form-control" name="alamat_supplier" required=""></textarea>

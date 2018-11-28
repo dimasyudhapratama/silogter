@@ -88,8 +88,8 @@
             <!-- Simple Datatable start -->
             <div class="pd-20 bg-white border-radius-4 box-shadow mb-30">
                 <div class="row">
-                    <button style="margin-left:10px;margin-bottom: 10px;" class="btn btn-primary btn-sm" data-target="#modaladd" data-toggle="modal">Tambah Data</button>
-                     <button style="margin-left:10px;margin-bottom: 10px;" class="btn btn-success btn-sm" data-target="#modalfilter" data-toggle="modal">Filter</button>
+                    <button style="margin-left:10px;margin-bottom: 10px;" class="btn btn-primary btn-sm" data-target="#modaladd" data-toggle="modal"><i class="fa fa-plus-circle"></i> Tambah Data</button>
+                     <button style="margin-left:10px;margin-bottom: 10px;" class="btn btn-success btn-sm" data-target="#modalfilter" data-toggle="modal"><i class="fa fa-filter"></i> Filter</button>
                     <div class="col-md-12">
                         <?php
                         if(isset($_GET['delete_stat'])){
@@ -134,15 +134,15 @@
                         }
                         ?>
                     </div>
-                    <table class="data-table stripe hover nowrap">
+                    <table class="data-table stripe hover nowrap table-bordered">
                         <thead>
                         <tr>
-                            <th class="table-plus datatable-nosort">No.</th>
-                            <th class="table-plus ">Nama</th>
-                            <th class="table-plus">Kategori</th>
-                            <th class="table-plus datatable-nosort">Stok</th>
-                            <th class="table-plus datatable-nosort">Satuan</th>
-                            <th class="datatable-nosort">Aksi</th>
+                            <th class="table-plus datatable-nosort" style="text-align: center;width:7%">No.</th>
+                            <th class="table-plus " style="text-align: center;">Nama</th>
+                            <th class="table-plus" style="text-align: center;">Kategori</th>
+                            <th class="table-plus datatable-nosort" style="text-align: center;">Stok</th>
+                            <th class="table-plus datatable-nosort" style="text-align: center;">Satuan</th>
+                            <th class="datatable-nosort" style="text-align: center;">Aksi</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -161,18 +161,18 @@
                         foreach($query_logistik as $ql){
                         ?>
                         <tr>
-                            <td><?php echo $no++ ?></td>
+                            <td><?php echo $no++."." ?></td>
                             <td><?php echo $ql['nm_logistik'] ?></td>
                             <td><?php echo $ql['nm_kat_logistik']; ?></td>
                             <td><?php echo $ql['stok'] ?></td>
                             <td><?php echo $ql['satuan']; ?></td>
-                            <td>
+                            <td style="text-align: center;">
                                 <div class="dropdown">
                                     <a class="btn btn-sm btn-outline-primary dropdown-toggle" href="#" role="button" data-toggle="dropdown">
                                         Pilih
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-right">
-                                        <a class="dropdown-item click-detail" id="<?php echo $ql['id_logistik'] ?>" href="#" data-toggle="modal" data-target="#modaldetail"><i class="fa fa-pencil"></i> Detail</a>
+                                        <a class="dropdown-item click-detail" id="<?php echo $ql['id_logistik'] ?>" href="#" data-toggle="modal" data-target="#modaldetail"><i class="fa fa-book"></i> Detail</a>
                                         <a class="dropdown-item click-edit" id="<?php echo $ql['id_logistik'] ?>" href="#" data-toggle="modal" data-target="#modaledit"><i class="fa fa-pencil"></i> Edit</a>
                                         <a class="dropdown-item" href="?pages=supplier&delete=<?php echo $ql['id_supplier'] ?>"><i class="fa fa-trash"></i> Delete</a>
                                     </div>

@@ -25,7 +25,7 @@
 							<li><a href="?pages=pegawai">Pegawai</a></li>
 							<li><a href="?pages=supplier">Supplier</a></li>
 							<li><a href="?pages=instansi_penerima">Instansi Penerima</a></li>
-							<li><a href="?pages=anggaran">Anggaran</a></li>
+							<li><a href="?pages=anggaran">Asal Anggaran</a></li>
 							<li><a href="?pages=kategori_logistik">Kategori Logistik</a></li>
 							<li><a href="?pages=logistik">Logistik</a></li>
 							<li><a href="?pages=master_bantuan">FAQ/Bantuan</a></li>
@@ -51,7 +51,7 @@
                 	?>
                     <li>
                     	<a href="?pages=laporan" class="dropdown-toggle no-arrow">
-                    		<span class="fa fa-book"></span><span class="mtext">Laporan</span>
+                    		<span class="fa fa-book"></span><span class="mtext">Laporan Stok</span>
                     	</a>
                     </li>
                     <?php 

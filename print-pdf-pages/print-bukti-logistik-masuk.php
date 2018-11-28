@@ -22,7 +22,7 @@ ob_start();
 </h5>
 <?php
 //Query Untuk Menampilkan Isi Table Logistik Masuk
-$query = $connect->query("SELECT * FROM trx_logistik_masuk tlm JOIN supplier ON tlm.id_supplier=supplier.id_supplier WHERE no_regist_masuk='$no_regist_masuk'");
+$query = $connect->query("SELECT * FROM v_tlm WHERE no_regist_masuk='$no_regist_masuk'");
 foreach ($query as $data) {
 	$tgl_regist = date("d-m-Y",strtotime($data['tgl_regist']));
 ?>
@@ -81,7 +81,7 @@ foreach($query2 as $data2){
 	</tr>
 	<tr>
 		<?php
-		$query3 = $connect->query("SELECT nama as nm_pegawai,nip FROM pegawai WHERE jabatan='pimpinan' AND status='Aktif'");
+		$query3 = $connect->query("SELECT nama as nm_pegawai,nip FROM trx_logistik_masuk tlm JOIN pegawai ON tlm.id_pegawai_pimpinan=pegawai.id_pegawai WHERE no_regist_masuk='$no_regist_masuk'");
 		foreach($query3 as $data3){
 			$nip_pimpinan = $data3['nip'];
 		?>
@@ -89,7 +89,7 @@ foreach($query2 as $data2){
 		<?php } ?>
 		<td rowspan="3"></td>
 		<?php
-		$query4 = $connect->query("SELECT nama as nm_pegawai,nip FROM trx_logistik_masuk tlm JOIN pegawai ON tlm.id_pegawai=pegawai.id_pegawai WHERE no_regist_masuk='$no_regist_masuk'");
+		$query4 = $connect->query("SELECT nama as nm_pegawai,nip FROM trx_logistik_masuk tlm JOIN pegawai ON tlm.id_pegawai_pen_jawab=pegawai.id_pegawai WHERE no_regist_masuk='$no_regist_masuk'");
 		foreach($query4 as $data4){
 			$nip_penanggung_jawab = $data4['nip'];
 		?>

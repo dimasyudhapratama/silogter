@@ -5,7 +5,8 @@ include '../../config/koneksi.php';
 if (isset($_POST['simpan'])) {
 	$tgl_regist = $_POST['tgl_regist'];
 	$id_instansi_penerima = $_POST['id_instansi_penerima'];
-	$id_pegawai = $_POST['id_pegawai'];
+	$id_pegawai_pimpinan = $_POST['id_pegawai_pimpinan'];
+	$id_pegawai_pen_jawab = $_POST['id_pegawai_pen_jawab'];
     $nm_penerima = $_POST['penerima'];
     $nip_penerima = $_POST['NIP'];
 
@@ -33,7 +34,7 @@ if (isset($_POST['simpan'])) {
 
 	
  	//Query Tabel Transaksi keluar
-	$query_transaksi_keluar = $connect->prepare("INSERT INTO trx_logistik_keluar VALUES ('$id','$tgl_regist','$id_pegawai','$id_instansi_penerima','$nm_penerima','$nip_penerima','0','0')");
+	$query_transaksi_keluar = $connect->prepare("INSERT INTO trx_logistik_keluar VALUES ('$id','$tgl_regist','$id_pegawai_pimpinan','$id_pegawai_pen_jawab','$id_instansi_penerima','$nm_penerima','$nip_penerima','0','0')");
 	$query_transaksi_keluar->execute();
 	//Load Data Cart -> Insert Ke Tabel Detail Transaksi keluar & Mengurangi Stok Di Tabel Logistik
 	$cart = unserialize(serialize($_SESSION['cart_keluar']));

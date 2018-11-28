@@ -20,7 +20,7 @@
             <!-- Form grid Start -->
                 <div class="pd-20 bg-white border-radius-4 box-shadow mb-30">
                         <?php
-                            $query = $connect->query("SELECT * FROM trx_logistik_masuk tlm JOIN pegawai ON tlm.id_pegawai=pegawai.id_pegawai JOIN supplier ON tlm.id_supplier=supplier.id_supplier WHERE no_regist_masuk='$_GET[val]'");
+                            $query = $connect->query("SELECT * FROM v_tlm WHERE no_regist_masuk='$_GET[val]'");
                             foreach($query as $data){
                                 $tgl_regist = $data['tgl_regist'];
                                 $tgl = substr($tgl_regist,8,2);
@@ -32,31 +32,37 @@
                             <div class="col-md-6 col-sm-12">
                                 <div class="form-group">
                                     <label>No. Registrasi</label>
-                                    <input type="text" name="no_regist_masuk" class="form-control" value="<?php echo $_GET['val'] ?>" readonly="">
+                                    <input type="text" name="no_regist_masuk" class="form-control-plaintext" value="<?php echo $_GET['val'] ?>" readonly>
                                 </div>
                             </div>
                             <div class="col-md-6 col-sm-12">
                                 <div class="form-group">
                                     <label>Tanggal</label>
-                                    <input type="text" class="form-control" name="tgl_regist" value="<?php echo $tgl_indo ?>" readonly="">
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-sm-12">
-                                <div class="form-group">
-                                    <label>Penanggung Jawab</label>
-                                    <input type="text" class="form-control" name="id_pegawai" value="<?php echo $data['nama'] ?>" readonly="">
+                                    <input type="text" class="form-control-plaintext" name="tgl_regist" value="<?php echo $tgl_indo ?>" readonly>
                                 </div>
                             </div>
                             <div class="col-md-6 col-sm-12">
                                 <div class="form-group">
                                     <label>Supplier</label>
-                                    <input type="text" class="form-control" name="supplier" value="<?php echo $data['nm_supplier'] ?>" readonly="">
+                                    <input type="text" class="form-control-plaintext" name="supplier" value="<?php echo $data['nm_supplier'] ?>" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <div class="form-group">
+                                    <label for="">Kepala Instansi</label>
+                                    <input type="text" class="form-control-plaintext" name="id_pegawai_pimpinan" value="<?php echo $data['nama_pimpinan'] ?>">
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <div class="form-group">
+                                    <label>Penanggung Jawab</label>
+                                    <input type="text" class="form-control-plaintext" name="id_pegawai_pen_jawab" value="<?php echo $data['nama_penanggung_jawab'] ?>" readonly>
                                 </div>
                             </div>
                             <div class="col-md-6 col-sm-12">
                                 <div class="form-group">
                                     <label>Jumlah Belanja</label>
-                                    <input type="text" class="form-control" name="jml" value="<?php echo "Rp. ".number_format($data['grand_total'],2,',','.') ?>" readonly="">
+                                    <input type="text" class="form-control-plaintext" name="jml" value="<?php echo "Rp. ".number_format($data['grand_total'],2,',','.') ?>" readonly>
                                 </div>
                             </div>
                             <div class="col-md-12">

@@ -5,7 +5,8 @@ include '../../config/koneksi.php';
 if (isset($_POST['simpan'])) {
 	$tgl_regist = $_POST['tgl_regist'];
 	$id_supplier = $_POST['id_supplier'];
-	$id_pegawai = $_POST['id_pegawai'];
+	$id_pegawai_pimpinan = $_POST['id_pegawai_pimpinan'];
+	$id_pegawai_pen_jawab = $_POST['id_pegawai_pen_jawab'];
 
 	$tabel = "trx_logistik_masuk";
 	$kolom = "no_regist_masuk";
@@ -31,7 +32,7 @@ if (isset($_POST['simpan'])) {
 
 	
 	//Query Tabel Transaksi Masuk
-	$query_transaksi_masuk = $connect->prepare("INSERT INTO trx_logistik_masuk VALUES ('$id','$tgl_regist','$id_supplier','$id_pegawai','0','0')");
+	$query_transaksi_masuk = $connect->prepare("INSERT INTO trx_logistik_masuk VALUES ('$id','$tgl_regist','$id_supplier','$id_pegawai_pimpinan','$id_pegawai_pen_jawab','0','0')");
 	$query_transaksi_masuk->execute();
 
 	//Load Data Cart -> Insert Ke Tabel Detail Transaksi Masuk & Menambah Stok Di Tabel Logistik

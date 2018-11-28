@@ -72,7 +72,7 @@
             <!-- Simple Datatable start -->
             <div class="pd-20 bg-white border-radius-4 box-shadow mb-30">
                 <div class="row">
-                    <button style="margin-left:10px;margin-bottom: 10px;" class="btn btn-primary btn-sm" data-target="#modaladd" data-toggle="modal">Tambah Data</button>
+                    <button style="margin-left:10px;margin-bottom: 10px;" class="btn btn-primary btn-sm" data-target="#modaladd" data-toggle="modal"><i class="fa fa-plus-circle"></i> Tambah Data</button>
                     <div class="col-md-12">
                         <?php
                         if(isset($_GET['delete_stat'])){
@@ -117,16 +117,15 @@
                         }
                         ?>
                     </div>
-                    <table class="data-table stripe hover nowrap">
+                    <table class="data-table stripe hover nowrap table-bordered">
                         <thead>
                         <tr>
-                            <th class="table-plus datatable-nosort">No.</th>
-                            <!-- <th class="table-plus datatable-nosort">Id Instansi Penerima</th> -->
-                            <th class="table-plus datatable-nosort">Nama </th>
-                            <th class="table-plus datatable-nosort">Alamat</th>
-                            <th class="table-plus datatable-nosort">Cp</th>
-                            <th class="table-plus datatable-nosort">Email</th>
-                            <th class="datatable-nosort">Aksi</th>
+                            <th class="table-plus datatable-nosort" style="text-align: center;">No.</th>
+                            <th class="table-plus datatable-nosort" style="text-align: center;">Nama </th>
+                            <th class="table-plus datatable-nosort" style="text-align: center;">Alamat</th>
+                            <th class="table-plus datatable-nosort" style="text-align: center;">Cp</th>
+                            <th class="table-plus datatable-nosort" style="text-align: center;">Email</th>
+                            <th class="datatable-nosort" style="text-align: center;">Aksi</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -136,12 +135,12 @@
                         foreach($query as $data){
                         ?>
                         <tr>
-                            <td><?php echo $no++ ?></td>
+                            <td><?php echo $no++."." ?></td>
                             <td><?php echo $data['nm_instansi_penerima']; ?></td>
                             <td><?php echo $data['alamat_instansi_penerima']; ?></td>
                             <td><?php echo $data['cp_instansi_penerima']; ?></td>
                             <td><?php echo $data['email_instansi_penerima']; ?></td>
-                            <td>
+                            <td style="text-align: center;">
                                 <div class="dropdown">
                                     <a class="btn btn-sm btn-outline-primary dropdown-toggle" href="#" role="button" data-toggle="dropdown">
                                         Pilih
@@ -178,18 +177,20 @@
                                     <label>Nama Instansi Penerima</label>
                                     <input type="text" name="nm_instansi_penerima" class="form-control" required="">
                                 </div>
-                                <div class="form-group">
-                                    <label>Email Instansi Penerima</label>
-                                    <input type="text" name="email_instansi_penerima" class="form-control" required="">
-                                </div>
-                                
                             </div>
                             <div class="col-md-6 col-sm-12">
                                 <div class="form-group ">
                                     <label>CP Instansi Penerima</label>
-                                    <input type="text" name="cp_instansi_penerima" class="form-control" required="">
+                                    <input type="number" name="cp_instansi_penerima" class="form-control" required="">
                                 </div>
-                                
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <div class="form-group">
+                                    <label>Email Instansi Penerima</label>
+                                    <input type="email" name="email_instansi_penerima" class="form-control" required="">
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-12">
                                 <div class="form-group">
                                     <label>Alamat Instansi Penerima</label>
                                     <textarea class="form-control" name="alamat_instansi_penerima" required=""></textarea>

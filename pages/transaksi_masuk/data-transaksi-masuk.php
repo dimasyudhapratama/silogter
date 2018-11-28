@@ -97,31 +97,31 @@
             <div class="pd-20 bg-white border-radius-4 box-shadow mb-30">
                 <div class="row">
                     <?php
-                    if(isset($_SESSION['level'])){
-                        if($_SESSION['level']!="Pimpinan"){
+                    if(isset($_SESSION['user_level'])){
+                        if($_SESSION['user_level']=="Admin" || $_SESSION['user_level']=="Operator"){
                     ?>
-                    <a href="?pages=tambah_transaksi_masuk" style="margin-left: 10px;margin-bottom: 10px;" class="btn btn-primary btn-sm">Tambah Data</a>
+                    <a href="?pages=tambah_transaksi_masuk" style="margin-left: 10px;margin-bottom: 10px;" class="btn btn-primary btn-sm"><i class="fa fa-plus-circle"></i> Tambah Data</a>
                     <?php
                         }
                     }
                     ?>
-                    <button style="margin-left:10px;margin-bottom: 10px;" class="btn btn-success btn-sm" data-target="#modalfilter" data-toggle="modal">Filter</button>
+                    <button style="margin-left:10px;margin-bottom: 10px;" class="btn btn-success btn-sm" data-target="#modalfilter" data-toggle="modal"><i class="fa fa-filter"></i> Filter</button>
                     <?php
                         if(isset($_GET['filter_by'])){
                             if($_GET['filter_by']=="date"){
                                 $param = "filter_by=".$_GET['filter_by']."&tgl=".$_GET['tgl'];
-                                $query = $connect->query("SELECT no_regist_masuk,tgl_regist,nm_supplier,nama as nm_pegawai,trx_logistik_masuk.status FROM trx_logistik_masuk JOIN supplier ON trx_logistik_masuk.id_supplier=supplier.id_supplier JOIN pegawai ON trx_logistik_masuk.id_pegawai=pegawai.id_pegawai WHERE tgl_regist='$_GET[tgl]'");
+                                $query = $connect->query("SELECT * FROM v_tlm WHERE tgl_regist='$_GET[tgl]'");
                             }elseif ($_GET['filter_by']=="month" || $_GET['filter_by']=="year" || $_GET['filter_by']=="custom") {
                                 $tanggal_awal = $_GET['tgl_awal'];
                                 $tanggal_akhir = $_GET['tgl_akhir'];
                                 $param = "filter_by=".$_GET['filter_by']."&tgl_awal=".$tanggal_awal."&tgl_akhir=".$tanggal_akhir;
-                                $query = $connect->query("SELECT no_regist_masuk,tgl_regist,nm_supplier,nama as nm_pegawai,trx_logistik_masuk.status FROM trx_logistik_masuk JOIN supplier ON trx_logistik_masuk.id_supplier=supplier.id_supplier JOIN pegawai ON trx_logistik_masuk.id_pegawai=pegawai.id_pegawai WHERE tgl_regist BETWEEN '$tanggal_awal' AND '$tanggal_akhir'");
+                                $query = $connect->query("SELECT * FROM v_tlm WHERE tgl_regist BETWEEN '$tanggal_awal' AND '$tanggal_akhir'");
                             }
                         }else{
-                            $query = $connect->query("SELECT no_regist_masuk,tgl_regist,nm_supplier,nama as nm_pegawai,trx_logistik_masuk.status FROM trx_logistik_masuk JOIN supplier ON trx_logistik_masuk.id_supplier=supplier.id_supplier JOIN pegawai ON trx_logistik_masuk.id_pegawai=pegawai.id_pegawai");
+                            $query = $connect->query("SELECT * FROM v_tlm");
                         }
                     ?>
-                    <a href="javascript:void(0);" onclick="window.open('print-pdf-pages/print-data-logistik-masuk.php?<?php if(isset($_GET['filter_by'])){echo $param;} ?>','Print','width=1366,height=800,scrollbars=yes,resizeable=no')" style="margin-left: 10px;margin-bottom: 10px;" class="btn btn-warning btn-sm">Print</a>
+                    <a href="javascript:void(0);" onclick="window.open('print-pdf-pages/print-data-logistik-masuk.php?<?php if(isset($_GET['filter_by'])){echo $param;} ?>','Print','width=1366,height=800,scrollbars=yes,resizeable=no')" style="margin-left: 10px;margin-bottom: 10px;" class="btn btn-warning btn-sm"><i class="fa fa-print"></i>Cetak</a>
                     <div class="col-md-12">
                         <?php
                         if(isset($_GET['change_stat'])){
@@ -162,7 +162,7 @@
                             <td><?php echo $data['no_regist_masuk']; ?></td>
                             <td><?php echo date("d-m-Y",strtotime($data['tgl_regist'])); ?></td>
                             <td><?php echo $data['nm_supplier']; ?></td>
-                            <td><?php echo $data['nm_pegawai']; ?></td>
+                            <td><?php echo $data['nama_penanggung_jawab']; ?></td>
                             <td style="text-align: center;">
                                 <?php
                                     if($data['status']==0){

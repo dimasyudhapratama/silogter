@@ -37,12 +37,12 @@
         }else{
             var id = $("#id_logistik").val();
             var qty = parseInt($("#qty").val());
-            var real_stok = parseInt($("#real_stok").val());
+            // var real_stok = parseInt($("#real_stok").val());
 
             $.ajax({
                 url : "pages/transaksi_masuk/add_cart.php",
                 type: "POST",
-                data : {id:id,qty,qty},
+                data : {id:id,qty:qty},
                 success : function(ajaxData){
                     $("#detail_cart").load("pages/transaksi_masuk/detail_cart.php");
                 }
@@ -108,18 +108,6 @@
                                     <label>Tanggal</label>
                                     <input type="date" class="form-control" name="tgl_regist" placeholder="Pilih Tanggal" required="">
                                 </div>
-                                <div class="form-group">
-                                    <label>Penanggung Jawab</label>
-                                    <select name="id_pegawai" class="form-control custom-select2" style="width: 100%" required="">
-                                        <option value="">--Pilih--</option>
-                                        <?php
-                                        $query_pegawai = $connect->query("SELECT id_pegawai,nama FROM pegawai");
-                                        foreach($query_pegawai as $pegawai){
-                                        ?>
-                                        <option value="<?php echo $pegawai['id_pegawai'] ?>"><?php echo $pegawai['nama']; ?></option>
-                                        <?php } ?>
-                                    </select>
-                                </div>
                             </div>
                             <div class="col-md-6 col-sm-12">
                                 <div class="form-group">
@@ -131,6 +119,34 @@
                                         foreach($query_supplier as $supplier){
                                         ?>
                                         <option value="<?php echo $supplier['id_supplier'] ?>"><?php echo $supplier['nm_supplier']; ?></option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <div class="form-group">
+                                    <label for="Pimpinan">Pimpinan</label>
+                                    <select name="id_pegawai_pimpinan" id="" class="form-control custom-select2" style="width:100%">
+                                        <option value="">Pilih</option>
+                                        <?php 
+                                        $query_pimpinan = $connect->query("SELECT id_pegawai,nama FROM pegawai WHERE jabatan='pimpinan' AND status='Aktif'");
+                                        foreach($query_pimpinan as $pimpinan){
+                                            echo "<option value='".$pimpinan['id_pegawai']."'>".$pimpinan['nama']."</option>";
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <div class="form-group">
+                                    <label>Penanggung Jawab</label>
+                                    <select name="id_pegawai_pen_jawab" class="form-control custom-select2" style="width: 100%" required="">
+                                        <option value="">--Pilih--</option>
+                                        <?php
+                                        $query_pegawai = $connect->query("SELECT id_pegawai,nama FROM pegawai WHERE jabatan='Penanggung Jawab' AND status='Aktif'");
+                                        foreach($query_pegawai as $pegawai){
+                                        ?>
+                                        <option value="<?php echo $pegawai['id_pegawai'] ?>"><?php echo $pegawai['nama']; ?></option>
                                         <?php } ?>
                                     </select>
                                 </div>

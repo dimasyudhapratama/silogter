@@ -22,7 +22,7 @@ ob_start();
 </h5>
 <?php
 //Query Untuk Menampilkan Isi Table Logistik Masuk
-$query = $connect->query("SELECT * FROM trx_logistik_keluar tlk JOIN instansi_penerima ip ON tlk.id_instansi_penerima=ip.id_instansi_penerima WHERE no_regist_keluar='$no_regist_keluar'");
+$query = $connect->query("SELECT * FROM v_tlk WHERE no_regist_keluar='$no_regist_keluar'");
 foreach ($query as $data) {
 	$tgl_regist = $data['tgl_keluar'];
 	$tgl_indo = date('d-m-Y',strtotime($tgl_regist));
@@ -84,7 +84,7 @@ foreach($query2 as $data2){
 	</tr>
 	<tr>
 		<?php
-		$query3 = $connect->query("SELECT nama as nm_pegawai,nip FROM pegawai WHERE jabatan='pimpinan' AND status='Aktif'");
+		$query3 = $connect->query("SELECT nama as nm_pegawai,nip,nm_penerima,nip_penerima FROM trx_logistik_keluar tlk JOIN pegawai ON tlk.id_pegawai_pimpinan=pegawai.id_pegawai WHERE no_regist_keluar='$no_regist_keluar'");
 		foreach($query3 as $data3){
 			$nip_pimpinan = $data3['nip'];
 		?>
@@ -92,7 +92,7 @@ foreach($query2 as $data2){
 		<?php } ?>
 		<td rowspan="3"></td>
 		<?php
-		$query4 = $connect->query("SELECT nama as nm_pegawai,nip,nm_penerima,nip_penerima FROM trx_logistik_keluar tlk JOIN pegawai ON tlk.id_pegawai=pegawai.id_pegawai WHERE no_regist_keluar='$no_regist_keluar'");
+		$query4 = $connect->query("SELECT nama as nm_pegawai,nip,nm_penerima,nip_penerima FROM trx_logistik_keluar tlk JOIN pegawai ON tlk.id_pegawai_pen_jawab=pegawai.id_pegawai WHERE no_regist_keluar='$no_regist_keluar'");
 		foreach($query4 as $data4){
 			$nip_penanggung_jawab = $data4['nip'];
 			$nip_penerima = $data4['nip_penerima'];

@@ -100,28 +100,28 @@
                     if(isset($_SESSION['user_level'])){
                         if($_SESSION['user_level']=="Admin" || $_SESSION['user_level']=="Operator"){
                     ?>
-                    <a href="?pages=tambah_transaksi_keluar" style="margin-left: 10px;margin-bottom: 10px;" class="btn btn-primary btn-sm">Tambah Data</a>
+                    <a href="?pages=tambah_transaksi_keluar" style="margin-left: 10px;margin-bottom: 10px;" class="btn btn-primary btn-sm"><i class="fa fa-plus-circle"></i> Tambah Data</a>
                     <?php
                         }
                     }
                     ?>
-                    <button style="margin-left:10px;margin-bottom: 10px;" class="btn btn-success btn-sm" data-target="#modalfilter" data-toggle="modal">Filter</button>
+                    <button style="margin-left:10px;margin-bottom: 10px;" class="btn btn-success btn-sm" data-target="#modalfilter" data-toggle="modal"><i class="fa fa-filter"></i> Filter</button>
                     <?php
                         if(isset($_GET['filter_by'])){
                             if($_GET['filter_by']=="date"){
                                 $param = "filter_by=".$_GET['filter_by']."&tgl=".$_GET['tgl'];
-                                $query = $connect->query("SELECT no_regist_keluar,tgl_keluar,pegawai.nama as nm_pegawai, nm_instansi_penerima,tlk.status as status FROM trx_logistik_keluar tlk JOIN pegawai ON tlk.id_pegawai=pegawai.id_pegawai JOIN instansi_penerima ON tlk.id_instansi_penerima=instansi_penerima.id_instansi_penerima WHERE tgl_keluar='$_GET[tgl]'");
+                                $query = $connect->query("SELECT * FROM v_tlk WHERE tgl_keluar='$_GET[tgl]'");
                             }elseif ($_GET['filter_by']=="month" || $_GET['filter_by']=="year" || $_GET['filter_by']=="custom") {
                                 $tanggal_awal = $_GET['tgl_awal'];
                                 $tanggal_akhir = $_GET['tgl_akhir'];
                                 $param = "filter_by=".$_GET['filter_by']."&tgl_awal=".$tanggal_awal."&tgl_akhir=".$tanggal_akhir;
-                                $query = $connect->query("SELECT no_regist_keluar,tgl_keluar,pegawai.nama as nm_pegawai, nm_instansi_penerima,tlk.status as status FROM trx_logistik_keluar tlk JOIN pegawai ON tlk.id_pegawai=pegawai.id_pegawai JOIN instansi_penerima ON tlk.id_instansi_penerima=instansi_penerima.id_instansi_penerima WHERE tgl_keluar BETWEEN '$tanggal_awal' AND '$tanggal_akhir'");
+                                $query = $connect->query("SELECT * FROM v_tlk WHERE tgl_keluar BETWEEN '$tanggal_awal' AND '$tanggal_akhir'");
                             }
                         }else{
-                            $query = $connect->query("SELECT no_regist_keluar,tgl_keluar,pegawai.nama as nm_pegawai, nm_instansi_penerima,tlk.status as status FROM trx_logistik_keluar tlk JOIN pegawai ON tlk.id_pegawai=pegawai.id_pegawai JOIN instansi_penerima ON tlk.id_instansi_penerima=instansi_penerima.id_instansi_penerima");
+                            $query = $connect->query("SELECT * FROM v_tlk");
                         }
                     ?>
-                    <a href="javascript:void(0);" onclick="window.open('print-pdf-pages/print-data-logistik-keluar.php?<?php if(isset($_GET['filter_by'])){echo $param;} ?>','Print','width=1366,height=800,scrollbars=yes,resizeable=no')" style="margin-left: 10px;margin-bottom: 10px;" class="btn btn-warning btn-sm">Print</a>
+                    <a href="javascript:void(0);" onclick="window.open('print-pdf-pages/print-data-logistik-keluar.php?<?php if(isset($_GET['filter_by'])){echo $param;} ?>','Print','width=1366,height=800,scrollbars=yes,resizeable=no')" style="margin-left: 10px;margin-bottom: 10px;" class="btn btn-warning btn-sm"><i class="fa fa-print"></i> Print</a>
                     <div class="col-md-12">
                         <?php
                         if(isset($_GET['change_stat'])){
@@ -160,7 +160,7 @@
                             <td><?php echo $no++ ?></td>
                             <td><?php echo $data['no_regist_keluar']; ?></td>
                             <td><?php echo $data['tgl_keluar'] ?></td>
-                            <td><?php echo $data['nm_pegawai']; ?></td>
+                            <td><?php echo $data['nm_pen_jawab']; ?></td>
                             <td><?php echo $data['nm_instansi_penerima']; ?></td>
                             <td style="text-align: center;">
                                 <?php
