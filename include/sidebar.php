@@ -28,7 +28,6 @@
 							<li><a href="?pages=anggaran">Asal Anggaran</a></li>
 							<li><a href="?pages=kategori_logistik">Kategori Logistik</a></li>
 							<li><a href="?pages=logistik">Logistik</a></li>
-							<li><a href="?pages=master_bantuan">FAQ/Bantuan</a></li>
 						</ul>
 					</li>
 					<?php
@@ -37,17 +36,16 @@
 				 	?>
                     <li>
                         <a href="?pages=logistik_masuk" class="dropdown-toggle no-arrow">
-                            <span class="fa fa-edit"></span><span class="mtext">Logistik Masuk</span>
+                            <span class="fa fa-edit"></span><span class="mtext">Trx. Logistik Masuk</span>
                         </a>
                     </li>
                     <li>
                         <a href="?pages=logistik_keluar" class="dropdown-toggle no-arrow">
-                            <span class="fa fa-edit"></span><span class="mtext">Logistik Keluar</span>
+                            <span class="fa fa-edit"></span><span class="mtext">Trx. Logistik Keluar</span>
                         </a>
                     </li>
                     <?php
                 	}
-                	if ($_SESSION['user_level']=="Pimpinan" || $_SESSION['user_level']=="Admin") {
                 	?>
                     <li>
                     	<a href="?pages=laporan" class="dropdown-toggle no-arrow">
@@ -55,7 +53,6 @@
                     	</a>
                     </li>
                     <?php 
-                	}
                 	} 
                 	?>
                     <li>

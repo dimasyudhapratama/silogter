@@ -1,10 +1,10 @@
 <?php
     if(isset($_GET['delete'])){
         try{
-            $query_delete = $connect->exec("DELETE FROM supplier WHERE id_supplier='$_GET[delete]'");
-            echo "<script>window.location.href='?pages=supplier&delete_stat=true'</script>";
+            $query_delete = $connect->exec("DELETE FROM logistik WHERE id_logistik='$_GET[delete]'");
+            echo "<script>window.location.href='?pages=logistik&delete_stat=true'</script>";
         }catch(Exception $e){
-            echo "<script>window.location.href='?pages=supplier&delete_stat=false'</script>";
+            echo "<script>window.location.href='?pages=logistik&delete_stat=false'</script>";
         }
     } 
     if(isset($_POST['simpan'])){
@@ -174,7 +174,7 @@
                                     <div class="dropdown-menu dropdown-menu-right">
                                         <a class="dropdown-item click-detail" id="<?php echo $ql['id_logistik'] ?>" href="#" data-toggle="modal" data-target="#modaldetail"><i class="fa fa-book"></i> Detail</a>
                                         <a class="dropdown-item click-edit" id="<?php echo $ql['id_logistik'] ?>" href="#" data-toggle="modal" data-target="#modaledit"><i class="fa fa-pencil"></i> Edit</a>
-                                        <a class="dropdown-item" href="?pages=supplier&delete=<?php echo $ql['id_supplier'] ?>"><i class="fa fa-trash"></i> Delete</a>
+                                        <a class="dropdown-item" onclick="return confirm('Anda Yakin Ingin Menghapus Data?')" href="?pages=logistik&delete=<?php echo $ql['id_logistik'] ?>"><i class="fa fa-trash"></i> Delete</a>
                                     </div>
                                 </div>
                             </td>
@@ -205,7 +205,7 @@
                                     <select name="id_kat_logistik" class="form-control" required="">
                                         <option value="">--Pilih--</option>
                                         <?php
-                                        $query_kat = $connect->query("SELECT * FROM kat_logistik");
+                                        $query_kat = $connect->query("SELECT id_kat_logistik,nm_kat_logistik FROM kat_logistik ORDER BY nm_kat_logistik ASC");
                                         foreach ($query_kat as $data) {
                                         ?>
                                         <option value="<?php echo $data['id_kat_logistik'] ?>"><?php echo  $data['nm_kat_logistik']; ?></option>
@@ -250,7 +250,7 @@
                                     <select name="id_anggaran" class="form-control" required="">
                                         <option value="">--Pilih--</option>
                                         <?php
-                                        $query_anggaran = $connect->query("SELECT * FROM anggaran");
+                                        $query_anggaran = $connect->query("SELECT * FROM anggaran ORDER BY asal_anggaran ASC");
                                         foreach ($query_anggaran as $data) {
                                         ?>
                                         <option value="<?php echo $data['id_anggaran'] ?>"><?php echo $data['asal_anggaran']; ?></option>

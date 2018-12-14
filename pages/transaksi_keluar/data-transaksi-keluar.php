@@ -5,7 +5,7 @@
         //Update Field Status Di Tabel Trx_logistik_keluar
         $query = $connect->prepare("UPDATE trx_logistik_keluar SET status='$change_stat' WHERE no_regist_keluar='$id'");
         $query->execute();
-        if($change_stat==2){//Batalkan Pesanan
+        if($change_stat==1){//Transaksi Selesai
             //Load Berdasarkan ID dari Tabel Detail Logistik Masuk
             $query2 = $connect->prepare("SELECT id_detail_keluar,id_logistik,qty FROM trx_detail_logistik_keluar WHERE no_regist_keluar='$id'");
             $query2->execute();
@@ -14,7 +14,7 @@
                 $query3 = $connect->prepare("SELECT stok FROM logistik WHERE id_logistik='$data2[id_logistik]'");
                 $query3->execute();
                 foreach ($query3 as $data3) {
-                    $new_stok = $data3['stok'] + $data2['qty'];
+                    $new_stok = $data3['stok'] - $data2['qty'];
                 }
                 //Update Stok Logistik
                 $update_stok = $connect->prepare("UPDATE logistik SET stok='$new_stok' WHERE id_logistik='$data2[id_logistik]'");
@@ -110,15 +110,15 @@
                         if(isset($_GET['filter_by'])){
                             if($_GET['filter_by']=="date"){
                                 $param = "filter_by=".$_GET['filter_by']."&tgl=".$_GET['tgl'];
-                                $query = $connect->query("SELECT * FROM v_tlk WHERE tgl_keluar='$_GET[tgl]'");
+                                $query = $connect->query("SELECT * FROM v_tlk WHERE tgl_keluar='$_GET[tgl]' ORDER BY tgl_keluar DESC");
                             }elseif ($_GET['filter_by']=="month" || $_GET['filter_by']=="year" || $_GET['filter_by']=="custom") {
                                 $tanggal_awal = $_GET['tgl_awal'];
                                 $tanggal_akhir = $_GET['tgl_akhir'];
                                 $param = "filter_by=".$_GET['filter_by']."&tgl_awal=".$tanggal_awal."&tgl_akhir=".$tanggal_akhir;
-                                $query = $connect->query("SELECT * FROM v_tlk WHERE tgl_keluar BETWEEN '$tanggal_awal' AND '$tanggal_akhir'");
+                                $query = $connect->query("SELECT * FROM v_tlk WHERE tgl_keluar BETWEEN '$tanggal_awal' AND '$tanggal_akhir' ORDER BY tgl_keluar DESC");
                             }
                         }else{
-                            $query = $connect->query("SELECT * FROM v_tlk");
+                            $query = $connect->query("SELECT * FROM v_tlk ORDER BY tgl_keluar DESC");
                         }
                     ?>
                     <a href="javascript:void(0);" onclick="window.open('print-pdf-pages/print-data-logistik-keluar.php?<?php if(isset($_GET['filter_by'])){echo $param;} ?>','Print','width=1366,height=800,scrollbars=yes,resizeable=no')" style="margin-left: 10px;margin-bottom: 10px;" class="btn btn-warning btn-sm"><i class="fa fa-print"></i> Print</a>
@@ -180,12 +180,13 @@
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-right">
                                         <a class="dropdown-item" href="?pages=detail_transaksi_keluar&val=<?php echo $data['no_regist_keluar'] ?>"><i class="icon-copy fa fa-book" aria-hidden="true"></i> Detail</a>
-                                        <a class="dropdown-item" href="print-pdf-pages/print-bukti-logistik-keluar.php?val=<?php echo $data['no_regist_keluar'] ?>"><i class="icon-copy fa fa-print" aria-hidden="true"></i> Cetak</a>
+                                        <a class="dropdown-item" href="javascript:void(0);" onclick="window.open('print-pdf-pages/print-bukti-logistik-keluar.php?val=<?php echo $data['no_regist_keluar'] ?>','Print','width=1366,height=800,scrollbars=yes,resizeable=no')"><i class="icon-copy fa fa-print" aria-hidden="true"></i> Cetak</a>
                                         <?php
+                                        if($_SESSION['user_level']=="Operator" || $_SESSION['user_level']=="Admin"){
                                         if($data['status']==0){
                                         ?>
                                         <a class="dropdown-item click-change" id="<?php echo $data['no_regist_keluar'] ?>" href="#" data-toggle="modal" data-target="#modalajax"><i class="fa fa-pencil"></i> Ubah Status</a>
-                                        <?php } ?>
+                                        <?php }} ?>
                                     </div>
                                 </div>
                             </td>

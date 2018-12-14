@@ -24,7 +24,6 @@ if (isset($_POST['simpan'])) {
 	if($jml_row==0){
 		$id = $awalan."/1/".$tgl.$bulan.$tahun;
 	}else{
-		// $query = $connect->query("SELECT no_regist_keluar FROM trx_logistik_keluar WHERE substring(no_regist_keluar from 6 for 8)='26102018' ORDER BY no_regist_keluar DESC LIMIT 1");
 		$query = $connect->query("SELECT no_regist_keluar FROM trx_logistik_keluar WHERE tgl_keluar='$tgl_regist' ORDER BY no_regist_keluar DESC LIMIT 1");
 		foreach ($query as $data) {
 			$no = intval(substr($data[0], strlen($awalan."/")))+1;
@@ -51,13 +50,8 @@ if (isset($_POST['simpan'])) {
         $qty = $cart[$i]->qty; // Qty
         $subtotal = $harga*$qty;
         //INSERT Detail Logistik Keluar
-        // $query2 = $connect->prepare("INSERT INTO trx_detail_logistik_keluar VALUES ('','$id','$id_logistik','$harga','$qty','$subtotal')");
         $query2 = $connect->prepare("INSERT INTO trx_detail_logistik_keluar VALUES('','$id','$id_logistik','$harga','$qty','$subtotal')");
         $query2->execute();
-        //Mengurangi Stok Di Tabel Logistik
-        $new_stok = $stok-$qty;
-        $query3= $connect->prepare("UPDATE logistik SET stok='$new_stok' WHERE id_logistik='$id_logistik'");
-        $query3->execute();
 
     }
     //Truncate Cart

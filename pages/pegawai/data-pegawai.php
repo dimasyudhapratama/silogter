@@ -191,7 +191,17 @@ if(isset($_POST['changepassword'])){
         });
     }
 </script>
-
+<script type="text/javascript">
+    function FilterInput(event) {
+        var txt = String.fromCharCode(event.which);
+        var keyCode = ('which' in event) ? event.which : event.keyCode;
+        var ascii = [32,48,49,50,51,52,53,54,55,56,57,8,9,11,127,24,25,26,27];
+        var t = ascii.indexOf(keyCode);
+        if(t==-1){
+            return false;
+        }
+    };
+</script>
 <div class="main-container">
     <div class="pd-ltr-20 customscroll customscroll-10-p height-100-p xs-pd-20-10">
         <div class="min-height-200px">
@@ -271,7 +281,7 @@ if(isset($_POST['changepassword'])){
                         <tbody>
                             <?php
                             $no = 1;
-                            $query = $connect->query("SELECT * FROM pegawai ORDER BY nama,jabatan ");
+                            $query = $connect->query("SELECT * FROM pegawai ORDER BY nama,jabatan");
                             foreach($query as $data){
                                 ?>
                                 <tr>
@@ -291,7 +301,6 @@ if(isset($_POST['changepassword'])){
                                             <?php if($data['jabatan']=="Pimpinan" || $data['jabatan']=="Petugas Gudang"){ ?>
                                             <a class="dropdown-item change-password" onclick="admin_changepassword(<?php echo $data['id_pegawai'] ?>)" href="#" data-toggle="modal" data-target="#modalchangepassword"><i class="fa fa-gear"></i> Ubah Password</a>
                                             <?php } ?>
-                                            <a onclick="return confirm('Anda Yakin Ingin menghapus Data?')" class="dropdown-item" href="?pages=pegawai&delete=<?php echo $data['id_pegawai'] ?>"><i class="fa fa-trash"></i> Delete</a>
                                         </div>
                                     </div>
                                 </td>
@@ -320,7 +329,7 @@ if(isset($_POST['changepassword'])){
                         <div class="col-md-6 ">
                             <div class="form-group">
                                 <label>NIP</label>
-                                <input type="number" name="nip" class="form-control" required="">
+                                <input type="text" name="nip" class="form-control" required="" onkeydown="return FilterInput(event)">
                             </div>
                         </div>
                         <div class="col-md-6 ">
@@ -373,10 +382,6 @@ if(isset($_POST['changepassword'])){
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
                 </div>
                 <div class="modal-body" id="data-detail">
-                </div>
-                <div class="modal-footer">
-                    <button type="reset" class="btn btn-dark">Reset</button>
-                    <button type="simpan" name="edit" class="btn btn-primary">Save changes</button>
                 </div>
             </form>
         </div>

@@ -80,7 +80,7 @@ ob_start();
 			<td style="text-align: center;"><?php echo $no++."."; ?></td>
 			<td style="text-align: left;padding-left: 5px;"><?php echo $data['no_regist_keluar']; ?></td>
 			<td style="text-align: left;padding-left: 5px;"><?php echo tgl_indo($data['tgl_keluar']); ?></td>
-			<td style="text-align: left;padding-left: 5px"><?php echo $data['nama']; ?></td>
+			<td style="text-align: left;padding-left: 5px"><?php echo $data['nm_pen_jawab']; ?></td>
 			<td style="text-align: left;padding-left: 5px"><?php echo $data['nm_instansi_penerima']; ?></td>
 			<td style="text-align: left;padding-left: 5px"><?php echo $data['nm_penerima']; ?></td>
 			<td style="text-align: left;padding-left: 5px"><?php echo $data['nip_penerima']; ?></td>

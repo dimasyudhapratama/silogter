@@ -20,17 +20,7 @@
 				
 
 				<div class="blog-caption">
-					<p>Hal-hal yang mungkin sedikit rumit terkait dengan penggunaan Sistem Informasi Logistik Terpadu(Silogter), Sudah kami siapkan dalam fitur Bantuan/FAQ</p>
-					<hr style="border:1px dashed gray;">
-					<?php
-					$no = 1;
-					$query = $connect->prepare("SELECT pertanyaan,jawaban FROM bantuan");
-					$query->execute();
-					foreach($query as $data){
-					?>
-					<h5 class="mb-10 "><?php echo $no++.". ".$data['pertanyaan']; ?></h5>	
-					<p class="ml-3"><?php echo $data['jawaban']; ?></p>
-					<?php } ?>
+					<p class="font-14">Untuk Memudahkan Pengoperasian Silogter, disediakan dokumentasi penggunaan sistem untuk dijadikan pedoman. Selengkapnya terkait Penggunaan Silogter, Silahkan <a href="print-pdf-pages/user-manual.php" class="text-primary" target="_blank">Klik Disini</a></p>
 				</div>
 			</div>
 		</div>

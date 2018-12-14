@@ -133,7 +133,7 @@
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-right">
                                         <a class="dropdown-item click-edit" id="<?php echo $data['id_anggaran'] ?>" href="#" data-toggle="modal" data-target="#modaledit"><i class="fa fa-pencil"></i> Edit</a>
-                                        <a class="dropdown-item" href="?pages=anggaran&delete=<?php echo $data['id_anggaran'] ?>"><i class="fa fa-trash"></i> Delete</a>
+                                        <a class="dropdown-item" onclick="return confirm('Anda Yakin Ingin Menghapus Data?')" href="?pages=anggaran&delete=<?php echo $data['id_anggaran'] ?>"><i class="fa fa-trash"></i> Delete</a>
                                     </div>
                                 </div>
                             </td>

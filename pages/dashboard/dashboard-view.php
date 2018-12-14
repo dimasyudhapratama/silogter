@@ -42,7 +42,7 @@ function hitungStokMinimum(){
 								<span class="no text-blue weight-500 font-24"><?php echo hitungRow("id_pegawai","pegawai"); ?></span>
 							</div>
 						</div>
-						<div class="project-info-progress text-center">
+						<div class="project-info-progress text-right">
 							<a class="btn btn-outline-primary " href="?pages=pegawai">Click To Detail</a>
 							
 						</div>
@@ -61,7 +61,7 @@ function hitungStokMinimum(){
 								<span class="no text-blue weight-500 font-24"><?php echo hitungRow("id_supplier","supplier"); ?></span>
 							</div>
 						</div>
-						<div class="project-info-progress text-center">
+						<div class="project-info-progress text-right">
 							<a class="btn btn-outline-primary " href="?pages=supplier">Click To Detail</a>
 							
 						</div>
@@ -80,7 +80,7 @@ function hitungStokMinimum(){
 								<span class="no text-blue weight-500 font-24"><?php echo hitungRow("id_instansi_penerima","instansi_penerima"); ?></span>
 							</div>
 						</div>
-						<div class="project-info-progress text-center">
+						<div class="project-info-progress text-right">
 							<a class="btn btn-outline-primary " href="?pages=instansi_penerima">Click To Detail</a>
 							
 						</div>
@@ -99,7 +99,7 @@ function hitungStokMinimum(){
 								<span class="no text-blue weight-500 font-24"><?php echo hitungRow("id_kat_logistik","kat_logistik"); ?></span>
 							</div>
 						</div>
-						<div class="project-info-progress text-center">
+						<div class="project-info-progress text-right">
 							<a class="btn btn-outline-primary " href="?pages=kategori_logistik">Click To Detail</a>
 							
 						</div>
@@ -118,7 +118,7 @@ function hitungStokMinimum(){
 								<span class="no text-blue weight-500 font-24"><?php echo hitungRow("id_logistik","logistik"); ?></span>
 							</div>
 						</div>
-						<div class="project-info-progress text-center">
+						<div class="project-info-progress text-right">
 							<a class="btn btn-outline-primary " href="?pages=logistik">Click To Detail</a>
 							
 						</div>
@@ -140,7 +140,7 @@ function hitungStokMinimum(){
 								<span class="no text-blue weight-500 font-24"><?php echo hitungRow("no_regist_masuk","trx_logistik_masuk"); ?></span>
 							</div>
 						</div>
-						<div class="project-info-progress text-center">
+						<div class="project-info-progress text-right">
 							<a class="btn btn-outline-primary " href="?pages=logistik_masuk">Click To Detail</a>
 							
 						</div>
@@ -159,7 +159,7 @@ function hitungStokMinimum(){
 								<span class="no text-blue weight-500 font-24"><?php echo hitungRow("no_regist_keluar","trx_logistik_keluar"); ?></span>
 							</div>
 						</div>
-						<div class="project-info-progress text-center">
+						<div class="project-info-progress text-right">
 							<a class="btn btn-outline-primary " href="?pages=logistik_keluar">Click To Detail</a>
 							
 						</div>
@@ -181,7 +181,7 @@ function hitungStokMinimum(){
 								<span class="no text-blue weight-500 font-24"><?php echo hitungStokMinimum(); ?></span>
 							</div>
 						</div>
-						<div class="project-info-progress text-center">
+						<div class="project-info-progress text-right">
 							<a class="btn btn-outline-primary " href="?pages=laporan">Click To Detail</a>
 							
 						</div>

@@ -57,7 +57,7 @@ foreach ($query as $temp) {
       <div class="form-group">
         <label>Status</label>
         <select name="status_pegawai" class="form-control" required="">
-          <option value="">--Pilih--</option>
+          <option value="" disabled>--Pilih--</option>
           <option value="Aktif" <?php if($temp['status_pegawai']=="Aktif"){echo "selected";} ?>>Aktif</option>
           <option value="Non Aktif" <?php if($temp['status_pegawai']=="Non Aktif"){echo "selected";} ?>>Non Aktif</option>
         </select>
@@ -101,7 +101,7 @@ foreach ($query as $temp) {
         <div class="form-group">
             <label>Level</label>
             <select name="level" id="level" class="form-control" required="">
-                <option value="">--Pilih--</option>
+                <option value="" disabled>--Pilih--</option>
                 <option value="Admin" <?php if($temp['level_user']=="Admin"){echo "Selected";} ?>>Admin</option>
                 <option value="Operator" <?php if($temp['level_user']=="Operator"){echo "Selected";} ?>>Operator</option>
             </select>

@@ -198,14 +198,6 @@
                                     <button type="button" class="btn btn-xs btn-outline-primary form-control" onclick="addCart()"><i class="icon-copy fa fa-plus-square" aria-hidden="true"></i></button>
                                 </div>
                             </div>
-                            <div class="col-md-12 col-sm-12">
-                                <div class="form-group">
-                                    <center>
-                                        <input type="submit" name="simpan" value="Simpan" class="btn btn-primary btn-xs" onclick="return confirm('Anda Yakin Sudah Mengisi Data Dengan Benar ?')">    
-                                    </center>
-                                    
-                                </div>
-                            </div>
                             <div class="col-md-12">
                                 <hr>
                                 <table class="table strip hover nowrap">
@@ -221,6 +213,14 @@
                                         
                                     </tbody>
                                 </table>
+                            </div>
+                            <div class="col-md-12 col-sm-12">
+                                <div class="form-group">
+                                    <center>
+                                        <input type="submit" name="simpan" value="Simpan" class="btn btn-primary btn-xs" onclick="return confirm('Anda Yakin Sudah Mengisi Data Dengan Benar ?')">    
+                                    </center>
+                                    
+                                </div>
                             </div>
                         </div>
                         

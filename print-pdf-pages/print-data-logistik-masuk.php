@@ -61,7 +61,7 @@ ob_start();
 			if(isset($_GET['filter_by'])){
                 if($_GET['filter_by']=="date"){
                     $param = "filter_by=".$_GET['filter_by']."&tgl=".$_GET['tgl'];
-                    $query = $connect->query("SELECT SELECT * FROM v_tlm WHERE tgl_regist='$_GET[tgl]'");
+                    $query = $connect->query("SELECT * FROM v_tlm WHERE tgl_regist='$_GET[tgl]'");
                 }elseif ($_GET['filter_by']=="month" || $_GET['filter_by']=="year" || $_GET['filter_by']=="custom") {
                     $tanggal_awal = $_GET['tgl_awal'];
                     $tanggal_akhir = $_GET['tgl_akhir'];

@@ -63,7 +63,15 @@
             }
         });
     }
-    
+    function FilterInput(event) {
+        var txt = String.fromCharCode(event.which);
+        var keyCode = ('which' in event) ? event.which : event.keyCode;
+        var ascii = [32,48,49,50,51,52,53,54,55,56,57,8,9,11,127,24,25,26,27];
+        var t = ascii.indexOf(keyCode);
+        if(t==-1){
+            return false;
+        }
+    };
 </script>
 <div class="main-container">
     <div class="pd-ltr-20 customscroll customscroll-10-p height-100-p xs-pd-20-10">
@@ -91,12 +99,12 @@
                             <div class="col-md-12 col-sm-12">
                                 <?php
                                 if(isset($_GET['add_stat'])){
-                                    if($_GET['add_stat']==true) {
+                                    if($_GET['add_stat']=='true') {
                                         echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>Data Berhasil Ditambahkan
                                         <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
                                             <span aria-hidden='true'>&times;</span>
                                         </button></div>";
-                                    }else if($_GET['add_stat']==false){
+                                    }else if($_GET['add_stat']=='false'){
                                         echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>Data Gagal Ditambahkan
                                         <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
                                             <span aria-hidden='true'>&times;</span>
@@ -115,10 +123,10 @@
                             <div class="col-md-6 col-sm-12">
                                 <div class="form-group">
                                     <label>Pimpinan IPFK</label>
-                                    <select name="id_pegawai_pimpinan" id="" class="form-control custom-select2">
-                                        <option value="">Pilih</option>
+                                    <select name="id_pegawai_pimpinan" id="" class="form-control custom-select2" style="width: 100%" required="">
+                                        <option value="">--Pilih--</option>
                                         <?php
-                                        $query_pimpinan = $connect->query("SELECT id_pegawai,nama FROM pegawai WHERE jabatan='Pimpinan' AND status='Aktif'");
+                                        $query_pimpinan = $connect->query("SELECT id_pegawai,nama FROM pegawai WHERE jabatan='Pimpinan' AND status='Aktif' ORDER BY nama ASC");
                                         foreach($query_pimpinan as $pimpinan){
                                             echo "<option value='".$pimpinan['id_pegawai']."'>".$pimpinan['nama']."</option>";
                                         }
@@ -132,7 +140,7 @@
                                     <select name="id_pegawai_pen_jawab" class="form-control custom-select2" style="width: 100%" required="">
                                         <option value="">--Pilih--</option>
                                         <?php
-                                        $query_pegawai = $connect->query("SELECT id_pegawai,nama FROM pegawai WHERE jabatan='Penanggung Jawab' AND status='Aktif'");
+                                        $query_pegawai = $connect->query("SELECT id_pegawai,nama FROM pegawai WHERE jabatan='Penanggung Jawab' AND status='Aktif' ORDER BY nama ASC");
                                         foreach($query_pegawai as $pegawai){
                                         ?>
                                         <option value="<?php echo $pegawai['id_pegawai'] ?>"><?php echo $pegawai['nama']; ?></option>
@@ -146,10 +154,9 @@
                                     <select name="id_instansi_penerima" class="form-control custom-select2" style="width: 100%" required="">
                                         <option value="">--Pilih--</option>
                                         <?php
-                                        $query_instansi_penerima = $connect->query("SELECT id_instansi_penerima,nm_instansi_penerima FROM instansi_penerima");
+                                        $query_instansi_penerima = $connect->query("SELECT id_instansi_penerima,nm_instansi_penerima FROM instansi_penerima ORDER BY nm_instansi_penerima ASC");
                                         foreach($query_instansi_penerima as $ip){
                                         ?>
-                                        <!-- <option value="<?php echo $ip['id_instansi_penerima'] ?>"><?php echo $ip['nm_instansi_penerima'];?></option> -->
                                         <option value="<?php echo $ip['id_instansi_penerima'] ?>"><?php echo $ip['nm_instansi_penerima'] ?></option>
                                         <?php } ?>
                                     </select>
@@ -164,7 +171,7 @@
                             <div class="col-md-6 col-sm-12">
                                 <div class="form-group">
                                     <label>NIP Penerima</label>
-                                    <input type="text" name="NIP" id="NIP" class="form-control" value="">
+                                    <input type="text" name="NIP" id="NIP" class="form-control" value="" onkeydown="return FilterInput(event)">
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -177,7 +184,7 @@
                                     <select name="id_kat_logistik" id="id_kat_logistik" class="form-control custom-select2" style="width: 100%" required="">
                                         <option value="">--Pilih--</option>
                                         <?php
-                                        $query_kat_logistik = $connect->query("SELECT * FROM kat_logistik");
+                                        $query_kat_logistik = $connect->query("SELECT * FROM kat_logistik ORDER BY nm_kat_logistik ASC");
                                         foreach($query_kat_logistik as $kat){
                                         ?>
                                         <option value="<?php echo $kat['id_kat_logistik'] ?>"><?php echo $kat['nm_kat_logistik']; ?></option>
@@ -208,21 +215,13 @@
                                     <input type="text" name="qty" id="qty" class="form-control" value="">
                                 </div>
                             </div>
-                            <div class="col-md-1 col-sm-12">
+                            <div class="col-md-1 col-sm-3">
                                 <div class="form-group">
                                     <label>&nbsp;</label>
                                     <button type="button" class="btn btn-xs btn-outline-primary form-control" onclick="addCart()"><i class="icon-copy fa fa-plus-square" aria-hidden="true"></i></button>
                                 </div>
                             </div>
-                            <div class="col-md-12 col-sm-12">
-                                <div class="form-group">
-                                    <center>
-                                        <input type="submit" name="simpan" value="Simpan" class="btn btn-primary btn-xs" onclick="return confirm('Anda Yakin Sudah Mengisi Data Dengan Benar ?')">    
-                                    </center>
-                                    
-                                </div>
-                            </div>
-                            <div class="col-md-12">
+                            <div class="col-md-8">
                                 <hr>
                                 <table class="table strip hover nowrap">
                                     <thead>
@@ -237,6 +236,14 @@
                                         
                                     </tbody>
                                 </table>
+                            </div>
+                            <div class="col-md-12 col-sm-12">
+                                <div class="form-group">
+                                    <center>
+                                        <input type="submit" name="simpan" value="Simpan" class="btn btn-primary btn-xs" onclick="return confirm('Anda Yakin Sudah Mengisi Data Dengan Benar ?')">    
+                                    </center>
+                                    
+                                </div>
                             </div>
                         </div>
                         

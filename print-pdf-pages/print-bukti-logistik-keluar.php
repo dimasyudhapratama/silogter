@@ -31,7 +31,7 @@ foreach ($query as $data) {
 	<tr>
 		<td>Penerima : </td>
 		<td><?php echo $data['nm_penerima']; ?></td>
-		<td style="width: 350px;"></td>
+		<td style="width: 200px;"></td>
 		<td>Tanggal : </td>
 		<td><?php echo $tgl_indo; ?></td>
 	</tr>
@@ -44,11 +44,6 @@ foreach ($query as $data) {
 </table>
 <?php } ?>
 <br>
-<?php 
-$query2 = $connect->query("SELECT * FROM trx_detail_logistik_keluar tdlk JOIN logistik ON tdlk.id_logistik=logistik.id_logistik JOIN anggaran ON logistik.id_anggaran=anggaran.id_anggaran WHERE no_regist_keluar='$no_regist_keluar' ");
-$no = 1;
-foreach($query2 as $data2){
-?>
 <table border="1" style="border-collapse: collapse;">
 	<tr>
 		<td style="text-align: center;">No.</td>
@@ -59,6 +54,11 @@ foreach($query2 as $data2){
 		<td style="text-align: center;">Jumlah Harga</td>
 		<td style="text-align: center;">KET/ETD</td>
 	</tr>
+<?php 
+$query2 = $connect->query("SELECT * FROM trx_detail_logistik_keluar tdlk JOIN logistik ON tdlk.id_logistik=logistik.id_logistik JOIN anggaran ON logistik.id_anggaran=anggaran.id_anggaran WHERE no_regist_keluar='$no_regist_keluar' ");
+$no = 1;
+foreach($query2 as $data2){
+?>	
 	<tr>
 		<td><?php echo $no++; ?> </td>
 		<td><?php echo $data2['nm_logistik']; ?></td>
@@ -68,15 +68,15 @@ foreach($query2 as $data2){
 		<td><?php echo $data2['subtotal']; ?></td>
 		<td><?php echo $data2['asal_anggaran']; ?></td>
 	</tr>
-</table>
 <?php } ?>
+</table>
 <p style="text-align: right;">Lumajang, <?php echo $tgl_indo; ?></p>
 <table align="center">
 	<tr>
 		<td style="text-align: center;">Kepala Instansi</td>
-		<td width="150px;"></td>
+		<td width="50px;"></td>
 		<td style="text-align: center;">Yang Menyerahkan</td>
-		<td width="150px;"></td>
+		<td width="50px;"></td>
 		<td style="text-align: center">Penerima</td>
 	</tr>
 	<tr style="">

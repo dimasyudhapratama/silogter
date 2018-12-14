@@ -147,7 +147,7 @@
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-right">
                                         <a class="dropdown-item click-edit" id="<?php echo $data['id_instansi_penerima'] ?>" href="#" data-toggle="modal" data-target="#modaledit"><i class="fa fa-pencil"></i> Edit</a>
-                                        <a class="dropdown-item" href="?pages=instansi_penerima&delete=<?php echo $data['id_instansi_penerima'] ?>"><i class="fa fa-trash"></i> Delete</a>
+                                        <a class="dropdown-item" href="?pages=instansi_penerima&delete=<?php echo $data['id_instansi_penerima'] ?>" onclick="return confirm('Anda Yakin Menghapus Data?')"><i class="fa fa-trash"></i> Delete</a>
                                     </div>
                                 </div>
                             </td>
