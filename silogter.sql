@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 28, 2018 at 06:47 AM
+-- Generation Time: Dec 14, 2018 at 11:02 AM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 5.5.34
 
@@ -36,8 +36,11 @@ CREATE TABLE `anggaran` (
 --
 
 INSERT INTO `anggaran` (`id_anggaran`, `asal_anggaran`) VALUES
-(22, 'Prov. Jawa Timur'),
-(23, 'aassdsds');
+(25, 'DAK 17'),
+(26, 'DAK 16'),
+(27, 'Prop 18'),
+(28, 'APBD II-16'),
+(29, 'JKN 14');
 
 -- --------------------------------------------------------
 
@@ -59,7 +62,7 @@ INSERT INTO `bantuan` (`id_bantuan`, `pertanyaan`, `jawaban`) VALUES
 (1, 'TES', 'Lorem ipsum dolor sit amet'),
 (2, 'zzzzzzzzzzzzz', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore'),
 (3, 'zzzzzzzzzzzz', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'),
-(4, 'zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz', 'zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz');
+(4, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\n                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\n                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\n                            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\n                            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\n                            proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\n                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\n                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\n                            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\n                            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\n                            proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\n                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\n                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\n                            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\n                            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\n                            proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\n                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\n                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\n                            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\n                            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\n                            proident, sunt in culpa qui officia deserunt mollit anim id est laborum.');
 
 -- --------------------------------------------------------
 
@@ -80,9 +83,8 @@ CREATE TABLE `instansi_penerima` (
 --
 
 INSERT INTO `instansi_penerima` (`id_instansi_penerima`, `nm_instansi_penerima`, `alamat_instansi_penerima`, `cp_instansi_penerima`, `email_instansi_penerima`) VALUES
-(1, 'Puskesmas Kec. Lumajang', 'Jl. Semeru No. 3 Lumajang', '334100222', 'ddd@gm.com'),
-(2, 'Puskemas Desa Krai Kec. Yosowi', 'asasasass', '0823219001', 'zx@c.c'),
-(3, 'puskesmas testz', 'asasasdadasdasdsadasd', '0829291222', 'sa@as.comn');
+(1, 'Puskesmas Kec. Lumajang', 'Kec. Lumajang', '081000000000', 'puskesmas@test.com'),
+(2, 'Puskesmas Kec. Yosowilangun', 'Jl. Raya Psar Yosowilangun', '082311200', 'test@test.com');
 
 -- --------------------------------------------------------
 
@@ -106,7 +108,11 @@ INSERT INTO `kat_logistik` (`id_kat_logistik`, `nm_kat_logistik`) VALUES
 (30, 'Reagen'),
 (31, 'Obat Program Tb Paru'),
 (32, 'Obat Program Kusta'),
-(33, 'Obat Program Imunisasi');
+(33, 'Obat Program Imunisasi'),
+(34, 'BMHP'),
+(35, 'Obat Program HIV'),
+(36, 'Obat Program Gizi'),
+(37, 'Obat Program Jiwa');
 
 -- --------------------------------------------------------
 
@@ -130,15 +136,8 @@ CREATE TABLE `logistik` (
 --
 
 INSERT INTO `logistik` (`id_logistik`, `id_kat_logistik`, `nm_logistik`, `stok`, `minimal_stok`, `satuan`, `harga_satuan`, `id_anggaran`) VALUES
-(3, 27, 'S', 10382, 0, 'Botol', 10000, 22),
-(4, 28, 'aasassssfffg', 0, 0, 'Botol', 3, 23),
-(5, 27, 'zxxx', 900, 0, 'Botol', 11121222, 22),
-(6, 28, 'Pinicyln', 500, 0, 'Tablet', 10000, 22),
-(7, 27, 'Oke', 0, 0, 'Botol', 1222, 22),
-(8, 27, 'zx', 0, 0, 'Botol', 12, 23),
-(9, 27, 'z', 0, 100, 'Botol', 10000, 22),
-(10, 29, 'Obat Gigi 1', 0, 100, 'Botol', 1000, 22),
-(11, 29, 'Obat Gigi 2', 0, 111, 'Botol', 1, 22);
+(1, 37, 'Alprazolam 0,5 mg', 10800, 200, 'Tablet', 1000, 25),
+(2, 37, 'Amitriplin 25mg', 10600, 200, 'Tablet', 2000, 26);
 
 -- --------------------------------------------------------
 
@@ -160,13 +159,9 @@ CREATE TABLE `pegawai` (
 
 INSERT INTO `pegawai` (`id_pegawai`, `nip`, `nama`, `jabatan`, `status`) VALUES
 (1, '192919', 'Dimas Yudha Pratama', 'Petugas Gudang', 'Aktif'),
-(8, '1220002', 'jainuri', 'Petugas Gudang', 'Aktif'),
-(42, '11', 'a', 'Pimpinan', 'Non Aktif'),
-(43, 'a', 'anjir', 'Pimpinan', 'Non Aktif'),
-(44, '111', 'dani', 'Pimpinan', 'Aktif'),
-(45, '1111', 'test_pj', 'Penanggung Jawab', 'Aktif'),
-(46, '1212', 'test_pg_admin', 'Petugas Gudang', 'Aktif'),
-(47, '121212222222', 'test_pg_op', 'Petugas Gudang', 'Aktif');
+(48, '19630411 199203 2 005', 'Dra. Tri Musyarofah, Apt', 'Pimpinan', 'Aktif'),
+(49, '19861009 200604 2 003', 'Nur Latifah', 'Penanggung Jawab', 'Aktif'),
+(50, '1212 12121', 'Dani', 'Petugas Gudang', 'Aktif');
 
 -- --------------------------------------------------------
 
@@ -187,8 +182,7 @@ CREATE TABLE `supplier` (
 --
 
 INSERT INTO `supplier` (`id_supplier`, `nm_supplier`, `cp_supplier`, `email_supplier`, `alamat_supplier`) VALUES
-(3, 'zxzx', 'zxzx', 'zxzxzxz', 'zxzxzxz'),
-(8, 'Indofarma', '0823111', 'a@a.com', 'aaa');
+(1, 'PT. Indofarma Abadi', '0334211222', 'cs@indofarma.com', 'Jl. Bumi Negara 12 Bandung');
 
 -- --------------------------------------------------------
 
@@ -210,7 +204,12 @@ CREATE TABLE `trx_detail_logistik_keluar` (
 --
 
 INSERT INTO `trx_detail_logistik_keluar` (`id_detail_keluar`, `no_regist_keluar`, `id_logistik`, `harga`, `qty`, `subtotal`) VALUES
-(1, 'BM/1/23112018', 3, 10000, 100, 1000000);
+(1, 'BM/1/08122018', 1, 1000, 100, 100000),
+(2, 'BM/1/11122018', 1, 1000, 1000, 1000000),
+(3, 'BM/2/11122018', 1, 1000, 100, 100000),
+(4, 'BM/2/11122018', 2, 2000, 200, 400000),
+(5, 'BM/1/12122018', 1, 1000, 100, 100000),
+(6, 'BM/1/12122018', 2, 2000, 300, 600000);
 
 -- --------------------------------------------------------
 
@@ -232,7 +231,13 @@ CREATE TABLE `trx_detail_logistik_masuk` (
 --
 
 INSERT INTO `trx_detail_logistik_masuk` (`id_detail_masuk`, `no_regist_masuk`, `id_logistik`, `harga`, `qty`, `subtotal`) VALUES
-(3, 'BM/1/23112018', 3, 10000, 1, 10000);
+(1, 'BM/1/08122018', 1, 1000, 1000, 1000000),
+(2, 'BM/2/08122018', 1, 1000, 1000, 1000000),
+(3, 'BM/2/08122018', 2, 2000, 1000, 2000000),
+(4, 'BM/1/03012018', 1, 1000, 10000, 10000000),
+(5, 'BM/1/03012018', 2, 2000, 10000, 20000000),
+(6, 'BM/1/12122018', 1, 1000, 100, 100000),
+(7, 'BM/1/12122018', 2, 2000, 100, 200000);
 
 -- --------------------------------------------------------
 
@@ -247,7 +252,7 @@ CREATE TABLE `trx_logistik_keluar` (
   `id_pegawai_pen_jawab` int(3) NOT NULL,
   `id_instansi_penerima` int(2) NOT NULL,
   `nm_penerima` varchar(30) NOT NULL,
-  `nip_penerima` varchar(15) NOT NULL,
+  `nip_penerima` varchar(30) NOT NULL,
   `grand_total` int(11) NOT NULL,
   `status` enum('0','1','2') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -257,7 +262,10 @@ CREATE TABLE `trx_logistik_keluar` (
 --
 
 INSERT INTO `trx_logistik_keluar` (`no_regist_keluar`, `tgl_keluar`, `id_pegawai_pimpinan`, `id_pegawai_pen_jawab`, `id_instansi_penerima`, `nm_penerima`, `nip_penerima`, `grand_total`, `status`) VALUES
-('BM/1/23112018', '2018-11-23', 42, 43, 1, 'a', '1212', 1000000, '0');
+('BM/1/08122018', '2018-12-08', 48, 49, 1, 'tes', '19861009 200604 2\n003 ', 100000, '0'),
+('BM/1/11122018', '2018-12-11', 48, 49, 1, 'asa', '112', 1000000, '0'),
+('BM/1/12122018', '2018-12-12', 48, 49, 1, 'Ali', '1212 1212 12121 122', 700000, '1'),
+('BM/2/11122018', '2018-12-11', 48, 49, 1, 'ALI', '12121', 500000, '0');
 
 -- --------------------------------------------------------
 
@@ -280,7 +288,10 @@ CREATE TABLE `trx_logistik_masuk` (
 --
 
 INSERT INTO `trx_logistik_masuk` (`no_regist_masuk`, `tgl_regist`, `id_supplier`, `id_pegawai_pimpinan`, `id_pegawai_pen_jawab`, `grand_total`, `status`) VALUES
-('BM/1/23112018', '2018-11-23', 3, 42, 43, 10000, '0');
+('BM/1/03012018', '2018-01-03', 1, 48, 49, 30000000, '0'),
+('BM/1/08122018', '2018-12-08', 1, 48, 49, 1000000, '1'),
+('BM/1/12122018', '2018-12-12', 1, 48, 49, 300000, '1'),
+('BM/2/08122018', '2018-12-08', 1, 48, 49, 3000000, '1');
 
 -- --------------------------------------------------------
 
@@ -303,11 +314,8 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id_user`, `id_pegawai`, `username`, `password`, `level`, `status`) VALUES
 (1, 1, 'dypo', '$2y$10$RKFmTJyV4AJx4MEZGgMBKeqSpndBB1tGfs1Z5GxmuN2vltiZqXPkC', 'Admin', 'Aktif'),
-(36, 42, 'a', '$2y$10$/z5Bz3zjT3ano4M0JBPvaeE5U6khaeWbilx/GatMKAu4bfyA.mE3G', 'Pimpinan', 'Aktif'),
-(38, 43, 'test', '', 'Pimpinan', 'Aktif'),
-(39, 44, 'dani', '$2y$10$R1M2xG22ETVXs4ikq7r.AOGc7/V3JaWLGd0hr4sk9Ypq5yZ0apCSe', 'Pimpinan', 'Aktif'),
-(40, 46, 'test_pg_admin', '$2y$10$a.KhnGyFec9nouZuQDlnDOr1MR3dXQXGVOHq5Ws46eMwwwPxOVo3G', 'Admin', 'Aktif'),
-(42, 47, 'test_pg_op', '$2y$10$IikG0wSk336fO.ELLGpJfuD0wBfn5Yc3NvjthasVQFJD5HutlcOY2', 'Operator', 'Aktif');
+(43, 48, 'tri1', '$2y$10$pmKjPUkZQg8feCKv2DL/MeI4Do/puioHzE9dkncaG9cgLsAvU/6ai', 'Pimpinan', 'Aktif'),
+(44, 50, 'dani', '$2y$10$Qs1jHVfgd71O27kg/qArwuRq1LbV/xhFoxdCJbpHhWA4aPAMxxGpa', 'Operator', 'Aktif');
 
 -- --------------------------------------------------------
 
@@ -321,7 +329,7 @@ CREATE TABLE `v_tlk` (
 ,`nm_pen_jawab` varchar(30)
 ,`nm_instansi_penerima` varchar(50)
 ,`nm_penerima` varchar(30)
-,`nip_penerima` varchar(15)
+,`nip_penerima` varchar(30)
 ,`grand_total` int(11)
 ,`status` enum('0','1','2')
 );
@@ -457,7 +465,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `anggaran`
 --
 ALTER TABLE `anggaran`
-  MODIFY `id_anggaran` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id_anggaran` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 --
 -- AUTO_INCREMENT for table `bantuan`
 --
@@ -467,42 +475,42 @@ ALTER TABLE `bantuan`
 -- AUTO_INCREMENT for table `instansi_penerima`
 --
 ALTER TABLE `instansi_penerima`
-  MODIFY `id_instansi_penerima` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_instansi_penerima` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `kat_logistik`
 --
 ALTER TABLE `kat_logistik`
-  MODIFY `id_kat_logistik` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id_kat_logistik` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 --
 -- AUTO_INCREMENT for table `logistik`
 --
 ALTER TABLE `logistik`
-  MODIFY `id_logistik` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_logistik` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `pegawai`
 --
 ALTER TABLE `pegawai`
-  MODIFY `id_pegawai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `id_pegawai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 --
 -- AUTO_INCREMENT for table `supplier`
 --
 ALTER TABLE `supplier`
-  MODIFY `id_supplier` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_supplier` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `trx_detail_logistik_keluar`
 --
 ALTER TABLE `trx_detail_logistik_keluar`
-  MODIFY `id_detail_keluar` int(13) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_detail_keluar` int(13) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `trx_detail_logistik_masuk`
 --
 ALTER TABLE `trx_detail_logistik_masuk`
-  MODIFY `id_detail_masuk` int(13) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_detail_masuk` int(13) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 --
 -- Constraints for dumped tables
 --
@@ -532,14 +540,16 @@ ALTER TABLE `trx_detail_logistik_masuk`
 --
 ALTER TABLE `trx_logistik_keluar`
   ADD CONSTRAINT `trx_logistik_keluar_ibfk_1` FOREIGN KEY (`id_instansi_penerima`) REFERENCES `instansi_penerima` (`id_instansi_penerima`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `trx_logistik_keluar_ibfk_2` FOREIGN KEY (`id_pegawai_pen_jawab`) REFERENCES `pegawai` (`id_pegawai`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `trx_logistik_keluar_ibfk_2` FOREIGN KEY (`id_pegawai_pen_jawab`) REFERENCES `pegawai` (`id_pegawai`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `trx_logistik_keluar_ibfk_3` FOREIGN KEY (`id_pegawai_pimpinan`) REFERENCES `pegawai` (`id_pegawai`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `trx_logistik_masuk`
 --
 ALTER TABLE `trx_logistik_masuk`
   ADD CONSTRAINT `trx_logistik_masuk_ibfk_1` FOREIGN KEY (`id_supplier`) REFERENCES `supplier` (`id_supplier`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `trx_logistik_masuk_ibfk_2` FOREIGN KEY (`id_pegawai_pen_jawab`) REFERENCES `pegawai` (`id_pegawai`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `trx_logistik_masuk_ibfk_2` FOREIGN KEY (`id_pegawai_pen_jawab`) REFERENCES `pegawai` (`id_pegawai`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `trx_logistik_masuk_ibfk_3` FOREIGN KEY (`id_pegawai_pimpinan`) REFERENCES `pegawai` (`id_pegawai`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `user`
