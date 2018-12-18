@@ -122,6 +122,7 @@ if(isset($_POST['changepassword'])){
     }
 }
 ?>
+<!-- //pilih jabatan kalau berubah  pindah ke tambah user -->
 <script src="src/jquery.js"></script>
 <script type="text/javascript">
     $(document).ready(function(){
@@ -390,7 +391,7 @@ if(isset($_POST['changepassword'])){
 <div class="modal fade" id="modaledit" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
-            <!-- <form method="POST" name="edit-pegawai" action="?pages=pegawai&editdata"> -->
+            <form method="POST" name="edit-pegawai" action="?pages=pegawai&editdata">
             <form method="POST" name="edit-pegawai" action="pages/pegawai/test-edit.php">
                 <div class="modal-header">
                     <h4 class="modal-title" id="myLargeModalLabel">Edit Data Pegawai</h4>
