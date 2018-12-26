@@ -181,7 +181,7 @@
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-right">
                                         <a class="dropdown-item" href="?pages=detail_transaksi_masuk&val=<?php echo $data['no_regist_masuk'] ?>"><i class="icon-copy fa fa-book" aria-hidden="true"></i> Detail</a>
-                                        <a class="dropdown-item" href="javascript:void(0);" onclick="window.open('print-pdf-pages/print-bukti-logistik-masuk.php?val=<?php echo $data['no_regist_masuk'] ?>','Print','width=1366,height=800,scrollbars=yes,resizeable=no')" style="margin-left: 10px;margin-bottom: 10px;"><i class="icon-copy fa fa-print" aria-hidden="true"></i> Cetak</a>
+                                        <a class="dropdown-item" href="javascript:void(0);" onclick="window.open('print-pdf-pages/print-bukti-logistik-masuk.php?val=<?php echo $data['no_regist_masuk'] ?>','Print','width=1366,height=800,scrollbars=yes,resizeable=no')"><i class="icon-copy fa fa-print" aria-hidden="true"></i> Cetak</a>
                                         <?php
                                         if($_SESSION['user_level']=="Operator" || $_SESSION['user_level']=="Admin"){
                                         if($data['status']==0){

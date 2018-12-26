@@ -161,7 +161,7 @@
                                     <select name="id_kat_logistik" id="id_kat_logistik" class="form-control custom-select2" style="width: 100%" required="">
                                         <option value="">--Pilih--</option>
                                         <?php
-                                        $query_kat_logistik = $connect->query("SELECT * FROM kat_logistik");
+                                        $query_kat_logistik = $connect->query("SELECT * FROM kat_logistik ORDER by nm_kat_logistik ASC");
                                         foreach($query_kat_logistik as $kat){
                                         ?>
                                         <option value="<?php echo $kat['id_kat_logistik'] ?>"><?php echo $kat['nm_kat_logistik']; ?></option>

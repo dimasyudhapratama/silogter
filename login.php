@@ -1,6 +1,9 @@
 <?php
 session_start();
 include 'config/koneksi.php';
+if(isset($_SESSION['user_level'])){
+    header("location:index.php");
+}
 if(isset($_POST['Submit'])){
 	$username = $_POST['usernamez'];
 	$password = $_POST['passwordz'];
@@ -19,7 +22,6 @@ if(isset($_POST['Submit'])){
 		}
 	}
 	if($query->rowCount()==0){
-		// echo "<script>window.location.href='loginz.php?error</script>";	
 		header("location:login.php?errorlogin");
 	}
 	
@@ -50,13 +52,13 @@ if(isset($_POST['Submit'])){
 			?>
 			<form method="POST" action="">
 				<div class="input-group custom input-group-lg">
-					<input type="text" name="usernamez" class="form-control" placeholder="Username">
+					<input type="text" name="usernamez" class="form-control" placeholder="Username" required="">
 					<div class="input-group-append custom">
 						<span class="input-group-text"><i class="fa fa-user" aria-hidden="true"></i></span>
 					</div>
 				</div>
 				<div class="input-group custom input-group-lg">
-					<input type="password" name="passwordz" class="form-control" placeholder="**********">
+					<input type="password" name="passwordz" class="form-control" placeholder="**********" required="">
 					<div class="input-group-append custom">
 						<span class="input-group-text"><i class="fa fa-lock" aria-hidden="true"></i></span>
 					</div>

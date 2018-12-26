@@ -14,14 +14,14 @@ foreach ($query as $data) {
             </div>
             <div class="form-group">
                 <label>Email Supplier</label>
-                <input type="text" name="email_supplier" class="form-control" required="" value="<?php echo $data['email_supplier'] ?>">
+                <input type="email" name="email_supplier" class="form-control" required="" value="<?php echo $data['email_supplier'] ?>">
             </div>
             
         </div>
         <div class="col-md-6 col-sm-12">
             <div class="form-group ">
                 <label>CP Supplier</label>
-                <input type="text" name="cp_supplier" class="form-control" required="" value="<?php echo $data['cp_supplier'] ?>">
+                <input type="number" name="cp_supplier" class="form-control" required="" value="<?php echo $data['cp_supplier'] ?>">
             </div>
             
             <div class="form-group">
