@@ -34,7 +34,7 @@
                             <th class="table-plus td-center">Nama Logistik</th>
                             <th class="table-plus datatable-nosort td-center">Batas Stok</th>
                             <th class="table-plus datatable-nosort td-center">Real Stok</th>
-                            <th class="table-plus datatable-nosort td-center">Asal Anggaran</th>
+                            <th>Aksi</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -42,12 +42,12 @@
                         $no = 1;
                         if(isset($_GET['filter_by'])){
                             if($_GET['filter_by']=="1"){
-                                $query = $connect->query("SELECT * FROM logistik JOIN kat_logistik ON logistik.id_kat_logistik=kat_logistik.id_kat_logistik JOIN anggaran ON logistik.id_anggaran=anggaran.id_anggaran");    
+                                $query = $connect->query("SELECT * FROM logistik JOIN kat_logistik ON logistik.id_kat_logistik=kat_logistik.id_kat_logistik ");    
                             }else if($_GET['filter_by']=="2"){
-                                $query = $connect->query("SELECT * FROM logistik JOIN kat_logistik ON logistik.id_kat_logistik=kat_logistik.id_kat_logistik JOIN anggaran ON logistik.id_anggaran=anggaran.id_anggaran WHERE minimal_stok>=stok");
+                                $query = $connect->query("SELECT * FROM logistik JOIN kat_logistik ON logistik.id_kat_logistik=kat_logistik.id_kat_logistik WHERE minimal_stok>=stok");
                             }
                         }else{
-                            $query = $connect->query("SELECT * FROM logistik JOIN kat_logistik ON logistik.id_kat_logistik=kat_logistik.id_kat_logistik JOIN anggaran ON logistik.id_anggaran=anggaran.id_anggaran");
+                            $query = $connect->query("SELECT * FROM logistik JOIN kat_logistik ON logistik.id_kat_logistik=kat_logistik.id_kat_logistik");
                         }
                         
                         foreach($query as $data){
@@ -58,7 +58,7 @@
                             <td class="td-center"><?php echo $data['nm_logistik']; ?></td>
                             <td class="td-center"><?php echo $data['minimal_stok']; ?></td>
                             <td class="td-center"><?php echo $data['stok']; ?></td>
-                            <td class="td-center"><?php echo $data['asal_anggaran']; ?></td>
+                            <td class="td-center"><a href="?pages=detail-laporan&id_logistik=<?php echo $data['id_logistik'] ?>" class="btn btn-sm btn-primary"><i class="icon-copy fa fa-eye" aria-hidden="true"></i> Detail</a></td>
                         </tr>
                         <?php } ?>
                         </tbody>

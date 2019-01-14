@@ -6,11 +6,11 @@
         $query = $connect->prepare("UPDATE trx_logistik_keluar SET status='$change_stat' WHERE no_regist_keluar='$id'");
         $query->execute();
         if($change_stat==1){//Transaksi Selesai
-            //Load Berdasarkan ID dari Tabel Detail Logistik Masuk
-            $query2 = $connect->prepare("SELECT id_detail_keluar,id_logistik,qty FROM trx_detail_logistik_keluar WHERE no_regist_keluar='$id'");
+            //Load Berdasarkan ID dari Tabel Detail Keluar
+            $query2 = $connect->prepare("SELECT tdlk.id_detail_logistik,dl.id_logistik,qty FROM trx_detail_logistik_keluar tdlk JOIN detail_logistik dl ON tdlk.id_detail_logistik=dl.id_detail_logistik ");
             $query2->execute();
-            foreach ($query2 as $data2) {
-                //Ambil Stok Sekarang Di Tabel Logistik
+            foreach($query2 as $data2){ //Menampilkan id_detail_logistik dan qty
+                //Memproses Untuk Mengurangi Stok Pada Tabel Logistik
                 $query3 = $connect->prepare("SELECT stok FROM logistik WHERE id_logistik='$data2[id_logistik]'");
                 $query3->execute();
                 foreach ($query3 as $data3) {
@@ -19,7 +19,27 @@
                 //Update Stok Logistik
                 $update_stok = $connect->prepare("UPDATE logistik SET stok='$new_stok' WHERE id_logistik='$data2[id_logistik]'");
                 $update_stok->execute();
+                //Memproses Untuk Mengurangi Stok Pada Detail Logistik
+                $query4 = $connect->prepare("SELECT id_logistik,jml_detail_stok FROM detail_logistik WHERE id_detail_logistik='$data2[id_detail_logistik]'");
+                $query4->execute();
+                foreach($query4 as $data4){
+                    $new_detail_stok = $data4['jml_detail_stok'] - $data2['qty'];
+                }
+                //Update Detail Stok
+                $update_detail_stok = $connect->prepare("UPDATE detail_logistik SET jml_detail_stok='$new_detail_stok' WHERE id_detail_logistik='$data2[id_detail_logistik]'");
+                $update_detail_stok->execute();
             }
+            // foreach ($query2 as $data2) {
+            //     //Ambil Stok Sekarang Di Tabel Logistik
+            //     $query3 = $connect->prepare("SELECT stok FROM logistik WHERE id_logistik='$data2[id_logistik]'");
+            //     $query3->execute();
+            //     foreach ($query3 as $data3) {
+            //         $new_stok = $data3['stok'] - $data2['qty'];
+            //     }
+            //     //Update Stok Logistik
+            //     $update_stok = $connect->prepare("UPDATE logistik SET stok='$new_stok' WHERE id_logistik='$data2[id_logistik]'");
+            //     $update_stok->execute();
+            // }
         }
         if($query==TRUE){
             echo "<script>window.location.href='?pages=logistik_keluar&change_stat=true'</script>";

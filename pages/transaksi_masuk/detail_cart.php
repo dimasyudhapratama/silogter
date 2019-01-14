@@ -9,19 +9,20 @@
       $total = 0;
       for($i=0;$i<count($cart);$i++){
       $id = $cart[$i]->id;
-      $query = $connect->query("SELECT nm_logistik,harga_satuan FROM logistik WHERE id_logistik='$id'");
+      $query = $connect->query("SELECT nm_logistik FROM logistik WHERE id_logistik='$id'");
       foreach($query as $data){
             $nama[$i] = $data['nm_logistik'];
-            $harga[$i] = $data['harga_satuan'];
-            $total += $harga[$i] * $cart[$i]->qty;
+            $total += $cart[$i]->harga * $cart[$i]->qty;
       }
       ?>
       <tr>
             <td><?php echo $no++; ?></td>
             <td><?php echo $nama[$i]; ?></td>
-            <td><?php echo "Rp. ".number_format($harga[$i],2,',','.'); ?></td>
+            <td><?php echo $cart[$i]->asal_anggaran ?></td>
+            <td><?php echo $cart[$i]->exp_date ?></td>
             <td><?php echo $cart[$i]->qty; ?></td>
-            <td><?php echo "Rp. ".number_format($data['harga_satuan']*$cart[$i]->qty,2,',','.'); ?></td>
+            <td><?php echo "Rp.".number_format($cart[$i]->harga,'2',',','.'); ?></td>
+            <td><?php echo "Rp. ".number_format($cart[$i]->harga * $cart[$i]->qty,2,',','.'); ?></td>
             <td><button type="button" onclick="deleteCart(<?php echo $index ?>)" class="btn btn-sm btn-outline-danger"><i class="icon-copy fa fa-trash-o" aria-hidden="true"></i></button></td>
       </tr>
 
@@ -30,6 +31,6 @@
       } 
 ?>
       <tr>
-            <td colspan="4">Grand Total</td>
+            <td colspan="6" style="text-align:center;">Grand Total</td>
             <td><?php echo "Rp. ".number_format($total,2,',','.'); ?></td>
       </tr>

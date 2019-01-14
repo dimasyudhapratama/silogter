@@ -17,32 +17,20 @@
 
         });
     });
-    $(document).ready(function (){
-        $("#id_logistik").change(function(e){
-            var id = $(this).val();
-            $.ajax({
-                url : "pages/transaksi_masuk/getDataLogistik.php",
-                type: "POST",
-                data : {id_logistik: id},
-                success: function(ajaxData){
-                    $("#divAjaxData").html(ajaxData);
-                }
-            });
-
-        });
-    });
     function addCart(){
-        if($("#id_logistik").val()=="" || $("#qty").val()==""){
+        if($("#id_logistik").val()=="" || $("#harga").val()=="" || $("#qty").val()=="" 
+        || $("#id_anggaran").val()=="" || $("#exp_date").val()==""){
             return alert("Lengkapi Data");
         }else{
             var id = $("#id_logistik").val();
+            var harga = $("#harga").val();
             var qty = parseInt($("#qty").val());
-            // var real_stok = parseInt($("#real_stok").val());
-
+            var id_anggaran = $("#id_anggaran").val();
+            var exp_date = $("#exp_date").val();
             $.ajax({
                 url : "pages/transaksi_masuk/add_cart.php",
                 type: "POST",
-                data : {id:id,qty:qty},
+                data : {id:id,harga:harga,qty:qty,id_anggaran:id_anggaran,exp_date:exp_date},
                 success : function(ajaxData){
                     $("#detail_cart").load("pages/transaksi_masuk/detail_cart.php");
                 }
@@ -102,11 +90,16 @@
                                 }
                                 ?>    
                             </div>
-                            
+                            <?php 
+                                $query = $connect->query("SELECT id_pegawai FROM pegawai WHERE jabatan='Pimpinan' AND status='Aktif' LIMIT 1");
+                                foreach($query as $data){
+                                    echo "<input type='hidden' name='id_pegawai_pimpinan' value='".$data['id_pegawai']."'><br>";
+                                }
+                            ?>
                             <div class="col-md-6 col-sm-12">
                                 <div class="form-group">
                                     <label>Tanggal</label>
-                                    <input type="date" class="form-control" name="tgl_regist" placeholder="Pilih Tanggal" required="">
+                                    <input type="date" class="form-control" name="tgl_regist" id="tgl_regist" placeholder="Pilih Tanggal" required="">
                                 </div>
                             </div>
                             <div class="col-md-6 col-sm-12">
@@ -120,20 +113,6 @@
                                         ?>
                                         <option value="<?php echo $supplier['id_supplier'] ?>"><?php echo $supplier['nm_supplier']; ?></option>
                                         <?php } ?>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-sm-12">
-                                <div class="form-group">
-                                    <label for="Pimpinan">Pimpinan</label>
-                                    <select name="id_pegawai_pimpinan" id="" class="form-control custom-select2" style="width:100%">
-                                        <option value="">Pilih</option>
-                                        <?php 
-                                        $query_pimpinan = $connect->query("SELECT id_pegawai,nama FROM pegawai WHERE jabatan='pimpinan' AND status='Aktif'");
-                                        foreach($query_pimpinan as $pimpinan){
-                                            echo "<option value='".$pimpinan['id_pegawai']."'>".$pimpinan['nama']."</option>";
-                                        }
-                                        ?>
                                     </select>
                                 </div>
                             </div>
@@ -179,33 +158,54 @@
                             </div>
                             <div class="col-md-6 col-sm-12">
                                 <div class="form-group">
-                                    <label>Harga</label>
-                                    <div id="divAjaxData"> <!-- Digunakan Untuk Menampung Hasil Inputan -->
-                                    <input type="text" name="harga" value="" class="form-control" readonly="">
-                                    </div>
+                                    <label for="">Asal Anggaran</label>
+                                    <select name="id_anggaran" id="id_anggaran" class="form-control">
+                                        <option value="">--Pilih--</option>
+                                        <?php
+                                        $query_asal_anggaran = $connect->prepare("SELECT * FROM anggaran ORDER by asal_anggaran ASC");
+                                        $query_asal_anggaran->execute();
+                                        foreach($query_asal_anggaran as $data){
+                                            echo "<option value='".$data['id_anggaran']."'>".$data['asal_anggaran']."</option>";
+                                        }
+                                        ?>
+                                    </select>
                                 </div>
                             </div>
-
-                            <div class="col-md-5 col-sm-12">
+                            <div class="col-md-6 col-sm-12">
+                                <div class="form-group">
+                                    <label for="">Exp. Date</label>
+                                    <input type="date" name="exp_date" id="exp_date" class="form-control" value="">
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-12">
                                 <div class="form-group">
                                     <label>Qty</label>
                                     <input type="text" name="qty" id="qty" class="form-control" value="">
                                 </div>
                             </div>
-                            <div class="col-md-1 col-sm-12">
+                            <div class="col-md-6 col-sm-12">
                                 <div class="form-group">
-                                    <label>&nbsp;</label>
-                                    <button type="button" class="btn btn-xs btn-outline-primary form-control" onclick="addCart()"><i class="icon-copy fa fa-plus-square" aria-hidden="true"></i></button>
+                                    <label>Harga</label>
+                                    <input type="text" name="harga" id="harga" value="" class="form-control">
                                 </div>
                             </div>
+                            <div class="col-md-12 col-sm-12">
+                                    <div class="form-group">
+                                        <center>
+                                            <button type="button" class="btn btn-xs btn-outline-primary" onclick="addCart()"><i class="icon-copy fa fa-plus-square" aria-hidden="true"></i> Tambah Ke Keranjang</button>    
+                                        </center>
+                                    </div>
+                                </div>
                             <div class="col-md-12">
                                 <hr>
                                 <table class="table strip hover nowrap">
                                     <thead>
                                         <th>No.</th>
                                         <th>Nama</th>
-                                        <th>Harga</th>
+                                        <th>Asal Anggaran</th>
+                                        <th>Exp_date</th>
                                         <th>Qty</th>
+                                        <th>Harga</th>
                                         <th>Subtotal</th>
                                         <th>Aksi</th>
                                     </thead>

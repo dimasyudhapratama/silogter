@@ -40,17 +40,20 @@ if (isset($_POST['simpan'])) {
 	$grand_total = 0;
 	for($i=0;$i<count($cart);$i++){
     	//Load Data Cart -> Insert Ke Tabel Detail Transaksi keluar
-        $id_logistik = $cart[$i]->id; //Id Logistik
-        $query = $connect->query("SELECT nm_logistik,harga_satuan,stok FROM logistik WHERE id_logistik='$id_logistik'");
+        $id_detail_logistik = $cart[$i]->id_detail_logistik; //Id Logistik
+		// $query = $connect->query("SELECT nm_logistik,harga_satuan,stok FROM logistik WHERE id_logistik='$id_logistik'");
+		$query = $connect->query("SELECT harga_satuan,id_anggaran,exp_date FROM detail_logistik WHERE id_detail_logistik='$id_detail_logistik'");
         foreach($query as $data){
-        	$harga = $data['harga_satuan'];
-        	$stok = $data['stok'];
-        	$grand_total += $harga * $cart[$i]->qty;
+			$harga = $data['harga_satuan'];
+			$id_anggaran = $data['id_anggaran'];
+			$exp_date = $data['exp_date'];
+        	$grand_total += $harga * $cart[$i]->detail_qty_ambil;
         }
-        $qty = $cart[$i]->qty; // Qty
+        $qty = $cart[$i]->detail_qty_ambil; // Qty
         $subtotal = $harga*$qty;
         //INSERT Detail Logistik Keluar
-        $query2 = $connect->prepare("INSERT INTO trx_detail_logistik_keluar VALUES('','$id','$id_logistik','$harga','$qty','$subtotal')");
+		// $query2 = $connect->prepare("INSERT INTO trx_detail_logistik_keluar VALUES('','$id','$id_detail_logistik','$harga','$qty','$subtotal')");
+		$query2 = $connect->prepare("INSERT INTO trx_detail_logistik_keluar VALUES ('','$id','$id_detail_logistik','$harga','$qty','$subtotal','$exp_date','$id_anggaran')");
         $query2->execute();
 
     }

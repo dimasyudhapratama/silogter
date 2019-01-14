@@ -39,8 +39,12 @@ if(isset($_GET['pages'])){
         include 'pages/user/data-user.php';
     }else if($_GET['pages']=='logistik'){
         include 'pages/logistik/data-logistik.php';
+    }else if($_GET['pages']=='detail-logistik'){
+        include 'pages/logistik/detail-logistik.php';
     }else if($_GET['pages']=='laporan'){
         include 'pages/laporan/data-laporan.php';
+    }else if($_GET['pages']=="detail-laporan"){
+        include 'pages/laporan/detail-laporan-logistik.php';
     }else if($_GET['pages']=='master_bantuan'){
         include 'pages/master_bantuan/data-master-bantuan.php';
     }else if($_GET['pages']=='bantuan'){

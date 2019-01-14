@@ -10,8 +10,8 @@
                         <nav aria-label="breadcrumb" role="navigation">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-                                <li class="breadcrumb-item"><a href="index.php?pages=logistik_masuk">Data Logistik Masuk</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Detail Data Logistik Masuk
+                                <li class="breadcrumb-item"><a href="index.php?pages=logistik_masuk">Laporan Stok</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Detail Stok Per Logistik
                                 <?php 
                                 $query_logistik = $connect->query("SELECT nm_logistik FROM logistik WHERE id_logistik='$_GET[id_logistik]'");
                                 foreach($query_logistik AS $ql){
@@ -27,10 +27,8 @@
             </div>
             <!-- Form grid Start -->
                 <div class="pd-20 bg-white border-radius-4 box-shadow mb-30">
-                
                     <div class="row">
                         <div class="col-md-12">
-                        
                             <table class="data-table stripe hover nowrap table-bordered">
                                 <thead>
                                     <tr>

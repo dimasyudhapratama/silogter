@@ -17,39 +17,24 @@
 
         });
     });
-    $(document).ready(function (){
-        $("#id_logistik").change(function(e){
-            var id = $(this).val();
-            $.ajax({
-                url : "pages/transaksi_keluar/getDataLogistik.php",
-                type: "POST",
-                data : {id_logistik: id},
-                success: function(ajaxData){
-                    $("#divAjaxData").html(ajaxData);
-                }
-            });
-
-        });
-    });
     function addCart(){
         if($("#id_logistik").val()=="" || $("#qty").val()==""){
             return alert("Lengkapi Data");
         }else{
-            var id = $("#id_logistik").val();
+            var id_logistik = $("#id_logistik").val();
             var qty = parseInt($("#qty").val());
-            var real_stok = parseInt($("#real_stok").val());
-            if(qty > real_stok){
-                alert("Real Stok Adalah "+real_stok+". Data Tidak Mencukupi");
-            }else{
-                $.ajax({
-                    url : "pages/transaksi_keluar/add_cart.php",
-                    type: "POST",
-                    data : {id:id,qty,qty},
-                    success : function(ajaxData){
+            $.ajax({
+                url : "pages/transaksi_keluar/add_cart.php",
+                type: "POST",
+                data : {id_logistik:id_logistik,qty,qty},
+                success : function(ajaxData){
+                    if(ajaxData=="Gagal"){
+                        return alert("Stok Tidak Mencukupi");
+                    }else{
                         $("#detail_cart").load("pages/transaksi_keluar/detail_cart.php");
                     }
-                });   
-            } 
+                }
+            });   
         }
     }
     function deleteCart(index){
@@ -113,25 +98,16 @@
                                 }
                                 ?>    
                             </div>
-                            
+                            <?php 
+                                $query = $connect->query("SELECT id_pegawai FROM pegawai WHERE jabatan='Pimpinan' AND status='Aktif' LIMIT 1");
+                                foreach($query as $data){
+                                    echo "<input type='hidden' name='id_pegawai_pimpinan' value='".$data['id_pegawai']."'><br>";
+                                }
+                            ?>
                             <div class="col-md-6 col-sm-12">
                                 <div class="form-group">
                                     <label>Tanggal</label>
                                     <input type="date" class="form-control" name="tgl_regist" placeholder="Pilih Tanggal" required="">
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-sm-12">
-                                <div class="form-group">
-                                    <label>Pimpinan IPFK</label>
-                                    <select name="id_pegawai_pimpinan" id="" class="form-control custom-select2" style="width: 100%" required="">
-                                        <option value="">--Pilih--</option>
-                                        <?php
-                                        $query_pimpinan = $connect->query("SELECT id_pegawai,nama FROM pegawai WHERE jabatan='Pimpinan' AND status='Aktif' ORDER BY nama ASC");
-                                        foreach($query_pimpinan as $pimpinan){
-                                            echo "<option value='".$pimpinan['id_pegawai']."'>".$pimpinan['nama']."</option>";
-                                        }
-                                        ?>
-                                    </select>
                                 </div>
                             </div>
                             <div class="col-md-6 col-sm-12">
@@ -200,15 +176,6 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-6 col-sm-12">
-                                <div class="form-group">
-                                    <label>Harga</label>
-                                    <div id="divAjaxData"> <!-- Digunakan Untuk Menampung Hasil Inputan -->
-                                    <input type="text" name="harga" value="" class="form-control" readonly="">
-                                    </div>
-                                </div>
-                            </div>
-
                              <div class="col-md-5 col-sm-12">
                                 <div class="form-group">
                                     <label>Qty</label>
@@ -221,12 +188,14 @@
                                     <button type="button" class="btn btn-xs btn-outline-primary form-control" onclick="addCart()"><i class="icon-copy fa fa-plus-square" aria-hidden="true"></i></button>
                                 </div>
                             </div>
-                            <div class="col-md-8">
+                            <div class="col-md-12">
                                 <hr>
                                 <table class="table strip hover nowrap">
                                     <thead>
                                         <th>No.</th>
                                         <th>Nama</th>
+                                        <th>Asal</th>
+                                        <th>Exp. Date</th>
                                         <th>Harga</th>
                                         <th>Qty</th>
                                         <th>Subtotal</th>

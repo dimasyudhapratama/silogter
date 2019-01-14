@@ -66,6 +66,10 @@
                                         <tr>
                                             <th style="text-align: center" class="datatable-nosort">No.</th>
                                             <th>Nama</th>
+                                            <th>Kategori</th>
+                                            <th>Satuan</th>
+                                            <th>Asal Anggaran</th>
+                                            <th>Exp. Date</th>
                                             <th style="text-align: center" class="datatable-nosort">Harga</th>
                                             <th style="text-align: center" class="datatable-nosort">Qty</th>
                                             <th style="text-align: center" class="datatable-nosort">Subtotal</th>
@@ -74,12 +78,16 @@
                                     <tbody id="detail_cart">
                                         <?php
                                         $no = 1;
-                                        $query_detail = $connect->query("SELECT * FROM trx_detail_logistik_keluar tdlk JOIN logistik ON tdlk.id_logistik=logistik.id_logistik WHERE no_regist_keluar='$_GET[val]'");
+                                        $query_detail = $connect->query("SELECT * FROM v_tdlk WHERE no_regist_keluar='$_GET[val]'");
                                         foreach ($query_detail as $data) {
                                         ?>
                                         <tr>
                                             <td><?php echo $no++; ?></td>
                                             <td><?php echo $data['nm_logistik']; ?></td>
+                                            <td><?php echo $data['nm_kat_logistik'] ?></td>
+                                            <td><?php echo $data['satuan'] ?></td>
+                                            <td><?php echo $data['asal_anggaran'] ?></td>
+                                            <td><?php echo $data['exp_date'] ?></td>
                                             <td><?php echo "Rp. ".number_format($data['harga'],2,',','.'); ?></td>
                                             <td><?php echo $data['qty']; ?></td>
                                             <td><?php echo "Rp. ".number_format($data['subtotal'],2,',','.');?></td>

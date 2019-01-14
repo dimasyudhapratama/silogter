@@ -6,9 +6,10 @@
     $query = $connect->prepare("UPDATE trx_logistik_masuk SET status='$change_stat' WHERE no_regist_masuk='$id'");
     $query->execute();
     if($change_stat==1){//Selesai
-        //Load ID dari Tabel Detail Logistik Masuk
-        $query2 = $connect->prepare("SELECT id_detail_masuk,id_logistik,qty FROM trx_detail_logistik_masuk WHERE no_regist_masuk='$id'");
+        //Load Data dari Tabel Detail Logistik Masuk
+        $query2 = $connect->prepare("SELECT id_detail_masuk,id_logistik,tgl_regist,harga,qty,exp_date,id_anggaran FROM trx_detail_logistik_masuk tdlm JOIN trx_logistik_masuk tlm ON tdlm.no_regist_masuk=tlm.no_regist_masuk WHERE tlm.no_regist_masuk='$id'");
         $query2->execute();
+        //Update Di Tabel Logistik Dan //Insert Atau Update Di Detail Logistik
         foreach ($query2 as $data2) {
             //Ambil Stok Sekarang Di Tabel Logistik
             $query3 = $connect->prepare("SELECT stok FROM logistik WHERE id_logistik='$data2[id_logistik]'");
@@ -19,6 +20,18 @@
             //Update Stok Logistik
             $update_stok = $connect->prepare("UPDATE logistik SET stok='$new_stok' WHERE id_logistik='$data2[id_logistik]'");
             $update_stok->execute();
+            //Insert Atau Update Di Tabel Detail Logistik
+            $query_dtl = $connect->query("SELECT id_detail_logistik,jml_detail_stok FROM detail_logistik WHERE id_logistik='$data2[id_logistik]' AND tgl_masuk='$data2[tgl_regist]' AND harga_satuan='$data2[harga]' AND id_anggaran='$data2[id_anggaran]' AND exp_date='$data2[exp_date]'"); //Query Detail Logistik
+		    $jml_row_dtl = $query_dtl->rowCount();//Jumlah Row Detail Logistik
+            if($jml_row_dtl==0){//Jika 0 Maka Insert
+                $insert_dtl_logistik = $connect->query("INSERT INTO detail_logistik VALUES ('','$data2[id_logistik]','$data2[tgl_regist]','$data2[qty]','$data2[harga]','$data2[id_anggaran]','$data2[exp_date]')");
+            }else{ //Jika 1 Maka Update
+                foreach($query_dtl as $data_dtl){
+                    $id_dtl = $data_dtl['id_detail_logistik'];
+                    $new_stok = $data_dtl['jml_detail_stok'] + $qty;
+                }
+                $update_dtl_logistik = $connect->query("UPDATE detail_logistik SET jml_detail_stok='$new_stok'");
+            }
         }
     }
     if($query==TRUE){

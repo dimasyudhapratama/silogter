@@ -1,6 +1,6 @@
 <?php
  // Define relative path from this script to mPDF
- $nama_dokumen='Cetak Bukti -'.$_GET['val'];
+ $nama_dokumen='Data Logistik';
 include '../config/koneksi.php';
 include '../vendors/mpdf60/mpdf.php';
 $no_regist_masuk = $_GET['val'];
@@ -27,8 +27,6 @@ ob_start();
 			<th style="width: 15%;text-align: center;">Kode Obat</th>
 			<th>Nama Obat</th>
 			<th>Stok</th>
-			<th>Harga Satuan</th>
-			<th>Asal Anggaran</th>
 		</tr>
 	</thead>
 
@@ -39,11 +37,11 @@ ob_start();
 		foreach($query as $data){
 		?>
 		<tr>
-			<td colspan="6" style="text-align: center;font-style: italic;"><?php echo $data['nm_kat_logistik']; ?></td>
+			<td colspan="4" style="text-align: center;font-style: italic;"><?php echo $data['nm_kat_logistik']; ?></td>
 		</tr>
 		<?php
 			
-			$query2 = $connect->query("SELECT * FROM logistik JOIN anggaran ON logistik.id_anggaran=anggaran.id_anggaran WHERE id_kat_logistik='$data[id_kat_logistik]'");
+			$query2 = $connect->query("SELECT * FROM logistik WHERE id_kat_logistik='$data[id_kat_logistik]'");
 			foreach ($query2 as $data2) {
 		?>
 		<tr>
@@ -51,8 +49,6 @@ ob_start();
 			<td style="text-align: center;"><?php echo $data2['id_logistik']; ?></td>
 			<td><?php echo $data2['nm_logistik']; ?></td>
 			<td style="text-align: right;"><?php echo $data2['stok']; ?></td>
-			<td style="text-align: right;"><?php echo "Rp. ".number_format($data2['harga_satuan'],2,',','.'); ?></td>
-			<td><?php echo $data2['asal_anggaran']; ?></td>
 		</tr>
 		<?php
 			}

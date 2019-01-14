@@ -48,23 +48,25 @@ foreach ($query as $data) {
 	<tr>
 		<td style="text-align: center;">No.</td>
 		<td style="text-align: center;">Nama Obat</td>
-		<td style="text-align: center;">Satuan Kemasan</td>
+		<td style="text-align: center">Kategori</td>
+		<td style="text-ali gn: center;">Satuan</td>
 		<td style="text-align: center;">Jumlah Diberikan</td>
 		<td style="text-align: center;">Harga Per Unit+PPN</td>
 		<td style="text-align: center;">Jumlah Harga</td>
 		<td style="text-align: center;">KET/ETD</td>
 	</tr>
 <?php 
-$query2 = $connect->query("SELECT * FROM trx_detail_logistik_keluar tdlk JOIN logistik ON tdlk.id_logistik=logistik.id_logistik JOIN anggaran ON logistik.id_anggaran=anggaran.id_anggaran WHERE no_regist_keluar='$no_regist_keluar' ");
+$query2 = $connect->query("SELECT * FROM v_tdlk WHERE no_regist_keluar='$no_regist_keluar' ");
 $no = 1;
 foreach($query2 as $data2){
 ?>	
 	<tr>
 		<td><?php echo $no++; ?> </td>
 		<td><?php echo $data2['nm_logistik']; ?></td>
+		<td><?php echo $data2['nm_kat_logistik'] ?></td>
 		<td><?php echo $data2['satuan']; ?></td>
 		<td><?php echo $data2['qty']; ?></td>
-		<td><?php echo $data2['harga_satuan']+($data2['harga_satuan']/10); ?></td>
+		<td><?php echo $data2['harga']+($data2['harga']/10); ?></td>
 		<td><?php echo $data2['subtotal']; ?></td>
 		<td><?php echo $data2['asal_anggaran']; ?></td>
 	</tr>

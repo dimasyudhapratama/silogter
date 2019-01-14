@@ -28,27 +28,24 @@ if (isset($_POST['simpan'])) {
 		}
 		$id = $awalan."/".$no."/".$tgl.$bulan.$tahun;
 	}
-
-	
 	//Query Tabel Transaksi Masuk
 	$query_transaksi_masuk = $connect->prepare("INSERT INTO trx_logistik_masuk VALUES ('$id','$tgl_regist','$id_supplier','$id_pegawai_pimpinan','$id_pegawai_pen_jawab','0','0')");
 	$query_transaksi_masuk->execute();
 
-	//Load Data Cart -> Insert Ke Tabel Detail Transaksi Masuk & Menambah Stok Di Tabel Logistik
+	//Load Data Cart -> Insert Ke Tabel Detail Transaksi Masuk & Insert Ke Tabel Detail Logistik
 	$cart = unserialize(serialize($_SESSION['cart_masuk']));
 	$grand_total = 0;
     for($i=0;$i<count($cart);$i++){
     	//Load Data Cart -> Insert Ke Tabel Detail Transaksi Masuk
-        $id_logistik = $cart[$i]->id; //Id Logistik
-        $query = $connect->query("SELECT nm_logistik,harga_satuan,stok FROM logistik WHERE id_logistik='$id_logistik'");
-        foreach($query as $data){
-            $harga = $data['harga_satuan'];
-            $stok = $data['stok'];
-            $grand_total += $harga * $cart[$i]->qty;
-        }
-        $qty = $cart[$i]->qty; // Qty
-        $subtotal = $harga*$qty;
-        $query2 = $connect->prepare("INSERT INTO trx_detail_logistik_masuk VALUES ('','$id','$id_logistik','$harga','$qty','$subtotal')");
+		$id_logistik = $cart[$i]->id; //Id Logistik
+		$harga = $cart[$i]->harga; //Harga
+		$qty = $cart[$i]->qty;
+		$id_anggaran = $cart[$i]->id_anggaran;
+		$exp_date = $cart[$i]->exp_date;
+		
+		$subtotal = $harga*$qty;
+        $grand_total += $harga * $qty;
+        $query2 = $connect->prepare("INSERT INTO trx_detail_logistik_masuk VALUES ('','$id','$id_logistik','$harga','$qty','$subtotal','$exp_date','$id_anggaran')");
         $query2->execute();
     }
     //Truncate Cart
@@ -66,8 +63,8 @@ if (isset($_POST['simpan'])) {
     }else{
     	echo "<script>window.location.href='../../index.php?pages=tambah_transaksi_masuk&add_stat=false'</script>";
     }
-    
+}    
 
-}
+
 
 ?>

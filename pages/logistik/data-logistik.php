@@ -11,11 +11,9 @@
         $id_kat_logistik = $_POST['id_kat_logistik'];
         $nm_logistik = $_POST['nm_logistik'];
         $satuan = $_POST['satuan'];
-        $harga_satuan = $_POST['harga_satuan'];
-        $id_anggaran = $_POST['id_anggaran'];
         $minimal_stok  = $_POST['minimal_stok'];
         
-        $query_tambah = $connect->exec("INSERT INTO logistik(id_kat_logistik,nm_logistik,stok,minimal_stok,satuan,harga_satuan,id_anggaran) VALUES ('$id_kat_logistik','$nm_logistik','0',$minimal_stok,'$satuan','$harga_satuan','$id_anggaran')");
+        $query_tambah = $connect->exec("INSERT INTO logistik(id_kat_logistik,nm_logistik,stok,minimal_stok,satuan) VALUES ('$id_kat_logistik','$nm_logistik','0','$minimal_stok','$satuan')");
         if($query_tambah == TRUE){
             echo "<script>window.location.href='?pages=logistik&add_stat=true'</script>";
         }else{
@@ -28,9 +26,9 @@
         $id_kat_logistik = $_POST['id_kat_logistik'];
         $nm_logistik = $_POST['nm_logistik'];
         $satuan = $_POST['satuan'];
-        $harga_satuan = $_POST['harga_satuan'];
-        $id_anggaran = $_POST['id_anggaran'];
-        $query_edit = $connect->exec("UPDATE logistik SET id_kat_logistik='$id_kat_logistik', nm_logistik='$nm_logistik',satuan='$satuan',harga_satuan='$harga_satuan',id_anggaran='$id_anggaran' WHERE id_logistik='$id'");
+        $minimal_stok  = $_POST['minimal_stok'];
+
+        $query_edit = $connect->exec("UPDATE logistik SET id_kat_logistik='$id_kat_logistik', nm_logistik='$nm_logistik',satuan='$satuan',minimal_stok='$minimal_stok' WHERE id_logistik='$id'");
         if($query_edit == TRUE){
             echo "<script>window.location.href='?pages=logistik&edit_stat=true'</script>";
         }else{
@@ -54,14 +52,14 @@
         });
     });
     $(document).ready(function () {
-        $(".click-detail").click(function(e) {
+        $(".click-info").click(function(e) {
             var m = $(this).attr("id");
             $.ajax({
-                url: "pages/logistik/detail-logistik.php",
+                url: "pages/logistik/info-logistik.php",
                 type: "POST",
                 data : {id: m,},
                 success: function (ajaxData){
-                    $("#data-detail").html(ajaxData);
+                    $("#data-info").html(ajaxData);
                 }
             });
         });
@@ -141,7 +139,6 @@
                             <th class="table-plus " style="text-align: center;">Nama</th>
                             <th class="table-plus" style="text-align: center;">Kategori</th>
                             <th class="table-plus datatable-nosort" style="text-align: center;">Stok</th>
-                            <th class="table-plus datatable-nosort" style="text-align: center;">Satuan</th>
                             <th class="datatable-nosort" style="text-align: center;">Aksi</th>
                         </tr>
                         </thead>
@@ -151,12 +148,12 @@
                         if(isset($_POST['filter'])){
                             $key = $_POST['key'];
                             if($_POST['filter_by']=='kat_logistik'){
-                                $query_logistik = $connect->query("SELECT * FROM logistik JOIN kat_logistik ON logistik.id_kat_logistik=kat_logistik.id_kat_logistik JOIN anggaran ON logistik.id_anggaran=anggaran.id_anggaran WHERE kat_logistik.nm_kat_logistik LIKE '%".$key."%' ORDER BY nm_logistik ASC");
+                                $query_logistik = $connect->query("SELECT * FROM logistik JOIN kat_logistik ON logistik.id_kat_logistik=kat_logistik.id_kat_logisti WHERE kat_logistik.nm_kat_logistik LIKE '%".$key."%' ORDER BY nm_logistik ASC");
                             }else if($_POST['filter_by']=='nm_logistik'){
-                                $query_logistik = $connect->query("SELECT * FROM logistik JOIN kat_logistik ON logistik.id_kat_logistik=kat_logistik.id_kat_logistik JOIN anggaran ON logistik.id_anggaran=anggaran.id_anggaran WHERE logistik.nm_logistik LIKE '%".$key."%' ORDER BY nm_logistik ASC");
+                                $query_logistik = $connect->query("SELECT * FROM logistik JOIN kat_logistik ON logistik.id_kat_logistik=kat_logistik.id_kat_logistik WHERE logistik.nm_logistik LIKE '%".$key."%' ORDER BY nm_logistik ASC");
                             }    
                         } else{
-                            $query_logistik = $connect->query("SELECT * FROM logistik JOIN kat_logistik On logistik.id_kat_logistik=kat_logistik.id_kat_logistik JOIN anggaran ON logistik.id_anggaran=anggaran.id_anggaran ");
+                            $query_logistik = $connect->query("SELECT * FROM logistik JOIN kat_logistik On logistik.id_kat_logistik=kat_logistik.id_kat_logistik");
                         }
                         foreach($query_logistik as $ql){
                         ?>
@@ -165,14 +162,14 @@
                             <td><?php echo $ql['nm_logistik'] ?></td>
                             <td><?php echo $ql['nm_kat_logistik']; ?></td>
                             <td><?php echo $ql['stok'] ?></td>
-                            <td><?php echo $ql['satuan']; ?></td>
                             <td style="text-align: center;">
                                 <div class="dropdown">
                                     <a class="btn btn-sm btn-outline-primary dropdown-toggle" href="#" role="button" data-toggle="dropdown">
                                         Pilih
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-right">
-                                        <a class="dropdown-item click-detail" id="<?php echo $ql['id_logistik'] ?>" href="#" data-toggle="modal" data-target="#modaldetail"><i class="fa fa-book"></i> Detail</a>
+                                    <a class="dropdown-item click-info" id="<?php echo $ql['id_logistik'] ?>" href="#" data-toggle="modal" data-target="#modalinfo"><i class="fa fa-info-circle"></i> Info</a>
+                                        <a class="dropdown-item" href="?pages=detail-logistik&id_logistik=<?php echo $ql['id_logistik'] ?>"><i class="fa fa-book"></i> Detail</a>
                                         <a class="dropdown-item click-edit" id="<?php echo $ql['id_logistik'] ?>" href="#" data-toggle="modal" data-target="#modaledit"><i class="fa fa-pencil"></i> Edit</a>
                                         <a class="dropdown-item" onclick="return confirm('Anda Yakin Ingin Menghapus Data?')" href="?pages=logistik&delete=<?php echo $ql['id_logistik'] ?>"><i class="fa fa-trash"></i> Delete</a>
                                     </div>
@@ -238,7 +235,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-6 col-sm-12"> 
+                            <!-- <div class="col-md-6 col-sm-12"> 
                                 <div class="form-group">
                                     <label>Harga Satuan </label>
                                     <input type="number" name="harga_satuan" class="form-control" required="" min="1">
@@ -257,7 +254,7 @@
                                         <?php } ?>
                                     </select>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="col-md-6 col-sm-12">
                                 <div class="form-group">
                                     <label>Min Stok (Untuk Pengingat)</label>
@@ -293,15 +290,15 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="modaldetail" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalinfo" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <form method="POST" name="input-logistik" action="?pages=supplier&editdata">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="myLargeModalLabel">Detail Data Logistik</h4>
+                    <h4 class="modal-title" id="myLargeModalLabel">Info Data Logistik</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
                 </div>
-                <div class="modal-body" id="data-detail">
+                <div class="modal-body" id="data-info">
                 </div>
             </form>
         </div>

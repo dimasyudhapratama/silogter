@@ -43,29 +43,31 @@ foreach ($query as $data) {
 </table>
 <?php } ?>
 <br>
-<table border="1" style="border-collapse: collapse;">
+<table border="1" style="border-collapse: collapse;width:100%">
 	<tr>
-		<td>No.</td>
-		<td>Nama Obat</td>
-		<td>Satuan Kemasan</td>
-		<td>Jumlah Diberikan</td>
-		<td>Harga Per Unit</td>
-		<td>Jumlah Harga</td>
-		<td>KET/ETD</td>
+		<td style="text-align:center">No.</td>
+		<td style="text-align:center">Nama Obat</td>
+		<td style="text-align:center">Kategori</td>
+		<td style="text-align:center">Satuan</td>
+		<td style="text-align:center">Qty</td>
+		<td style="text-align:center">Harga Per Unit</td>
+		<td style="text-align:center">Jumlah Harga</td>
+		<td style="text-align:center">KET/ETD</td>
 	</tr>
 <?php 
-$query2 = $connect->query("SELECT * FROM trx_detail_logistik_masuk tdlm JOIN logistik ON tdlm.id_logistik=logistik.id_logistik JOIN anggaran ON logistik.id_anggaran=anggaran.id_anggaran WHERE no_regist_masuk='$no_regist_masuk' ");
+$query2 = $connect->query("SELECT * FROM v_tdlm  WHERE no_regist_masuk='$no_regist_masuk' ");
 $no = 1;
 foreach($query2 as $data2){
 ?>
 	<tr>
 		<td><?php echo $no++; ?> </td>
 		<td><?php echo $data2['nm_logistik']; ?></td>
+		<td><?php echo $data2['nm_kat_logistik']; ?></td>
 		<td><?php echo $data2['satuan']; ?></td>
 		<td><?php echo $data2['qty']; ?></td>
-		<td>Rp. <?php echo number_format($data2['harga_satuan'],2,',','.'); ?></td>
+		<td>Rp. <?php echo number_format($data2['harga'],2,',','.'); ?></td>
 		<td>Rp. <?php echo number_format($data2['subtotal'],2,',','.'); ?></td>
-		<td><?php echo $data2['asal_anggaran']; ?></td>
+		<td><?php echo $data2['asal_anggaran'].", Exp : ".$data2['exp_date']; ?></td>
 	</tr>
 <?php } ?>
 </table>
